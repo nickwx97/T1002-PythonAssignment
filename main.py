@@ -40,11 +40,13 @@ class Application(Frame):
         self.pack(expand=1)
         self.createWidgets()
 
-
+# Initialise GUI
 root = Tk()
 app = Application(master=root)
+# Display GUI
 app.mainloop()
 print "Output path after app exit: " + path
+# Open CSV file
 csv1 = None
 try:
     csv1 = open(path)
@@ -52,6 +54,7 @@ except IOError:
     print "Please enter valid file path!"
 else:
     headers = csv1.readline().split(',')
+    print headers
     for line in csv1.readlines():
         print line
     csv1.close()
