@@ -9,8 +9,7 @@ class Application(Frame):
         return
 
     def getText(self):
-        global path
-        path = self.text.get()
+        self.path = self.text.get()
         self.quit()
 
     def createWidgets(self):
@@ -31,7 +30,7 @@ class Application(Frame):
 
     def __init__(self, master=None):
         Frame.__init__(self, master)
-
+        self.path = ""
         # initialising widgets
         self.file_select = Button(self)
         self.NEXT = Button(self)
@@ -47,13 +46,11 @@ def csvPath():
     app = Application(master=root)
     # Display GUI
     app.mainloop()
-    try:
-        path
-    except NameError:
-        print "Window closed with no filepath provided, goodbye!"
+    if app.path == "":
+        print "No path specified... Quitting"
         quit(0)
     else:
-        return path
+        return app.path
 
 
 # Open CSV file return 3D list with headers and content
@@ -68,22 +65,22 @@ def openCSV(p):
         headers = csv1.readline().split(',')
         content = []
         for line in csv1.readlines():
-            formatLine = []
+            format_line = []
             line = line.replace('\n','').split(',')
             # START combine columns with commas as part of the value
             pointer = None
             for x in range(0,len(line)):
                 if line[x].count('"') == 1:
                     if pointer is not None:
-                        formatLine[pointer] += "," + line[x] # give value back it's , that we removed previously
-                        formatLine[pointer] = formatLine[pointer].replace('"','') # strip " from combined value
+                        format_line[pointer] += "," + line[x] # give value back it's , that we removed previously
+                        format_line[pointer] = format_line[pointer].replace('"','') # strip " from combined value
                         pointer = None
                     else:
                         pointer = x-1
-                        formatLine.append(line[x])
+                        format_line.append(line[x])
                 else:
-                    formatLine.append(line[x])
-            content.append(formatLine)
+                    format_line.append(line[x])
+            content.append(format_line)
             # END combine columns with commas as part of the value
         csv1.close()
-        return [headers,content]
+        return [headers, content]
