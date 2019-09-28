@@ -1,7 +1,7 @@
 from readCSV import *
 
 
-class CCA():
+class CCA:
     def __init__(self):
         self.raw = openCSV(csvPath())
 

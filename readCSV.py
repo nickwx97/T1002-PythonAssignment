@@ -66,21 +66,21 @@ def openCSV(p):
         content = []
         for line in csv1.readlines():
             format_line = []
-            line = line.replace('\n','').split(',')
+            line = line.replace('\n', '').split(',')
             # START combine columns with commas as part of the value
             pointer = None
-            for x in range(0,len(line)):
+            for x in range(0, len(line)):
                 if line[x].count('"') == 1:
                     if pointer is not None:
-                        format_line[pointer] += "," + line[x] # give value back it's , that we removed previously
-                        format_line[pointer] = format_line[pointer].replace('"','') # strip " from combined value
+                        format_line[pointer] += "," + line[x]  # give value back it's , that we removed previously
+                        format_line[pointer] = format_line[pointer].replace('"', '')  # strip " from combined value
                         pointer = None
                     else:
-                        pointer = x-1
+                        pointer = x - 1
                         format_line.append(line[x])
                 else:
                     format_line.append(line[x])
             content.append(format_line)
-            # END combine columns with commas as part of the value
+        # END combine columns with commas as part of the value
         csv1.close()
         return [headers, content]
