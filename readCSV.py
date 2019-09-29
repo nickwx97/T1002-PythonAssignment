@@ -62,7 +62,7 @@ def openCSV(p):
         print "Please enter valid file path!"
         quit(0)
     else:
-        headers = csv1.readline().split(',')
+        headers = csv1.readline().replace('\n','').split(',')
         content = []
         for line in csv1.readlines():
             format_line = []
