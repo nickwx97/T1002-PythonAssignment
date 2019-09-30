@@ -67,20 +67,24 @@ def openCSV(p):
         for line in csv1.readlines():
             format_line = []
             line = line.replace('\n', '').split(',')
-            # START combine columns with commas as part of the value
-            pointer = None
-            for x in range(0, len(line)):
+            temp = ""
+            x = 0
+            while x < len(line):
                 if line[x].count('"') == 1:
-                    if pointer is not None:
-                        format_line[pointer] += "," + line[x]  # give value back it's , that we removed previously
-                        format_line[pointer] = format_line[pointer].replace('"', '')  # strip " from combined value
-                        pointer = None
-                    else:
-                        pointer = x - 1
-                        format_line.append(line[x])
+                    while True:
+                        if temp is "":
+                            temp += line.pop(0)
+                        else:
+                            temp += "," + line.pop(0)  # give value back it's , that we removed previously
+                        if x >= len(line):
+                            break
+                        if line[x].count('"') == 1:
+                            temp += "," + line.pop(0)  # give value back it's , that we removed previously
+                            break
+                    format_line.append(temp.replace('"', ''))  # strip " from combined value
+                    temp = ""
                 else:
-                    format_line.append(line[x])
+                    format_line.append(line.pop(0))
             content.append(format_line)
-        # END combine columns with commas as part of the value
         csv1.close()
         return [headers, content]
