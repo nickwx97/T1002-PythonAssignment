@@ -1,6 +1,6 @@
 Tasks
 Main datasets: School, basic info and CCA
 1. Clean up csv(mrt stations) (avi)
-2. Main page gui (clement and derek)
+2. Main page gui (clement and derek) test commit
 3. overall school info gui (ks)
 4. data crunching(simple sorting) (nic and Elisha)
