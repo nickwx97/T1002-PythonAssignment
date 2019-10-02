@@ -3,7 +3,7 @@ from readCSV import *
 
 class CCA:
 
-    def searchDict(self, key="cca_generic_name", value=""):
+    def searchDict(self, key="Cca_Generic_Name", value=""):
         if key not in self.__headers:
             print "Invalid search critera"
             return
@@ -12,7 +12,7 @@ class CCA:
             for y in self.__dict.get(x):
                 for z in y:
                     if z == key:
-                        if value.upper() in y.get(z):
+                        if value.upper() in y.get(z).upper():
                             result.append(x)
         return result
 
