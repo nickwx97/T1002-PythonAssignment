@@ -46,4 +46,4 @@ class Subjects_Offered:
 
 so = Subjects_Offered()
 so.genDict()
-print so.filterSubjectsByAlphabet('A')
+
