@@ -31,6 +31,7 @@ class CCA:
         re = readCSV.genDict(self.__raw)
         self.__headers = re[0]
         self.__dict = re[1]
+        del self.__raw
 
     def __init__(self):
         # self.raw = readCSV.openCSV(readCSV.csvPath())
