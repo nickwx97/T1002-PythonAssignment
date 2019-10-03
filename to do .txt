@@ -14,17 +14,18 @@ Main functions:
 
     CCA:
     Search by CCAs                   - Done nic
-    List school CCAs                 - Done nic
+    Search school CCAs by Sch        - Done nic
+    Search by CCA type               - Done nic
 
     Cutoff:
     Sort by cutoff                   - Done nic
-    Search by range cutoff           - nic
+    Search by range cutoff           - Done nic
 
     GUI:
     Main page gui                    - clement and derek
 
     Subjects:
     Search Sub by schools           - Done elisha
-    Search by subjects offered      - Done elisha
+    Search by subjects              - Done elisha
     Search Sub by type of schools   - elisha
     Search School by subjects       - Done elisha

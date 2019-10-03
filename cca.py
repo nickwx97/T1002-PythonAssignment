@@ -8,10 +8,10 @@ class CCA:
         for x in self.__dict.keys():
             if key.upper() in x.upper():
                 for y in self.__dict.get(x):
-                    result.append(y.get("Cca_Generic_Name"))
+                    result.append(y.get("cca_generic_name"))
         return result
 
-    def searchDict(self, key="Cca_Generic_Name", value=""):
+    def searchDict(self, key="cca_generic_name", value=""):
         if key not in self.__headers:
             print "Invalid search critera"
             return
@@ -21,7 +21,7 @@ class CCA:
                 for z in y:
                     if z == key:
                         if value.upper() in y.get(z).upper():
-                            result.append(x)
+                            result.append((x, y.get('cca_generic_name')))
         return result
 
     def getDict(self): return self.__dict
@@ -35,7 +35,7 @@ class CCA:
 
     def __init__(self):
         # self.raw = readCSV.openCSV(readCSV.csvPath())
-        self.__raw = readCSV.openCSV("Data/co-curricular-activities-ccas.csv")  # laziness is real, for testing purposes... :)
+        self.__raw = readCSV.openCSV("Data/co-curricular-activities-ccas.csv")  # lazy :)
         self.__headers = None
         self.__dict = None
 
@@ -43,5 +43,6 @@ class CCA:
 cca = CCA()
 cca.genDict()
 print cca.getDict()
+# print cca.searchDict(key='cca_grouping_desc', value="phy")
 # print cca.searchDict(value="Basketball")
 # print cca.listCcaFromSch("Eunoia")
