@@ -12,4 +12,4 @@ Main functions:
     4. List school CCAs - Done
     5. List school subjects - Done
     6. Search by school specs
-    7. Sort by cutoff
+    7. Sort by cutoff - Done
