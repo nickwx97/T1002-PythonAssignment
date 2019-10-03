@@ -88,3 +88,19 @@ def openCSV(p):
             content.append(format_line)
         csv1.close()
         return [headers, content]
+
+
+def genDict(l):
+    headers = l[0]
+    values = l[1]
+    result = {}
+    for r in values:
+        if not r[0] in result.iterkeys():
+            result[r[0]] = []
+        else:
+            temp = {}
+            for c in range(1, len(headers)):
+                temp[headers[c]] = r[c]
+            result[r[0]].append(temp)
+
+    return [headers, result]

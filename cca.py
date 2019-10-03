@@ -1,4 +1,4 @@
-from readCSV import *
+import readCSV
 
 
 class CCA:
@@ -28,30 +28,19 @@ class CCA:
 
     # split into dict
     def genDict(self):
-        headers = self.__raw[0]
-        values = self.__raw[1]
-        self.__dict = {}
-        for r in values:
-            if not r[0] in self.__dict.iterkeys():
-                self.__dict[r[0]] = []
-            else:
-                temp = {}
-                for c in range(1, len(headers)):
-                    temp[headers[c]] = r[c]
-                self.__dict[r[0]].append(temp)
-
-        self.__headers = headers
-        del values, self.__raw  # Free up memory
+        re = readCSV.genDict(self.__raw)
+        self.__headers = re[0]
+        self.__dict = re[1]
 
     def __init__(self):
-        # self.raw = openCSV(csvPath())
-        self.__raw = openCSV("Data/co-curricular-activities-ccas.csv")  # laziness is real, for testing purposes... :)
+        # self.raw = readCSV.openCSV(readCSV.csvPath())
+        self.__raw = readCSV.openCSV("Data/co-curricular-activities-ccas.csv")  # laziness is real, for testing purposes... :)
         self.__headers = None
         self.__dict = None
 
 
 cca = CCA()
 cca.genDict()
-# print cca.getDict()
+print cca.getDict()
 # print cca.searchDict(value="Basketball")
 # print cca.listCcaFromSch("Eunoia")
