@@ -42,6 +42,6 @@ class CCA:
 
 cca = CCA()
 cca.genDict()
-# print cca.getDict()
+print cca.getDict()
 # print cca.searchDict(value="Basketball")
 # print cca.listCcaFromSch("Eunoia")

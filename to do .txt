@@ -6,10 +6,25 @@ Main datasets: School, basic info and CCA
 4. data crunching(simple sorting) (nic and Elisha)
 
 Main functions:
-    1. Search by school - Done
-    2. Search by subjects offered - Done
-    3. Search by CCAs - Done
-    4. List school CCAs - Done
-    5. List school subjects - Done
-    6. Search by school specs
-    7. Sort by cutoff - Done
+    School:
+    Search by school                 - ks
+    Search by school specs           - avi
+
+    CSV reading and parsing          - Done nic
+
+    CCA:
+    Search by CCAs                   - Done nic
+    List school CCAs                 - Done nic
+
+    Cutoff:
+    Sort by cutoff                   - Done nic
+    Search by range cutoff           - nic
+
+    GUI:
+    Main page gui                    - clement and derek
+
+    Subjects:
+    Search Sub by schools           - Done elisha
+    Search by subjects offered      - Done elisha
+    Search Sub by type of schools   - elisha
+    Search School by subjects       - Done elisha
