@@ -4,3 +4,11 @@ Main datasets: School, basic info and CCA
 2. Main page gui (clement and derek)
 3. overall school info gui (ks)
 4. data crunching(simple sorting) (nic and Elisha)
+
+Main functions:
+    1. Search by school - Done
+    2. Search by subjects offered - Done
+    3. Search by CCAs - Done
+    4. List school CCAs - Done
+    5. List school subjects - Done
+    6. Search by school specs
