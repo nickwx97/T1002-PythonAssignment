@@ -3,6 +3,14 @@ from readCSV import *
 
 class CCA:
 
+    def listCcaFromSch(self, key):
+        result = []
+        for x in self.__dict.keys():
+            if key.upper() in x.upper():
+                for y in self.__dict.get(x):
+                    result.append(y.get("Cca_Generic_Name"))
+        return result
+
     def searchDict(self, key="Cca_Generic_Name", value=""):
         if key not in self.__headers:
             print "Invalid search critera"
@@ -45,4 +53,5 @@ class CCA:
 cca = CCA()
 cca.genDict()
 # print cca.getDict()
-print cca.searchDict(value="Basketball")
+# print cca.searchDict(value="Basketball")
+# print cca.listCcaFromSch("Eunoia")
