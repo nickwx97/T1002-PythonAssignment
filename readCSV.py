@@ -1,3 +1,4 @@
+"""Reads in CSV file and performs list and dictionary manipulation for this program"""
 import tkFileDialog
 from Tkinter import *
 
