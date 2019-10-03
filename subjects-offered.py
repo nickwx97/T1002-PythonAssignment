@@ -5,10 +5,9 @@ class Subjects_Offered:
         return self.__dict
 
     def getSubjectsBySchoolName(self,school_name):
-        try:
-            return self.__dict[school_name.upper()]
-        except:
-            print 'No such school name.'
+        for i in self.__dict.keys():
+            if school_name.upper() == i.upper():
+                return
 
     def getSchoolsBySubjectDesc(self, subject_name):
         try:
@@ -24,20 +23,9 @@ class Subjects_Offered:
             print 'No such subject.'
 
     # split into dict
-    def genDict(self):
-        headers = self.__raw[0]
-        values = self.__raw[1]
-        self.__dict = {}
-        for r in values:
-            if not r[0] in self.__dict.iterkeys():
-                self.__dict[r[0]] = []
-            else:
-                temp = {}
-                for c in range(1, len(headers)):
-                    temp[headers[c]] = r[c]
-                self.__dict[r[0]].append(temp)
-
-        del headers, values, self.__raw  # Free up memory
+    def createDict(self):
+        x = genDict(self.__raw)
+        self.__dict = x[1]
 
     def __init__(self):
         # self.rw = openCSV(csvPath())
@@ -45,5 +33,6 @@ class Subjects_Offered:
         self.__dict = None
 
 so = Subjects_Offered()
-so.genDict()
-
+so.createDict()
+# print so.getDict()
+print so.getSubjectsBySchoolName('assumption english school')
