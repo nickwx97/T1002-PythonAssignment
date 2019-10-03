@@ -3,19 +3,23 @@ import readCSV
 
 class Cutoff:
 
-    def getSecList(self):
-        return readCSV.genDict(self.__secList)[1]
+    def sort(self, key='cutoff', reverse=False):
+        self.__sorted = sorted(self.__dict.items(), key=lambda kv: kv[1][0].get(key), reverse=reverse)
+        return self.__sorted
 
-    def getJcList(self):
-        return readCSV.genDict(self.__jcList)[1]
+    def getDict(self):
+        self.__list = readCSV.genDict(self.__list)
+        self.__headers = self.__list[0]
+        self.__dict = self.__list[1]
+        del self.__list
+        return self.__dict
 
-    def __init__(self):
-        # self.__jcCSV = readCSV.openCSV(readCSV.csvPath())
-        # self.__secCSV = readCSV.openCSV(readCSV.csvPath())
-        self.__jcList = readCSV.openCSV("Data/jc_cutoff.csv")  # lazy
-        self.__secList = readCSV.openCSV("Data/cutoff.csv")  # lazy
+    def __init__(self, filepath):
+        self.__list = readCSV.openCSV(filepath)  # lazy
+        self.__headers = None
+        self.__dict = self.getDict()
+        self.__sorted = None
 
 
-co = Cutoff()
-print co.getJcList()
-print co.getSecList()
+sec = Cutoff("Data/cutoff.csv")
+jc = Cutoff("Data/jc_cutoff.csv")
