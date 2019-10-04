@@ -1,31 +1,47 @@
 import csv
+from readCSV import *
 
 
 def schoolstuff(x):
 
 
     schEnquiry = x
-    schoolDict = {}
 
-    with open('Data/general-information-of-schools.csv','rb') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            # schoolDict called to store information of school from csv file with the school name as the key
-            schoolDict[row['school_name']] = row
+    schoolDictItemsList = genDict(openCSV("Data/general-information-of-schools.csv"))
 
-    # schInfoArr is the list of all the information of the requested school retrived from schoolDict with the school name as the key
-    schInfoArr = list(v for k, v in schoolDict.items() if schEnquiry in k.lower())[0]
+    schoolDictItemsHeader = schoolDictItemsList[0]
+    schoolDictItems = schoolDictItemsList[1]
+
+    for x in schoolDictItems.items():
+        for y in schoolDictItemsHeader[1:]:
+            x[1][0][y] = x[1][0].get(y).replace('|',',')
 
 
-    schoolName = schInfoArr["school_name"].title()
-    schoolAdd = schInfoArr["address"]
-    schTel = schInfoArr["telephone_no"]
-    schEmail = schInfoArr["email_address"]
-    schMRT = schInfoArr["mrt_desc"]
-    schBus = schInfoArr["bus_desc"]
-    schType = schInfoArr["type_code"] + "/" + schInfoArr["nature_code"] + "/" + schInfoArr["session_code"] + "/" + schInfoArr["mainlevel_code"]
 
-    resultstr = "Name of School: " + schoolName + "\n" \
+    # schoolDictItems is the list of all the information of the requested school retrived from schoolDictItems with the school name as the key
+    #schoolDictItemsItems = list(v for k, v in schoolDictItems.items() if schEnquiry in k.lower())
+
+
+
+    schoolName = ""
+
+    temp = [i.upper() for i in schoolDictItems.keys()]
+    for x in temp:
+
+        if schEnquiry.upper() in x:
+            schoolName = x
+
+    schoolDictItems = schoolDictItems[schoolName.title()][0]
+
+
+    schoolAdd = schoolDictItems["address"]
+    schTel = schoolDictItems["telephone_no"]
+    schEmail = schoolDictItems["email_address"]
+    schMRT = schoolDictItems["mrt station"]
+    schBus = schoolDictItems["buses"]
+    schType = schoolDictItems["type_code"] + "/" + schoolDictItems["nature_code"] + "/" + schoolDictItems["session_code"] + "/" + schoolDictItems["mainlevel_code"]
+
+    resultstr = "School Name: " + schoolName + "\n" \
                 "Address: " + schoolAdd + "\n" \
                 "Contact No: " + schTel + "\n" \
                 "Email: " + schEmail + "\n" \
