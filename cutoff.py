@@ -3,9 +3,16 @@ import readCSV
 
 class Cutoff:
 
+    def search(self, key='cutoff', lower=0, upper=300):
+        result = self.__dict.copy()
+        for i in result.items():
+            if not i[1][0].get(key.lower()).isdigit():
+                del result[i[0]]
+        result = filter(lambda x: lower <= int(x[1][0].get(key.lower())) <= upper, result.items())
+        return result
+
     def sort(self, key='cutoff', reverse=False):
-        self.__sorted = sorted(self.__dict.items(), key=lambda kv: kv[1][0].get(key), reverse=reverse)
-        return self.__sorted
+        return sorted(self.__dict.items(), key=lambda kv: kv[1][0].get(key), reverse=reverse)
 
     def getDict(self):
         self.__list = readCSV.genDict(self.__list)
@@ -18,8 +25,9 @@ class Cutoff:
         self.__list = readCSV.openCSV(filepath)  # lazy
         self.__headers = None
         self.__dict = self.getDict()
-        self.__sorted = None
 
 
 sec = Cutoff("Data/cutoff.csv")
 jc = Cutoff("Data/jc_cutoff.csv")
+# print sec.search()
+# print jc.search('Arts', lower=16)

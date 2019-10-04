@@ -1,3 +1,4 @@
+"""Reads in CSV file and performs list and dictionary manipulation for this program"""
 import tkFileDialog
 from Tkinter import *
 
@@ -41,6 +42,10 @@ class Application(Frame):
 
 
 def csvPath():
+    """
+    Creates GUI to accept user input for CSV file
+    :return: file path to CSV
+    """
     # Initialise GUI
     root = Tk()
     app = Application(master=root)
@@ -53,16 +58,19 @@ def csvPath():
         return app.path
 
 
-# Open CSV file return 3D list with headers and content
 def openCSV(p):
-    csv1 = None
+    """
+    Reads in CSV file from filepath and generate multi-dimensional list
+    :param p: file path
+    :return: list of header and values from CSV
+    """
     try:
         csv1 = open(p)
     except IOError:
         print "Please enter valid file path!"
         quit(0)
     else:
-        headers = csv1.readline().replace('\n', '').split(',')
+        headers = [i.lower() for i in csv1.readline().replace('\n', '').split(',')]
         content = []
         for line in csv1.readlines():
             format_line = []
@@ -90,9 +98,14 @@ def openCSV(p):
         return [headers, content]
 
 
-def genDict(l):
-    headers = l[0]
-    values = l[1]
+def genDict(li):
+    """
+    Generate Dictionary from multi-dimensional list
+    :param li: a multi-dimensional list of data retrieved from openCSV()
+    :returns: a list with a list of headers and a dictionary of mapped values
+    """
+    headers = li[0]
+    values = li[1]
     result = {}
     for r in values:
         if not r[0] in result.iterkeys():
