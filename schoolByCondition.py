@@ -1,5 +1,5 @@
 from csv import *
-
+from readCSV import *
 
 def schoolstuff(x,y):
     """Main input is the substring taken from schEnquiry"""
@@ -29,4 +29,5 @@ def schoolstuff(x,y):
 
     return sch_by_condition_info
 
-# print schoolstuff('bedok','dgp_code')
+# testarr = schoolstuff('bedok','dgp_code')
+
