@@ -1,5 +1,5 @@
 from Tkinter import *
-
+from schoolByCondition import *
 import schoolInfo
 
 
@@ -28,10 +28,10 @@ def printInfo(x, y):
     widget location. It is usually Tk(). Use this function to call out the messagebox"""
     try:
         if x == "":
-            messageBox("")
+            messageBox("",y)
         else:
-            schstuff = schoolInfo.schoolStuff(x)
+            schstuff = schoolInfo.schoolstuff(x)
             messageBox(schstuff, y)
 
     except:  #DO NOT USE BARE EXCEPT
-        messageBox("No such school found!")
+        messageBox("No such school found!",y)
