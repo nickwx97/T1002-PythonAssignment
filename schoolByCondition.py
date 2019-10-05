@@ -22,10 +22,10 @@ def schoolstuff(x):
 
     # print schoolDictItemsList[0]
 
-    """schByAreaListInfo contains all the information of the schools based on the condition given"""
+    """schByConditionInfo contains all the information of the schools based on the condition given"""
     for y in schByConditionInfo:
         # print y[1][0]
         for z in y[1][0].keys():
             y[1][0][z] = y[1][0].get(z).replace('|',',')
 
-    return schByAreaListNames
+    return schByConditionInfo
