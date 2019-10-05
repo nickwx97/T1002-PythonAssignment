@@ -21,13 +21,16 @@ def schListBox(x,y,z):
     """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
     the array to be processed"""
 
+    if x=="":
+        del y[:]
+        Lb1.delete(0, END)
+    else:
+        del y[:]
+        Lb1.delete(0, END)
+        appendArr(x, y, z)
+        for schName in y:
+            Lb1.insert(END, schName[0])
 
-    Lb1.delete(0, END)
-    printArr = []
-    appendArr(x, printArr, z)
-    for schName in printArr:
-        Lb1.insert(END, schName[0])
-        y.append(schName)
 
     # for z in y:
     #     print z
