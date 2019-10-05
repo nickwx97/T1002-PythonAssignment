@@ -11,6 +11,7 @@ Main functions:
     Search by school specs           - avi
 
     CSV reading and parsing          - Done nic
+    Wrire to CSV                     - Done nic
 
     CCA:
     Search by CCAs                   - Done nic
