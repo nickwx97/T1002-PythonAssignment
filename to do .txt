@@ -26,7 +26,7 @@ Main functions:
     Main page gui                    - clement and derek
 
     Subjects:
-    Search Sub by schools           - Done elisha
-    Search by subjects              - Done elisha
-    Search Sub by type of schools   - elisha
-    Search School by subjects       - Done elisha
+    Search Sub by schools            - Done elisha
+    Search by subjects               - Done elisha
+    Search Sub by type of schools    - elisha
+    Search School by subjects        - Done elisha
