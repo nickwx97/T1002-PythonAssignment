@@ -1,4 +1,4 @@
-from readCSV import *
+from csv import *
 
 class Subjects_Offered:
     def getDict(self):

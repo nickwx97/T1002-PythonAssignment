@@ -1,4 +1,4 @@
-import readCSV
+from csv import *
 
 
 class CCA:
@@ -26,16 +26,18 @@ class CCA:
 
     def getDict(self): return self.__dict
 
+    def getHeader(self): return self.__headers
+
     # split into dict
     def genDict(self):
-        re = readCSV.genDict(self.__raw)
-        self.__headers = re[0]
-        self.__dict = re[1]
+        r = genDict(self.__raw)
+        self.__headers = r[0]
+        self.__dict = r[1]
         del self.__raw
 
     def __init__(self):
-        # self.raw = readCSV.openCSV(readCSV.csvPath())
-        self.__raw = readCSV.openCSV("Data/co-curricular-activities-ccas.csv")  # lazy :)
+        self.__raw = openCSV(csvPath())
+        # self.__raw = openCSV("Data/co-curricular-activities-ccas.csv")  # lazy :)
         self.__headers = None
         self.__dict = None
 
@@ -43,6 +45,7 @@ class CCA:
 cca = CCA()
 cca.genDict()
 print cca.getDict()
+# writeCSV(cca.getHeader(), cca.getDict(), csvPath('save'))
 # print cca.searchDict(key='cca_grouping_desc', value="phy")
 # print cca.searchDict(value="Basketball")
 # print cca.listCcaFromSch("Eunoia")

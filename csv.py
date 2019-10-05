@@ -9,11 +9,16 @@ class Application(Frame):
         self.text.insert(0, tkFileDialog.askopenfilename())
         return
 
+    def fileSave(self):
+        self.text.delete(0, END)
+        self.text.insert(0, tkFileDialog.asksaveasfilename())
+        return
+
     def getText(self):
         self.path = self.text.get()
         self.quit()
 
-    def createWidgets(self):
+    def createWidgets(self, command):
         # Create quit button
         self.NEXT["text"] = "Next"
         self.NEXT["fg"] = "#1d7a3f"
@@ -21,8 +26,12 @@ class Application(Frame):
         self.NEXT.pack({"side": "right"})
 
         # Create file button
-        self.file_select["text"] = "Select CSV File"
-        self.file_select["command"] = self.fileSelect
+        if command is 'select':
+            self.file_select["command"] = self.fileSelect
+            self.file_select["text"] = "Select CSV File"
+        elif command is 'save':
+            self.file_select["command"] = self.fileSave
+            self.file_select["text"] = "Save CSV File"
         self.file_select.pack({"side": "right"})
 
         # Create text field
@@ -38,24 +47,63 @@ class Application(Frame):
         self.text = Entry(self)
 
         self.pack(expand=1)
-        self.createWidgets()
 
 
-def csvPath():
+def writeCSV(headers, data, p):
+    """Reads in a dictionary and writes to file"""
+    result = ','.join(headers) + '\n'
+    line = ""
+    for col in data:
+        newcol = None
+        if ',' in col:
+            newcol = '"' + col + '"'
+        for item in data.get(col):
+            if newcol is None:
+                line += col + ','
+            else:
+                line += newcol + ','
+            for items in headers[1:]:
+                x = item.get(items)
+                if ',' in x:
+                    x = '"' + x + '"'
+                line += x + ','
+            result += line[:-1] + '\n'
+            line = ""
+    try:
+        csv1 = open(p, 'w')
+    except IOError:
+        print "Please enter valid file path!"
+        quit(0)
+    else:
+        csv1.writelines(result)
+        csv1.close()
+
+
+def csvPath(command='select'):
     """
-    Creates GUI to accept user input for CSV file
-    :return: file path to CSV
+    Creates GUI to accept user input for CSV file or to save CSV file
+    :param command: command accepts 'select' or 'save', default 'select'
+    :return: file path to CSV file
     """
     # Initialise GUI
     root = Tk()
     app = Application(master=root)
+    if command is 'select':
+        app.createWidgets('select')
+    elif command is 'save':
+        app.createWidgets('save')
+    else:
+        print "Invalid command for csvPath(), defaulting to 'select'"
+        app.createWidgets('select')
     # Display GUI
     app.mainloop()
-    if app.path == "":
+    path = app.path
+    if path == "":
         print "No path specified... Quitting"
         quit(0)
     else:
-        return app.path
+        root.destroy()
+        return path
 
 
 def openCSV(p):
