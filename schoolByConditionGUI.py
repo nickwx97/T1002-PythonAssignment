@@ -54,8 +54,6 @@ schArray = []
 frame = Frame(top)
 frame.place(rely=0.5, relheight=0.6, relwidth=1.0)
 
-
-
 Lb1 = Listbox(top, height=20, width=50)
 # appendArr('bedok',schArray,'dgp_code')
 """Lb1.bind contains the onclick event of the listBox. Lb1.curselection() is just the position number of each member 
