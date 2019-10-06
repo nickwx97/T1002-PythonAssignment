@@ -1,9 +1,7 @@
-import csv
-import Tkinter as tk
 from Tkinter import *
-import tkMessageBox
-#import schInfoGUIFunction
-#import schoolInfo
+import Tkinter as tk
+import schoolInfo
+from schoolByCondition import *
 
 
 class App(tk.Tk):
@@ -49,19 +47,19 @@ class SearchPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
-        L1 = tk.Label(self, text="Name of School")
-        L1.pack(side="top")
-        E1 = Entry(self, bd=5)
-        E1.pack(side="top")
-        B1 = tk.Button(self, text="Search", command="")
-        B1.pack()
-        quit = tk.Button(self, text="quit", width=10, command=self.quit)
-        quit.pack(side="bottom")
-
         var = StringVar()
         label1 = Message(self, textvariable=var, bd=6, relief=SUNKEN)
         label1.pack(side="top")
         label1.place(y=80, relwidth=1, height=200)
+        L1 = tk.Label(self, text="Name of School")
+
+        L1.pack(side="top")
+        E1 = Entry(self, bd=5)
+        E1.pack(side="top")
+        B1 = tk.Button(self, text="Search", command="printInfo(schstuff)")
+        B1.pack()
+        quit = tk.Button(self, text="quit", width=10, command=self.quit)
+        quit.pack(side="bottom")
 
 
 if __name__ == "__main__":
