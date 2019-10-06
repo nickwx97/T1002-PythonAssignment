@@ -50,6 +50,3 @@ def schoolstuff(x):
                 "School Type: " + schType + "\n" \
 
     return resultstr
-
-tryStr = schoolstuff('high')
-print tryStr
