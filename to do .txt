@@ -29,3 +29,4 @@ Main functions:
     Search by subjects              - Done elisha
     Search Sub by type of schools   - elisha
     Search School by subjects       - Done elisha
+    Search by multiple subjects     - Clement
