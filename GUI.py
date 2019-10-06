@@ -1,43 +1,123 @@
-import Tkinter
-import tkMessageBox
-
-import csv
-
-
-def search(event=None):
-    sch_enquiry = school.get()
-    school_dict = {}
-    if sch_enquiry == "":
-        tkMessageBox.showerror("Error", "Please enter a valid input")
-    else:
-        with open('Data/general-information-of-schools.csv', 'r') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                # schoolDict called to store information of school from csv file with the school name as the key
-                school_dict[row['school_name']] = row
-
-        # schInfoArr is the list of all the information of the requested school with the school name as the key
-        sch_info_arr = list(v for k, v in school_dict.iteritems() if sch_enquiry in k.lower())
-        # START test result print
-        print sch_info_arr[0]
-        for row in sch_info_arr:
-            x = "%50s%40s" % (row['school_name'], row['address']) + "\n"
-            print x
-            Tkinter.Label(app, text=x).pack()
+from Tkinter import *
+import Tkinter as tk
+import schoolInfo
+from schoolByCondition import *
 
 
-app = Tkinter.Tk()
-app.minsize(1200, 400)
-app.title = "GUI"
+class App(tk.Tk):
+    def __init__(self, *args, **kwargs):
+        tk.Tk.__init__(self, *args, **kwargs)
+        container = tk.Frame(self)
+        container.pack(side="top", fill="both", expand=True)
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
 
-s1 = Tkinter.Label(app, text="School Name")
-s1.grid(row=1, column=1)
+        self.frames = {}
+        for F in (StartPage, SearchPage, SubjectPage, CutOffPage):
+            pagename = F.__name__
+            frame = F(parent=container, controller=self)
+            self.frames[pagename] = frame
 
-school = Tkinter.StringVar()
-inputs = Tkinter.Entry(app, textvariable=school)
-inputs.grid(row=1, column=2)
+            frame.grid(row=0, column=0, sticky="nsew")
+        self.show_frame("StartPage")
 
-b1 = Tkinter.Button(app, text="Search", width=7, command=search)
-b1.grid(row=1, column=3)
+    def show_frame(self, pagename):
+        frame = self.frames[pagename]
+        top = Frame(self)
+        bottom = Frame(self)
+        top.pack(side=TOP)
+        bottom.pack(side=BOTTOM)
+        frame.tkraise()
 
-app.mainloop()
+    def quit(self):
+        self.root.destroy()
+
+
+class StartPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="welcome", font=("Courier", 44))
+        label.pack(side="top", fill="x", pady=10)
+
+        button1 = tk.Button(self, text="Search By Name", width=20, command=lambda: controller.show_frame("SearchPage"))
+        button2 = tk.Button(self, text="Search By Subject", width=20, command=lambda: controller.show_frame("SubjectPage"))
+        button3 = tk.Button(self, text="Search By Cut Off Points", width=20, command=lambda: controller.show_frame("CutOffPage"))
+        quit = tk.Button(self, text="Quit", width=20, command=self.quit)
+        button1.pack()
+        button2.pack()
+        button3.pack()
+        quit.pack()
+
+
+class SearchPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        var = StringVar()
+        label1 = Message(self, textvariable=var, bd=6, relief=SUNKEN)
+        label1.pack(side="top")
+        label1.place(y=80, relwidth=1, height=200)
+        L1 = tk.Label(self, text="Name of School")
+
+        L1.pack(side="top")
+        E1 = Entry(self, bd=5)
+        E1.pack(side="top")
+        B1 = tk.Button(self, text="Search", command="printInfo(schstuff)")
+        B1.pack()
+        back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
+        quit = tk.Button(self, text="Quit", width=20, command=self.quit)
+        quit.pack(side="bottom")
+        back.pack(side="bottom")
+
+
+class SubjectPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        var = StringVar()
+        label1 = Message(self, textvariable=var, bd=6, relief=SUNKEN)
+        label1.pack(side="top")
+        label1.place(y=80, relwidth=1, height=200)
+        L1 = tk.Label(self, text="Subject: ")
+
+        L1.pack(side="top")
+        E1 = Entry(self, bd=5)
+        E1.pack(side="top")
+        B1 = tk.Button(self, text="Search", command="")
+        B1.pack()
+        back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
+        quit = tk.Button(self, text="Quit", width=20, command=self.quit)
+        quit.pack(side="bottom")
+        back.pack(side="bottom")
+
+
+class CutOffPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        var = StringVar()
+        label1 = Message(self, textvariable=var, bd=6, relief=SUNKEN)
+        label1.pack(side="top")
+        label1.place(y=80, relwidth=1, height=200)
+        L1 = tk.Label(self, text="Cut Off Point: ")
+
+        L1.pack(side="top")
+        E1 = Entry(self, bd=5)
+        E1.pack(side="top")
+        B1 = tk.Button(self, text="Search", command="")
+        B1.pack()
+        back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
+        quit = tk.Button(self, text="Quit", width=20, command=self.quit)
+        quit.pack(side="bottom")
+        back.pack(side="bottom")
+
+
+if __name__ == "__main__":
+    app = App()
+    app.minsize("1000", "500")
+    app.mainloop()
+

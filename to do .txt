@@ -11,7 +11,6 @@ Main functions:
     Search by school specs           - avi
 
     CSV reading and parsing          - Done nic
-    Wrire to CSV                     - Done nic
 
     CCA:
     Search by CCAs                   - Done nic
@@ -26,7 +25,7 @@ Main functions:
     Main page gui                    - clement and derek
 
     Subjects:
-    Search Sub by schools            - Done elisha
-    Search by subjects               - Done elisha
-    Search Sub by type of schools    - elisha
-    Search School by subjects        - Done elisha
+    Search Sub by schools           - Done elisha
+    Search by subjects              - Done elisha
+    Search Sub by type of schools   - elisha
+    Search School by subjects       - Done elisha
