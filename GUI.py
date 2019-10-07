@@ -9,8 +9,6 @@ class App(tk.Tk):
         tk.Tk.__init__(self, *args, **kwargs)
         container = tk.Frame(self)
         container.grid()
-        container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
         for F in (StartPage, SearchPage, SubjectPage, CutOffPage):
@@ -38,7 +36,7 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
         label = tk.Label(self, text="School Portal", font=("Courier", 44))
-        label.grid()
+        label.grid(row=0, column=2)
         tk.title = "School Portal"
         button1 = tk.Button(self, text="Search By Name", width=20, command=lambda: controller.show_frame("SearchPage"))
         button2 = tk.Button(self, text="Search By Subject", width=20,
@@ -46,11 +44,11 @@ class StartPage(tk.Frame):
         button3 = tk.Button(self, text="Search By Cut Off Points", width=20,
                             command=lambda: controller.show_frame("CutOffPage"))
         quit = tk.Button(self, text="Quit", width=20, command=self.quit)
-        button1.grid()
-        button2.grid()
-        button3.grid()
-        quit.grid(row=5)
-
+        button1.grid(row=1, column=2)
+        button2.grid(row=2, column=2)
+        button3.grid(row=3, column=2)
+        quit.grid(row=4, column=2)
+        self.grid_columnconfigure((0, 4), weight=1)
 
 class SearchPage(tk.Frame):
     def __init__(self, parent, controller):
@@ -60,18 +58,18 @@ class SearchPage(tk.Frame):
         var = StringVar()
 
         L1 = tk.Label(self, text="Name of School")
-        L1.grid(row=1, column=2)
+        L1.grid(row=1, column=1)
         E1 = Entry(self, bd=5)
         E1.grid(row=2, column=1)
         B1 = tk.Button(self, text="Search", command="printInfo(schstuff)")
         B1.grid(row=3, column=1)
-        label1 = Message(self, textvariable=var, bd=6, relief=SUNKEN, width=200, padx=5, pady=5)
-        label1.grid(row=4, column=1, columnspan=1, rowspan=2)
+        label1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
+        label1.grid(column=1, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
         back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
         quit = tk.Button(self, text="Quit", width=20, command=self.quit)
-        quit.grid(row=6, column=1)
-        back.grid(row=7, column=1)
-
+        back.grid(row=6, column=1)
+        quit.grid(row=7, column=1)
+        self.grid_columnconfigure((1, 7), weight=1)
 
 class SubjectPage(tk.Frame):
     def __init__(self, parent, controller):
@@ -81,24 +79,25 @@ class SubjectPage(tk.Frame):
         var2 = tk.IntVar()
         var3 = tk.IntVar()
         var = StringVar()
-        label1 = Message(self, textvariable=var, bd=6, relief=SUNKEN)
-        label1.grid()
-        label1.place(y=80, relwidth=1, height=200)
+
         sub1 = tk.Checkbutton(self, text="English", variable=var1)
         sub2 = tk.Checkbutton(self, text="Math", variable=var2)
         sub3 = tk.Checkbutton(self, text="Science", variable=var3)
-        sub1.grid()
-        sub2.grid()
-        sub3.grid()
+        sub1.grid(row=0,column=1)
+        sub2.grid(row=0,column=2)
+        sub3.grid(row=0,column=3)
+        B1 = tk.Button(self, text="Search", command="")
+        B1.grid(row=1,column=2)
+        label1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
+        label1.grid(column=1, row=4, columnspan=3,sticky=(N, S, E, W))
         # E1 = Entry(self, bd=5)
         # E1.pack(side="top")
-        B1 = tk.Button(self, text="Search", command="")
-        B1.grid()
         back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
         quit = tk.Button(self, text="Quit", width=20, command=self.quit)
-        quit.grid()
-        back.grid()
+        back.grid(row=5, column=2)
+        quit.grid(row=6,column=2)
 
+        self.grid_columnconfigure((0, 7), weight=1)
 
 class CutOffPage(tk.Frame):
     def __init__(self, parent, controller):
@@ -106,20 +105,20 @@ class CutOffPage(tk.Frame):
         self.controller = controller
 
         var = StringVar()
-        label1 = Message(self, textvariable=var, bd=6, relief=SUNKEN)
-        label1.grid()
-        label1.place(y=80, relwidth=1, height=200)
+        label1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
+        label1.grid(column=1, row=4, columnspan=3, sticky=(N, S, E, W))
         L1 = tk.Label(self, text="Cut Off Point: ")
-        L1.grid()
+        L1.grid(row=0,column=2)
         E1 = Entry(self, bd=5)
-        E1.grid()
+        E1.grid(row=1,column=2)
         B1 = tk.Button(self, text="Search", command="")
-        B1.grid()
+        B1.grid(row=2,column=2)
+        label1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
+        label1.grid(column=1, row=4, columnspan=3, sticky=(N, S, E, W))
         back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
         quit = tk.Button(self, text="Quit", width=20, command=self.quit)
-        quit.grid()
-        back.grid()
-
+        back.grid(row=5,column=2)
+        quit.grid(row=6,column=2)
 
 if __name__ == "__main__":
     app = App()
