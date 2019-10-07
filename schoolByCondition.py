@@ -29,5 +29,5 @@ def schoolstuff(x,y):
 
     return sch_by_condition_info
 
-# testarr = schoolstuff('bedok','dgp_code')
+# print schoolstuff('government','type_code')
 
