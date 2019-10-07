@@ -50,11 +50,19 @@ class Application(Frame):
 
 
 def writeCSV(headers, data, p):
-    """Reads in a dictionary and writes to file"""
+    """
+    Reads in a dictionary and writes to file
+    :param headers: a list containing headers for the csv
+    :param data: a dictionary of data mapped by the headers
+    :param p: path of file to write to
+    :return: True if success, False if fail
+    """
     result = ','.join(headers) + '\n'
     line = ""
     for col in data:
         newcol = None
+        for x in [i for i, ltr in enumerate(col) if ltr == '"']:  # revert " to ""
+            col = col[:x] + '"' + col[x:]
         if ',' in col:
             newcol = '"' + col + '"'
         for item in data.get(col):
@@ -73,10 +81,11 @@ def writeCSV(headers, data, p):
         csv1 = open(p, 'w')
     except IOError:
         print "Please enter valid file path!"
-        quit(0)
+        return False
     else:
         csv1.writelines(result)
         csv1.close()
+        return True
 
 
 def csvPath(command='select'):
@@ -136,7 +145,7 @@ def openCSV(p):
                         if line[0].count('"') == 1:
                             temp += "," + line.pop(0)  # give value back it's , that we removed previously
                             break
-                    temp = temp[1:-1].replace('""', '"')
+                    temp = temp[1:-1].replace('""', '"')  # replace "" with " if exists, excel's way of delimiting "
                     format_line.append(temp)  # strip " from combined value
                     temp = ""
                 elif line[0].count('""') >= 1:
