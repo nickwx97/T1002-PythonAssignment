@@ -124,21 +124,23 @@ def openCSV(p):
             format_line = []
             line = line.replace('\n', '').split(',')
             temp = ""
-            x = 0
-            while x < len(line):
-                if line[x].count('"') == 1:
+            while len(line):
+                if line[0].count('"') % 2 == 1:
                     while True:
                         if temp is "":
                             temp += line.pop(0)
                         else:
                             temp += "," + line.pop(0)  # give value back it's , that we removed previously
-                        if x >= len(line):
+                        if len(line) == 0:
                             break
-                        if line[x].count('"') == 1:
+                        if line[0].count('"') == 1:
                             temp += "," + line.pop(0)  # give value back it's , that we removed previously
                             break
-                    format_line.append(temp.replace('"', ''))  # strip " from combined value
+                    temp = temp[1:-1].replace('""', '"')
+                    format_line.append(temp)  # strip " from combined value
                     temp = ""
+                elif line[0].count('""') >= 1:
+                    format_line.append(line.pop(0)[1:-1].replace('""', '"'))
                 else:
                     format_line.append(line.pop(0))
             content.append(format_line)
