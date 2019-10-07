@@ -1,5 +1,4 @@
 from csv import *
-from readCSV import *
 
 def schoolstuff(x,y):
     """Main input is the substring taken from schEnquiry"""
@@ -28,6 +27,4 @@ def schoolstuff(x,y):
             y[1][0][z] = y[1][0].get(z).replace('|', ',')
 
     return sch_by_condition_info
-
-# print schoolstuff('government','type_code')
 
