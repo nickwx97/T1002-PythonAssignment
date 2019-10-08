@@ -51,8 +51,17 @@ E1.pack()
 schArray = []
 
 
+
+variable = StringVar(top)
+variable.set("one") # default value
+
+w = OptionMenu(top, variable, "one", "two", "three")
+w.pack()
+
+
+
 frame = Frame(top)
-frame.place(rely=0.5,height=300, relwidth=0.3,relx=0.5,anchor="center")
+frame.place(y=280,height=300, relwidth=0.3,relx=0.5,anchor="center")
 scrollbar = Scrollbar(frame)
 scrollbar.pack(side=RIGHT, fill=Y)
 
