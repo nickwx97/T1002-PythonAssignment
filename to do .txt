@@ -23,7 +23,14 @@ Main functions:
     Search by range cutoff           - Done nic
 
     GUI:
-    Main page gui                    - clement and derek
+    Main page gui                    - done
+    Integrate location(add level*)   - done
+    Integrate and improve subject    - clement and derek
+    search
+    Integrate cutoff gui             - clement and derek
+    Change school search             - clement and derek
+
+
 
     Subjects:
     Search Sub by schools           - Done elisha
