@@ -52,15 +52,20 @@ schArray = []
 
 
 frame = Frame(top)
-frame.place(rely=0.5, relheight=0.6, relwidth=1.0)
+frame.place(rely=0.5,height=300, relwidth=0.3,relx=0.5,anchor="center")
+scrollbar = Scrollbar(frame)
+scrollbar.pack(side=RIGHT, fill=Y)
 
-Lb1 = Listbox(top, height=20, width=50)
+Lb1 = Listbox(frame, height=20, width=100)
 # appendArr('bedok',schArray,'dgp_code')
 """Lb1.bind contains the onclick event of the listBox. Lb1.curselection() is just the position number of each member 
 in the listbox i.e first member will be position number 0 and so on"""
 Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]][0],Toplevel()))  # Toplevel() just lets the function to be opened in a new window
-Lb1.pack()
 
+Lb1.pack(fill=X,expand=YES)
+
+Lb1.config(yscrollcommand=scrollbar.set)
+scrollbar.config(command=Lb1.yview)
 """Creates an empty listbox when the program is opened"""
 # schListBox("","dgp_code")
 
