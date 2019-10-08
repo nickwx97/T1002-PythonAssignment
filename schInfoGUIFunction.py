@@ -19,7 +19,7 @@ def messageBox(x, y):
 
     var.set(x)
     label.pack(side=TOP)
-    label.place(y=80, relwidth=1, height=200)
+    label.place(y=80, relwidth=1, height=300)
     y.mainloop()
 
 
