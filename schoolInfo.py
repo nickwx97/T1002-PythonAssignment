@@ -34,13 +34,16 @@ def schoolstuff(x):
     schoolDictItems = schoolDictItems[schoolName.title()][0]
 
 
+
     schoolAdd = schoolDictItems["address"]
     schTel = schoolDictItems["telephone_no"]
     schEmail = schoolDictItems["email_address"]
     schMRT = schoolDictItems["mrt station"]
     schBus = schoolDictItems["buses"]
     schType = schoolDictItems["type_code"] + "/" + schoolDictItems["nature_code"] + "/" + schoolDictItems["session_code"] + "/" + schoolDictItems["mainlevel_code"]
-    mission = schoolDictItems["missionstatement_Desc"]
+    mission = schoolDictItems["missionstatement_desc"]
+    vision = schoolDictItems["visionstatement_desc"]
+
 
     resultstr = "School Name: " + schoolName + "\n\n" \
                 "Address: " + schoolAdd + "\n\n" \
@@ -49,6 +52,7 @@ def schoolstuff(x):
                 "Nearby MRTs: " + schMRT + "\n\n" \
                 "Buses: " + schBus + "\n\n" \
                 "School Type: " + schType + "\n\n" \
-                "Mission: " + mission + "\n\n"
+                "Mission: " + mission + "\n\n" \
+                "Vision: " + vision + "\n\n"
 
     return resultstr
