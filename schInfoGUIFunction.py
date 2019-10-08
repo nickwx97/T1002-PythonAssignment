@@ -10,7 +10,7 @@ def messageBox(x, y):
     """messageBox generates the box which contains a string. x is the string to be printed, y is the tkinter
     widget location. It is usually Tk(). DO NOT USE THIS FUNCTION TO CALL OUT THE BOX. FOR LOCAL USE ONLY"""
     frame = Frame(y)
-    frame.place(rely=0.1, height=350, relwidth=0.8)
+    frame.place(rely=0.1, height=350, relwidth=0.8,relx=0.5,anchor="center")
     var = StringVar()
     label = Message(frame, textvariable=var, bd=6, relief=SUNKEN)
 
