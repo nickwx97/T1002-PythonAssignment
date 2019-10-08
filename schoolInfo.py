@@ -41,12 +41,12 @@ def schoolstuff(x):
     schBus = schoolDictItems["buses"]
     schType = schoolDictItems["type_code"] + "/" + schoolDictItems["nature_code"] + "/" + schoolDictItems["session_code"] + "/" + schoolDictItems["mainlevel_code"]
 
-    resultstr = "School Name: " + schoolName + "\n" \
-                "Address: " + schoolAdd + "\n" \
-                "Contact No: " + schTel + "\n" \
-                "Email: " + schEmail + "\n" \
-                "Nearby MRTs: " + schMRT + "\n" \
-                "Buses: " + schBus + "\n" \
-                "School Type: " + schType + "\n" \
+    resultstr = "School Name: " + schoolName + "\n\n" \
+                "Address: " + schoolAdd + "\n\n" \
+                "Contact No: " + schTel + "\n\n" \
+                "Email: " + schEmail + "\n\n" \
+                "Nearby MRTs: " + schMRT + "\n\n" \
+                "Buses: " + schBus + "\n\n" \
+                "School Type: " + schType + "\n\n" \
 
     return resultstr
