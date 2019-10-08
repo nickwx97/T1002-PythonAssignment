@@ -40,6 +40,7 @@ def schoolstuff(x):
     schMRT = schoolDictItems["mrt station"]
     schBus = schoolDictItems["buses"]
     schType = schoolDictItems["type_code"] + "/" + schoolDictItems["nature_code"] + "/" + schoolDictItems["session_code"] + "/" + schoolDictItems["mainlevel_code"]
+    mission = schoolDictItems["missionstatement_Desc"]
 
     resultstr = "School Name: " + schoolName + "\n\n" \
                 "Address: " + schoolAdd + "\n\n" \
@@ -48,5 +49,6 @@ def schoolstuff(x):
                 "Nearby MRTs: " + schMRT + "\n\n" \
                 "Buses: " + schBus + "\n\n" \
                 "School Type: " + schType + "\n\n" \
+                "Mission: " + mission + "\n\n"
 
     return resultstr
