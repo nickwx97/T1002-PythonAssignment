@@ -44,18 +44,21 @@ top.geometry("1000x500")
 
 L1 = Label(top, text="School Area")
 L1.pack()
-E1 = Entry(top, bd=5)
-E1.pack()
 
 
 schArray = []
 
+areaarray = []
+
+for x in schoolstuff("","dgp_code"):
+        if x[1][0]["dgp_code"] not in areaarray:
+            areaarray.append(x[1][0]["dgp_code"])
 
 
 variable = StringVar(top)
-variable.set("one") # default value
+variable.set("") # default value
 
-w = OptionMenu(top, variable, "one", "two", "three")
+w = apply(OptionMenu, (top, variable) + tuple(areaarray))
 w.pack()
 
 
@@ -79,7 +82,7 @@ scrollbar.config(command=Lb1.yview)
 # schListBox("","dgp_code")
 
 """Change the filter by changing the column name of the last argument of schListBox"""
-B = Button(top, text="Hello", command=lambda: schListBox(E1.get(),schArray,'dgp_code'))
+B = Button(top, text="Search", command=lambda: schListBox(W,schArray,'dgp_code'))
 
 B.pack()
 top.mainloop()
