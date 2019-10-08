@@ -58,13 +58,13 @@ for x in schoolstuff("","dgp_code"):
 variable = StringVar(top)
 variable.set("") # default value
 
-w = apply(OptionMenu, (top, variable) + tuple(areaarray))
+
+w = OptionMenu(top,variable,*areaarray,command=lambda func: schListBox(variable.get(),schArray,'dgp_code'))
 w.pack()
 
 
-
 frame = Frame(top)
-frame.place(y=280,height=300, relwidth=0.3,relx=0.5,anchor="center")
+frame.place(y=230,height=300, relwidth=0.3,relx=0.5,anchor="center")
 scrollbar = Scrollbar(frame)
 scrollbar.pack(side=RIGHT, fill=Y)
 
@@ -82,7 +82,7 @@ scrollbar.config(command=Lb1.yview)
 # schListBox("","dgp_code")
 
 """Change the filter by changing the column name of the last argument of schListBox"""
-B = Button(top, text="Search", command=lambda: schListBox(W,schArray,'dgp_code'))
+# B = Button(top, text="Search", command=lambda: schListBox(variable.get(),schArray,'dgp_code'))
 
-B.pack()
+# B.pack()
 top.mainloop()
