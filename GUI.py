@@ -1,35 +1,24 @@
-import Tkinter
+
 from Tkinter import *
-import tkMessageBox
+import Tkinter as tk
+import schoolInfo
+from schoolByCondition import *
 
-import csv
 
-class App(Tkinter.Tk):
+class App(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         container = tk.Frame(self)
         container.grid()
 
-def search(event=None):
-    sch_enquiry = school.get()
-    school_dict = {}
-    if sch_enquiry == "":
-        tkMessageBox.showerror("Error", "Please enter a valid input")
-    else:
-        with open('Data/general-information-of-schools.csv', 'r') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                # schoolDict called to store information of school from csv file with the school name as the key
-                school_dict[row['school_name']] = row
+        self.frames = {}
+        for F in (StartPage, SearchPage, SubjectPage, CutOffPage):
+            pagename = F.__name__
+            frame = F(parent=container, controller=self)
+            self.frames[pagename] = frame
 
-        # schInfoArr is the list of all the information of the requested school with the school name as the key
-        sch_info_arr = list(v for k, v in school_dict.iteritems() if sch_enquiry in k.lower())
-        # START test result print
-        print sch_info_arr[0]
-        for row in sch_info_arr:
-            x = "%50s%40s" % (row['school_name'], row['address']) + "\n"
-            print x
-            Tkinter.Label(app, text=x).pack()
+            frame.grid(row=0, column=0, sticky="nsew")
+        self.show_frame("StartPage")
 
     def show_frame(self, pagename):
         frame = self.frames[pagename]
@@ -39,14 +28,11 @@ def search(event=None):
         bottom.grid()
         frame.tkraise()
 
-app = Tkinter.Tk()
-app.minsize(1200, 400)
-app.title = "GUI"
+    def quit(self):
+        self.root.destroy()
 
-s1 = Tkinter.Label(app, text="School Name")
-s1.grid(row=1, column=1)
 
-class StartPage(Tkinter.Frame):
+class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -64,6 +50,7 @@ class StartPage(Tkinter.Frame):
         button3.grid(row=3, column=2)
         quit.grid(row=4, column=2)
         self.grid_columnconfigure((0, 4), weight=1)
+
 
 class SearchPage(tk.Frame):
     def __init__(self, parent, controller):
@@ -86,6 +73,7 @@ class SearchPage(tk.Frame):
         quit.grid(row=7, column=1)
         self.grid_columnconfigure((1, 7), weight=1)
 
+
 class SubjectPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -98,21 +86,22 @@ class SubjectPage(tk.Frame):
         sub1 = tk.Checkbutton(self, text="English", variable=var1)
         sub2 = tk.Checkbutton(self, text="Math", variable=var2)
         sub3 = tk.Checkbutton(self, text="Science", variable=var3)
-        sub1.grid(row=0,column=1)
-        sub2.grid(row=0,column=2)
-        sub3.grid(row=0,column=3)
+        sub1.grid(row=0, column=1)
+        sub2.grid(row=0, column=2)
+        sub3.grid(row=0, column=3)
         B1 = tk.Button(self, text="Search", command="")
-        B1.grid(row=1,column=2)
+        B1.grid(row=1, column=2)
         label1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
-        label1.grid(column=1, row=4, columnspan=3,sticky=(N, S, E, W))
+        label1.grid(column=1, row=4, columnspan=3, sticky=(N, S, E, W))
         # E1 = Entry(self, bd=5)
         # E1.pack(side="top")
         back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
         quit = tk.Button(self, text="Quit", width=20, command=self.quit)
         back.grid(row=5, column=2)
-        quit.grid(row=6,column=2)
+        quit.grid(row=6, column=2)
 
         self.grid_columnconfigure((0, 7), weight=1)
+
 
 class CutOffPage(tk.Frame):
     def __init__(self, parent, controller):
@@ -123,27 +112,20 @@ class CutOffPage(tk.Frame):
         label1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
         label1.grid(column=1, row=4, columnspan=3, sticky=(N, S, E, W))
         L1 = tk.Label(self, text="Cut Off Point: ")
-        L1.grid(row=0,column=2)
+        L1.grid(row=0, column=2)
         E1 = Entry(self, bd=5)
-        E1.grid(row=1,column=2)
+        E1.grid(row=1, column=2)
         B1 = tk.Button(self, text="Search", command="")
-        B1.grid(row=2,column=2)
+        B1.grid(row=2, column=2)
         label1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
         label1.grid(column=1, row=4, columnspan=3, sticky=(N, S, E, W))
         back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
         quit = tk.Button(self, text="Quit", width=20, command=self.quit)
-        back.grid(row=5,column=2)
-        quit.grid(row=6,column=2)
+        back.grid(row=5, column=2)
+        quit.grid(row=6, column=2)
+
 
 if __name__ == "__main__":
     app = App()
     app.minsize("1000", "500")
     app.mainloop()
-school = Tkinter.StringVar()
-inputs = Tkinter.Entry(app, textvariable=school)
-inputs.grid(row=1, column=2)
-
-b1 = Tkinter.Button(app, text="Search", width=7, command=search)
-b1.grid(row=1, column=3)
-
-app.mainloop()
