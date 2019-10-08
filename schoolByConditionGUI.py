@@ -50,6 +50,8 @@ schArray = []
 
 areaarray = []
 
+
+"""You can change the column you want you populate in the dropdown box below here"""
 for x in schoolstuff("","dgp_code"):
         if x[1][0]["dgp_code"] not in areaarray:
             areaarray.append(x[1][0]["dgp_code"])
@@ -58,7 +60,7 @@ for x in schoolstuff("","dgp_code"):
 variable = StringVar(top)
 variable.set("") # default value
 
-
+"""You can change the column you want you filter below here"""
 w = OptionMenu(top,variable,*areaarray,command=lambda func: schListBox(variable.get(),schArray,'dgp_code'))
 w.pack()
 
@@ -78,8 +80,6 @@ Lb1.pack(fill=X,expand=YES)
 
 Lb1.config(yscrollcommand=scrollbar.set)
 scrollbar.config(command=Lb1.yview)
-"""Creates an empty listbox when the program is opened"""
-# schListBox("","dgp_code")
 
 """Change the filter by changing the column name of the last argument of schListBox"""
 # B = Button(top, text="Search", command=lambda: schListBox(variable.get(),schArray,'dgp_code'))
