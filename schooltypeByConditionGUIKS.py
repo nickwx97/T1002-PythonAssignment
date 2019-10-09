@@ -63,11 +63,29 @@ for x in schoolstuff("","nature_code"):
         if x[1][0]["nature_code"] not in natureCodeArray:
             natureCodeArray.append(x[1][0]["nature_code"])
 
+for x in schoolstuff("", "mainlevel_code"):
+    if x[1][0]["mainlevel_code"] not in schoolLevelArray:
+        schoolLevelArray.append(x[1][0]["mainlevel_code"])
+
 filterFrame = Frame(top)
 filterFrame.pack(side=TOP)
 filterFrame.place(y=5,height=300, width=200,relx=0.1)
 
-# fffffffffffffffffffffffffffffffffffff
+
+# School Level Type
+schoollevelframe = Frame(filterFrame)
+schoollevelframe.pack()
+L2 = Label(schoollevelframe, text="Student Level")
+L2.pack()
+variable2 = StringVar(schoollevelframe)
+variable2.set("") # default value
+
+"""You can change the column you want you filter below here"""
+y = OptionMenu(schoollevelframe,variable2,*schoolLevelArray)
+y.pack()
+
+
+# School Type Dropdown
 typecodeframe = Frame(filterFrame)
 typecodeframe.pack()
 L1 = Label(typecodeframe, text="School Type")
@@ -80,7 +98,8 @@ w = OptionMenu(typecodeframe,variable,*typeCodeArray)
 w.pack()
 
 
-# fffffffffffffffffffffffffffffffffffff
+
+# Student Gender Type
 naturecodeframe = Frame(filterFrame)
 naturecodeframe.pack()
 L2 = Label(naturecodeframe, text="Student Gender Type")
@@ -91,6 +110,7 @@ variable1.set("") # default value
 """You can change the column you want you filter below here"""
 x = OptionMenu(naturecodeframe,variable1,*natureCodeArray)
 x.pack()
+
 
 
 frame = Frame(top)
