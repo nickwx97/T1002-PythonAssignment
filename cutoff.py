@@ -14,6 +14,9 @@ class Cutoff:
     def sort(self, key='cutoff', reverse=False):
         self.__dict = sorted(self.__dict.items(), key=lambda kv: kv[1][0].get(key), reverse=reverse)
 
+    def getHeaders(self):
+        return self.__headers
+
     def getDict(self):
         self.__list = genDict(self.__list)
         self.__headers = self.__list[0]
@@ -24,10 +27,10 @@ class Cutoff:
     def __init__(self, filepath):
         self.__list = openCSV(filepath)  # lazy
         self.__headers = None
-        self.__dict = self.getDict()
+        self.__dict = None
 
 
 sec = Cutoff("Data/cutoff.csv")
 jc = Cutoff("Data/jc_cutoff.csv")
-# print sec.search()
-# print jc.search('Arts', lower=16)
+print jc.getDict()
+print jc.search('science / ib', upper=12)
