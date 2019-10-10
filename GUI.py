@@ -2,7 +2,7 @@ from Tkinter import *
 import Tkinter as tk
 from schoolInfo import *
 from schoolByCondition import *
-
+from subjectsoffered import *
 
 class App(tk.Tk):
     def __init__(self, *args, **kwargs):
@@ -103,21 +103,42 @@ class SubjectPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        var1 = tk.IntVar()
+
+        def messageBox(x):
+            """messageBox generates the box which contains a string. x is the string to be printed, y is the tkinter
+            widget location. It is usually Tk(). DO NOT USE THIS FUNCTION TO CALL OUT THE BOX. FOR LOCAL USE ONLY"""
+            #label = Message(self, textvariable=var, bd=6, relief=SUNKEN)
+            label1 = Message(self, textvariable=var, bd=6, relief=SUNKEN)
+            label1.grid(column=1, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
+            #label.grid(column=1, row=4)
+            var.set(x)
+
+        def printInfo(x):
+            """printInfo generates the messageBox outside of the function. x is the search string and y is the tkinter
+            widget location. It is usually Tk(). Use this function to call out the messagebox"""
+            try:
+
+                    so = SubjectsOffered()
+                    so.createDict()
+                    schoolstuff = so.getSubjectsByLevel(x)
+                    for i in schoolstuff:
+                        num=0
+                        l = Checkbutton(self, text=str(i), variable=num)
+                        l.grid()
+                        num+1
+
+
+            except:  # DO NOT USE BARE EXCEPT
+                print
+
+
         var2 = tk.IntVar()
         var3 = tk.IntVar()
         var = StringVar()
-
-        sub1 = tk.Checkbutton(self, text="English", variable=var1)
-        sub2 = tk.Checkbutton(self, text="Math", variable=var2)
-        sub3 = tk.Checkbutton(self, text="Science", variable=var3)
-        sub1.grid(row=0, column=1)
-        sub2.grid(row=0, column=2)
-        sub3.grid(row=0, column=3)
-        B1 = tk.Button(self, text="Search", command="")
+        B1 = tk.Button(self, text="Search", command=lambda: printInfo('secondary'))
         B1.grid(row=1, column=2)
-        label1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
-        label1.grid(column=1, row=4, columnspan=3, sticky=(N, S, E, W))
+        #label1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
+        #label1.grid(column=1, row=4, columnspan=3, sticky=(N, S, E, W))
         # E1 = Entry(self, bd=5)
         # E1.pack(side="top")
         back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
