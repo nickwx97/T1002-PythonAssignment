@@ -12,7 +12,7 @@ class Cutoff:
         return result
 
     def sort(self, key='cutoff', reverse=False):
-        self.__dict = sorted(self.__dict.items(), key=lambda kv: kv[1][0].get(key), reverse=reverse)
+        self.__dict = dict((k, v) for k, v in sorted(self.__dict.items(), key=lambda kv: kv[1][0].get(key), reverse=reverse))
 
     def getHeaders(self):
         return self.__headers
@@ -32,5 +32,6 @@ class Cutoff:
 
 sec = Cutoff("Data/cutoff.csv")
 jc = Cutoff("Data/jc_cutoff.csv")
-print jc.getDict()
-print jc.search('science / ib', upper=12)
+jc.getDict()
+jc.sort(key=jc.getHeaders()[1])
+print jc.search('arts', upper=12)
