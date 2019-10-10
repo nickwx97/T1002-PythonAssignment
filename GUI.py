@@ -182,63 +182,70 @@ class CutOffPage(tk.Frame):
 
         self.sec = Cutoff("Data/cutoff.csv")
         self.jc = Cutoff("Data/jc_cutoff.csv")
+        self.sec.getDict()
+        self.jc.getDict()
 
-        self.sec.sort()
-        self.jc.sort()
-
-        def messageBox(x):
-            var = StringVar()
-            label = Message(self, textvariable=var, bd=6, relief=SUNKEN)
-
-            var.set(x)
-            label.grid(row=4, column=2)
-            #label.place(y=80, relwidth=1, height=200)
-
-        def JCprintInfo(x, y):
-            if x == "":
-                messageBox("")
-            else:
-                info = jc.search(x, upper=y)
-                if not info:
-                    messageBox(info)
-                else:
-                    messageBox("No such school found")
-
-        def printInfo(x):
-            try:
-                if x == "":
-                    messageBox("")
-                else:
-                    info = sec.search(upper=x)
-                    messageBox(info)
-
-            except:  # DO NOT USE BARE EXCEPT
-                messageBox("No such school found!")
-
-        L1 = tk.Label(self, text="SEC Cut Off: ")
-        L1.grid(row=1, column=1)
+        #Secondary Cut Off
+        L1 = tk.Label(self, text="Secondary Cut Off: ")
+        L1.grid(row=1, column=2)
         E1 = Entry(self, bd=5)
-        E1.grid(row=1, column=3)
-        B1 = tk.Button(self, text="Search", command=lambda: printInfo(E1.get()))
-        B1.grid(row=1, column=4)
-
-        L2 = tk.Label(self, text="JC Cut Off: ")
-        L2.grid(row=2, column=1)
-        variable = StringVar()
-        variable.set("Arts")
-        stream = OptionMenu(self, variable, "Arts", "science / lb")
-        stream.grid(row=2, column=2)
-
+        E1.grid(row=2, column=1)
+        L2 = tk.Label(self, text="To")
+        L2.grid(row=2,column=2)
         E2 = Entry(self, bd=5)
         E2.grid(row=2, column=3)
-        B2 = tk.Button(self, text="Search", command=lambda:JCprintInfo(variable.get(), E2.get()))
-        B2.grid(row=2, column=4)
+        B1 = tk.Button(self, text="Search", command=lambda: self.printInfo(E1.get()))
+        B1.grid(row=3, column=2)
 
+        #JC cut off
+        L3 = tk.Label(self, text="JC Cut Off: ")
+        L3.grid(row=1, column=15)
+        variable = StringVar()
+        variable.set(self.jc.getHeaders()[1])
+        stream = OptionMenu(self, variable, self.jc.getHeaders()[1], self.jc.getHeaders()[2])
+        stream.grid(row=2, column=14)
+
+        E3 = Entry(self, bd=5)
+        E3.grid(row=2, column=16)
+        B2 = tk.Button(self, text="Search", command=lambda: self.JCprintInfo(variable.get(), E2.get()))
+        B2.grid(row=2, column=17)
 
         back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
         quit = tk.Button(self, text="Quit", width=20, command=self.quit)
         back.grid(row=5, column=2)
         quit.grid(row=6, column=2)
+
+    def messageBox(self, x):
+        var = StringVar()
+        label = Message(self, textvariable=var, bd=6, relief=SUNKEN)
+
+        var.set(x)
+        label.grid(row=4, column=2)
+        #label.place(y=80, relwidth=1, height=200)
+
+    def JCprintInfo(self, x, y):
+        if x == "":
+            self.messageBox("")
+        else:
+            info = []
+            if y.isdigit():
+                info = self.jc.search(key=x, upper=y)
+            if info:
+                self.messageBox(info)
+            else:
+                self.messageBox("No such school found")
+
+    def printInfo(self, x):
+        try:
+            if x == "":
+                self.messageBox("")
+            else:
+                info = self.sec.search(upper=x)
+                self.messageBox(info)
+
+        except:  # DO NOT USE BARE EXCEPT
+            self.messageBox("No such school found!")
+
 
 
 if __name__ == "__main__":
