@@ -12,7 +12,7 @@ class Cutoff:
         return result
 
     def sort(self, key='cutoff', reverse=False):
-        return sorted(self.__dict.items(), key=lambda kv: kv[1][0].get(key), reverse=reverse)
+        self.__dict = sorted(self.__dict.items(), key=lambda kv: kv[1][0].get(key), reverse=reverse)
 
     def getDict(self):
         self.__list = genDict(self.__list)
