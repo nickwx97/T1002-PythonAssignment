@@ -4,7 +4,7 @@ from schoolInfo import *
 
 """Import for output display"""
 from schInfoGUIFunction import *
-
+from cutoff import *
 
 class App(tk.Tk):
     def __init__(self, *args, **kwargs):
@@ -216,17 +216,61 @@ class CutOffPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
-        var = StringVar()
-        label1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
-        label1.grid(column=1, row=4, columnspan=3, sticky=(N, S, E, W))
-        L1 = tk.Label(self, text="Cut Off Point: ")
-        L1.grid(row=0, column=2)
+        self.sec = Cutoff("Data/cutoff.csv")
+        self.jc = Cutoff("Data/jc_cutoff.csv")
+
+        self.sec.sort()
+        self.jc.sort()
+
+        def messageBox(x):
+            var = StringVar()
+            label = Message(self, textvariable=var, bd=6, relief=SUNKEN)
+
+            var.set(x)
+            label.grid(row=4, column=2)
+            #label.place(y=80, relwidth=1, height=200)
+
+        def JCprintInfo(x, y):
+            if x == "":
+                messageBox("")
+            else:
+                info = jc.search(x, upper=y)
+                if not info:
+                    messageBox(info)
+                else:
+                    messageBox("No such school found")
+
+        def printInfo(x):
+            try:
+                if x == "":
+                    messageBox("")
+                else:
+                    info = sec.search(upper=x)
+                    messageBox(info)
+
+            except:  # DO NOT USE BARE EXCEPT
+                messageBox("No such school found!")
+
+        L1 = tk.Label(self, text="SEC Cut Off: ")
+        L1.grid(row=1, column=1)
         E1 = Entry(self, bd=5)
-        E1.grid(row=1, column=2)
-        B1 = tk.Button(self, text="Search", command="")
-        B1.grid(row=2, column=2)
-        label1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
-        label1.grid(column=1, row=4, columnspan=3, sticky=(N, S, E, W))
+        E1.grid(row=1, column=3)
+        B1 = tk.Button(self, text="Search", command=lambda: printInfo(E1.get()))
+        B1.grid(row=1, column=4)
+
+        L2 = tk.Label(self, text="JC Cut Off: ")
+        L2.grid(row=2, column=1)
+        variable = StringVar()
+        variable.set("Arts")
+        stream = OptionMenu(self, variable, "Arts", "science / lb")
+        stream.grid(row=2, column=2)
+
+        E2 = Entry(self, bd=5)
+        E2.grid(row=2, column=3)
+        B2 = tk.Button(self, text="Search", command=lambda:JCprintInfo(variable.get(), E2.get()))
+        B2.grid(row=2, column=4)
+
+
         back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
         quit = tk.Button(self, text="Quit", width=20, command=self.quit)
         back.grid(row=5, column=2)
