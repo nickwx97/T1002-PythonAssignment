@@ -14,9 +14,14 @@ def schoolstuff(x,y):
     for sch in school_dict_items_list[len(school_dict_items_list) - 1].items():
         """change the filter condition in the 'Column you want to filter by' in sch[1][0]['Column you want to filter 
         by'] """
-        if sch_enquiry.upper() in sch[1][0][y.lower()].upper():
-            # appending the schools depending on the requested area
-            sch_by_condition_info.append(sch)
+
+        if y == "school_code":
+            if sch_enquiry.upper() in sch[0].upper():
+                sch_by_condition_info.append(sch[0])
+        else:
+            if sch_enquiry.upper() in sch[1][0][y.lower()].upper():
+                # appending the schools depending on the requested area
+                sch_by_condition_info.append(sch)
 
     # print schoolDictItemsList[0]
 
