@@ -64,18 +64,22 @@ class SearchPage(tk.Frame):
         areaarray = []
         schArray = []
 
-        for x in schoolstuff("", "dgp_code"):
-            if x[1][0]["dgp_code"] not in areaarray:
-                areaarray.append(x[1][0]["dgp_code"])
+        # areaarray.extend(schoolstuff("", "school_name"))
+
+
 
         def appendArr(x, y, z):
             del y[:]
+
             sch_name_arr = schoolstuff(x, z)
 
+            # if z =="school_name":
+            #     y = sch_name_arr
+            #     return y
+            # else:
             for name in sch_name_arr:
                 # print name
                 y.append(name)
-
             return y
 
         def schListBox(x, y, z):
@@ -90,16 +94,19 @@ class SearchPage(tk.Frame):
                 Lb1.delete(0, END)
                 appendArr(x, y, z)
                 for schName in y:
-                    Lb1.insert(END, schName[0])
+                    Lb1.insert(END, schName)
+
+
+
         L1 = tk.Label(self, text="Name of School")
         L1.grid(row=1, column=1)
         E1 = Entry(self, bd=5)
         E1.grid(row=1, column=2)
-        B1 = tk.Button(self, text="Search", width=20, command=lambda: printInfo(E1.get(), Toplevel()))
+        B1 = tk.Button(self, text="Search", width=20, command=lambda: schListBox(E1.get(),schArray,"school_name"))
         B1.grid(row=5, column=2)
 
         Lb1 = Listbox(self, height=30, width=50)
-        Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]][0],Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+        Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]],Toplevel()))  # Toplevel() just lets the function to be opened in a new window
         Lb1.grid(row=2, column=2)
 
         scrollbar = Scrollbar(self)
