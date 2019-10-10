@@ -42,17 +42,16 @@ top = Tk()
 
 top.geometry("1000x500")
 
-L1 = Label(top, text="School Area")
-L1.pack()
+
 
 
 schArray = []
 
-typeCodeArray = []
-natureCodeArray = []
-sessionCodeArray = []
-schoolLevelArray = []
-areaarray = []
+typeCodeArray = [""]
+natureCodeArray = [""]
+sessionCodeArray = [""]
+schoolLevelArray = [""]
+areaarray = [""]
 
 
 """You can change the column you want you populate in the dropdown box below here"""
@@ -60,13 +59,58 @@ for x in schoolstuff("","type_code"):
         if x[1][0]["type_code"] not in typeCodeArray:
             typeCodeArray.append(x[1][0]["type_code"])
 
+for x in schoolstuff("","nature_code"):
+        if x[1][0]["nature_code"] not in natureCodeArray:
+            natureCodeArray.append(x[1][0]["nature_code"])
 
-variable = StringVar(top)
+for x in schoolstuff("", "mainlevel_code"):
+    if x[1][0]["mainlevel_code"] not in schoolLevelArray:
+        schoolLevelArray.append(x[1][0]["mainlevel_code"])
+
+filterFrame = Frame(top)
+filterFrame.pack(side=TOP)
+filterFrame.place(y=5,height=300, width=200,relx=0.1)
+
+
+# School Level Type
+schoollevelframe = Frame(filterFrame)
+schoollevelframe.pack()
+L2 = Label(schoollevelframe, text="Student Level")
+L2.pack()
+variable2 = StringVar(schoollevelframe)
+variable2.set("") # default value
+
+"""You can change the column you want you filter below here"""
+y = OptionMenu(schoollevelframe,variable2,*schoolLevelArray)
+y.pack()
+
+
+# School Type Dropdown
+typecodeframe = Frame(filterFrame)
+typecodeframe.pack()
+L1 = Label(typecodeframe, text="School Type")
+L1.pack()
+variable = StringVar(typecodeframe)
 variable.set("") # default value
 
 """You can change the column you want you filter below here"""
-w = OptionMenu(top,variable,*typeCodeArray,command=lambda func: schListBox(variable.get(),schArray,'dgp_code'))
+w = OptionMenu(typecodeframe,variable,*typeCodeArray)
 w.pack()
+
+
+
+# Student Gender Type
+naturecodeframe = Frame(filterFrame)
+naturecodeframe.pack()
+L2 = Label(naturecodeframe, text="Student Gender Type")
+L2.pack()
+variable1 = StringVar(naturecodeframe)
+variable1.set("") # default value
+
+"""You can change the column you want you filter below here"""
+x = OptionMenu(naturecodeframe,variable1,*natureCodeArray)
+x.pack()
+
 
 
 frame = Frame(top)

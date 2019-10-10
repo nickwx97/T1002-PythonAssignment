@@ -18,7 +18,7 @@ def printInfo(x):
         if x == "":
             messageBox("")
         else:
-            schstuff = schoolInfo.schoolStuff(x)
+            schstuff = schoolInfo.schoolstuff(x)
             messageBox(schstuff)
 
     except:  # DO NOT USE BARE EXCEPT
