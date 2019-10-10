@@ -15,7 +15,7 @@ def schoolstuff(x,y):
         """change the filter condition in the 'Column you want to filter by' in sch[1][0]['Column you want to filter 
         by'] """
 
-        if y == "school_code":
+        if y == "school_name":
             if sch_enquiry.upper() in sch[0].upper():
                 sch_by_condition_info.append(sch[0])
         else:
@@ -26,10 +26,12 @@ def schoolstuff(x,y):
     # print schoolDictItemsList[0]
 
     """schByConditionInfo contains all the information of the schools based on the condition given"""
-    for y in sch_by_condition_info:
-        # print y[1][0]
-        for z in y[1][0].keys():
-            y[1][0][z] = y[1][0].get(z).replace('|', ',')
+    if y != "school_name":
+        for y in sch_by_condition_info:
+            # print y[1][0]
+            for z in y[1][0].keys():
+                y[1][0][z] = y[1][0].get(z).replace('|', ',')
 
     return sch_by_condition_info
+
 
