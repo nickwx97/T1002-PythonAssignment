@@ -1,5 +1,6 @@
 from schInfoGUIFunction import *
 from schoolByCondition import *
+import tkMessageBox
 
 """appendArr uses the function schoolstuff from schoolByCondition to populate the array for populating the listbox.
 If you want to change the filter condition, please change it in schoolByCondition.py"""
@@ -17,6 +18,8 @@ def appendArr(x, y, z):
     return y
 
 def appendConditionArr(arr,type,level,gender,returnarr):
+    if len(returnarr) != 0 :
+        del returnarr[:]
 
     resultArr = []
 
@@ -74,6 +77,7 @@ def appendConditionArr(arr,type,level,gender,returnarr):
 def schListBox(arr,x,y,z,returnarr):
     """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
     the array to be processed"""
+
     funcArr = appendConditionArr(arr,x,y,z,returnarr)
     if not x and not y and not z:
         Lb1.delete(0, END)
@@ -82,6 +86,9 @@ def schListBox(arr,x,y,z,returnarr):
 
         for schName in funcArr:
             Lb1.insert(END, schName[0])
+    if len(returnarr) == 0:
+        tkMessageBox.showinfo("", "There is no such school")
+
 
 
     # for z in y:
@@ -168,7 +175,7 @@ x.pack()
 
 
 """Change the filter by changing the column name of the last argument of schListBox"""
-B = Button(top, text="Hello", command=lambda: schListBox(overallList,variable.get(),variable2.get(),variable1.get(),schArray))
+B = Button(top, text="Search", command=lambda: schListBox(overallList,variable.get(),variable2.get(),variable1.get(),schArray))
 
 B.pack()
 
