@@ -158,17 +158,56 @@ class LocationPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
-        var = StringVar()
-        label1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
-        label1.grid(column=1, row=4, columnspan=3, sticky=(N, S, E, W))
+        schArray = []
+        areaarray = []
+
+        for x in schoolstuff("", "dgp_code"):
+            if x[1][0]["dgp_code"] not in areaarray:
+                areaarray.append(x[1][0]["dgp_code"])
+
+        def appendArr(x, y, z):
+            del y[:]
+            sch_name_arr = schoolstuff(x, z)
+
+            for name in sch_name_arr:
+                # print name
+                y.append(name)
+
+            return y
+
+        def schListBox(x, y, z):
+            """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
+            the array to be processed"""
+
+            if x == "":
+                del y[:]
+                Lb1.delete(0, END)
+            else:
+                del y[:]
+                Lb1.delete(0, END)
+                appendArr(x, y, z)
+                for schName in y:
+                    Lb1.insert(END, schName[0])
+
         L1 = tk.Label(self, text="Location: ")
         L1.grid(row=0, column=2)
-        E1 = Entry(self, bd=5)
-        E1.grid(row=1, column=2)
-        B1 = tk.Button(self, text="Search", command="")
-        B1.grid(row=2, column=2)
-        label1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
-        label1.grid(column=1, row=4, columnspan=3, sticky=(N, S, E, W))
+
+        variable = StringVar()
+        variable.set("")  # default value
+
+        """You can change the column you want you filter below here"""
+        w = OptionMenu(self, variable, *areaarray, command=lambda func: schListBox(variable.get(), schArray, 'dgp_code'))
+        w.grid(row=1, column=2)
+
+        Lb1 = Listbox(self, height=30, width=50)
+        Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]][0], Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+        Lb1.grid(row=2, column=2)
+
+        scrollbar = Scrollbar(self)
+        scrollbar.grid(row=2, column=3, sticky=N + S + W)
+        Lb1.config(yscrollcommand=scrollbar.set)
+        scrollbar.config(command=Lb1.yview)
+
         back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
         quit = tk.Button(self, text="Quit", width=20, command=self.quit)
         back.grid(row=5, column=2)
@@ -187,15 +226,19 @@ class CutOffPage(tk.Frame):
 
         #Secondary Cut Off
         L1 = tk.Label(self, text="Secondary Cut Off: ")
-        L1.grid(row=1, column=2)
+        L1.grid(row=1, column=1, columnspan=3)
+        mini = tk.Label(self, text="Minimum: ")
+        mini.grid(row=2, column=1, columnspan=2)
         E1 = Entry(self, bd=5)
-        E1.grid(row=2, column=1)
-        L2 = tk.Label(self, text="To")
-        L2.grid(row=2,column=2)
+        E1.grid(row=2, column=3)
+        #L2 = tk.Label(self, text="To")
+        #L2.grid(row=2,column=2)
+        maxi = tk.Label(self, text="Maximum: ")
+        maxi.grid(row=3, column=1, columnspan=2)
         E2 = Entry(self, bd=5)
-        E2.grid(row=2, column=3)
-        B1 = tk.Button(self, text="Search", command=lambda: self.printInfo(E1.get()))
-        B1.grid(row=3, column=2)
+        E2.grid(row=3, column=3, columnspan=2)
+        B1 = tk.Button(self, text="Search", width=12, command=lambda: self.printInfo(E1.get(), E2.get()))
+        B1.grid(row=4, column=3, )
 
         #JC cut off
         L3 = tk.Label(self, text="JC Cut Off: ")
@@ -207,7 +250,7 @@ class CutOffPage(tk.Frame):
 
         E3 = Entry(self, bd=5)
         E3.grid(row=2, column=16)
-        B2 = tk.Button(self, text="Search", command=lambda: self.JCprintInfo(variable.get(), E2.get()))
+        B2 = tk.Button(self, text="Search", command=lambda: self.JCprintInfo(variable.get(), E3.get()))
         B2.grid(row=2, column=17)
 
         back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
@@ -235,12 +278,12 @@ class CutOffPage(tk.Frame):
             else:
                 self.messageBox("No such school found")
 
-    def printInfo(self, x):
+    def printInfo(self, x, y):
         try:
             if x == "":
                 self.messageBox("")
             else:
-                info = self.sec.search(upper=x)
+                info = self.sec.search(lower=x, upper=y)
                 self.messageBox(info)
 
         except:  # DO NOT USE BARE EXCEPT
