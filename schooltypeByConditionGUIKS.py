@@ -87,6 +87,7 @@ def schListBox(arr,x,y,z,returnarr):
         for schName in funcArr:
             Lb1.insert(END, schName[0])
     if len(returnarr) == 0:
+        """Messagebox pops up when there is no such school"""
         tkMessageBox.showinfo("", "There is no such school")
 
 
@@ -130,7 +131,7 @@ filterFrame.pack(side=TOP)
 filterFrame.place(y=5,height=300, width=200,relx=0.1)
 
 
-# School Level Type
+# School Level Type Dropdown
 schoollevelframe = Frame(filterFrame)
 schoollevelframe.pack()
 L2 = Label(schoollevelframe, text="Student Level")
@@ -159,7 +160,7 @@ w.pack()
 
 
 
-# Student Gender Type
+# Student Gender Type Dropdown
 naturecodeframe = Frame(filterFrame)
 naturecodeframe.pack()
 L2 = Label(naturecodeframe, text="Student Gender Type")
@@ -185,19 +186,14 @@ scrollbar = Scrollbar(frame)
 scrollbar.pack(side=RIGHT, fill=Y)
 
 Lb1 = Listbox(frame, height=30, width=100)
-# appendArr('bedok',schArray,'dgp_code')
+
 """Lb1.bind contains the onclick event of the listBox. Lb1.curselection() is just the position number of each member 
 in the listbox i.e first member will be position number 0 and so on"""
 Lb1.bind('<<ListboxSelect>>', lambda event:printInfo(schArray[Lb1.curselection()[0]][0],Toplevel()))  # Toplevel() just lets the function to be opened in a new window
 
-# printInfo(schArray[Lb1.curselection()[0]][0],Toplevel())
 Lb1.pack(fill=X,expand=1)
 
 Lb1.config(yscrollcommand=scrollbar.set)
 scrollbar.config(command=Lb1.yview)
 
-"""Change the filter by changing the column name of the last argument of schListBox"""
-# B = Button(top, text="Search", command=lambda: schListBox(variable.get(),schArray,'dgp_code'))
-
-# B.pack()
 top.mainloop()
