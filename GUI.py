@@ -5,6 +5,7 @@ from schoolInfo import *
 
 """Import for output display"""
 from schInfoGUIFunction import *
+from schoolByCondition import *
 from cutoff import *
 from subjectsOffered import *
 
@@ -286,15 +287,14 @@ class CutOffPage(tk.Frame):
         else:
             info = []
             cutoff = {}
+            test = {}
             if y.isdigit():
                 info = self.jc.search(key=x, upper=y)
             if info:
                 for i in range(len(info)):
                     for key, val in info[i][1][0].iteritems():
-                        if key == x:
-                            if val <= y:
-                                print key, val
-                                cutoff[info[i][0]] = val
+                        if key == x and val <= y:
+                            cutoff[info[i][0]] = val
                 self.JCmessageBox(cutoff)
 
             else:
