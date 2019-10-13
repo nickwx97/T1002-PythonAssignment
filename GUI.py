@@ -1,4 +1,5 @@
 from Tkinter import *
+import tkMessageBox
 import Tkinter as tk
 from schoolInfo import *
 
@@ -218,65 +219,86 @@ class CutOffPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-
         self.sec = Cutoff("Data/cutoff.csv")
         self.jc = Cutoff("Data/jc_cutoff.csv")
         self.sec.getDict()
         self.jc.getDict()
 
+        w1 = PanedWindow(self)
+        w1.grid(row=2,column=3)
+        w2 = PanedWindow(self)
+        w2.grid(row=3, column=3)
+        w3 = PanedWindow(self)
+        w3.grid(row=3, column=5)
         #Secondary Cut Off
         L1 = tk.Label(self, text="Secondary Cut Off: ")
         L1.grid(row=1, column=1, columnspan=3)
         mini = tk.Label(self, text="Minimum: ")
         mini.grid(row=2, column=1, columnspan=2)
-        E1 = Entry(self, bd=5)
+        E1 = Entry(w1, bd=5)
         E1.grid(row=2, column=3)
         #L2 = tk.Label(self, text="To")
         #L2.grid(row=2,column=2)
         maxi = tk.Label(self, text="Maximum: ")
         maxi.grid(row=3, column=1, columnspan=2)
-        E2 = Entry(self, bd=5)
+        E2 = Entry(w2, bd=5)
         E2.grid(row=3, column=3, columnspan=2)
         B1 = tk.Button(self, text="Search", width=12, command=lambda: self.printInfo(E1.get(), E2.get()))
-        B1.grid(row=4, column=3, )
-
+        B1.grid(row=4, column=3)
+        w1.add(E1)
+        w2.add(E2)
         #JC cut off
         L3 = tk.Label(self, text="JC Cut Off: ")
-        L3.grid(row=1, column=15)
+        L3.grid(row=1, column=5)
         variable = StringVar()
         variable.set(self.jc.getHeaders()[1])
         stream = OptionMenu(self, variable, self.jc.getHeaders()[1], self.jc.getHeaders()[2])
-        stream.grid(row=2, column=14)
+        stream.grid(row=2, column=5)
 
-        E3 = Entry(self, bd=5)
-        E3.grid(row=2, column=16)
+        E3 = Entry(w3, bd=5)
+        E3.grid()
         B2 = tk.Button(self, text="Search", command=lambda: self.JCprintInfo(variable.get(), E3.get()))
-        B2.grid(row=2, column=17)
+        B2.grid(row=4, column=5)
+        w3.add(E3)
 
         back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
         quit = tk.Button(self, text="Quit", width=20, command=self.quit)
-        back.grid(row=5, column=2)
-        quit.grid(row=6, column=2)
+        back.grid(row=9, column=4)
+        quit.grid(row=10, column=4)
 
-    def messageBox(self, x):
+    def JCmessageBox(self, x):
         var = StringVar()
         label = Message(self, textvariable=var, bd=6, relief=SUNKEN)
 
         var.set(x)
-        label.grid(row=4, column=2)
-        #label.place(y=80, relwidth=1, height=200)
+        label.grid(row=6, column=5)
+
+    def messageBox(self, x):
+        var2 = StringVar()
+        label1 = Message(self, textvariable=var2, bd=6, relief=SUNKEN)
+
+        var2.set(x)
+        label1.grid(row=6, column=2)
 
     def JCprintInfo(self, x, y):
         if x == "":
-            self.messageBox("")
+            tkMessageBox.showerror("Error", "Please enter input")
         else:
             info = []
+            cutoff = {}
             if y.isdigit():
                 info = self.jc.search(key=x, upper=y)
             if info:
-                self.messageBox(info)
+                for i in range(len(info)):
+                    for key, val in info[i][1][0].iteritems():
+                        if key == x:
+                            if val <= y:
+                                print key, val
+                                cutoff[info[i][0]] = val
+                self.JCmessageBox(cutoff)
+
             else:
-                self.messageBox("No such school found")
+                tkMessageBox.showerror("Error", "Please enter input")
 
     def printInfo(self, x, y):
         try:
@@ -288,7 +310,6 @@ class CutOffPage(tk.Frame):
 
         except:  # DO NOT USE BARE EXCEPT
             self.messageBox("No such school found!")
-
 
 
 if __name__ == "__main__":
