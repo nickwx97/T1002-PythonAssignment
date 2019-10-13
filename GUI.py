@@ -1,6 +1,7 @@
 from Tkinter import *
 import tkMessageBox
 import Tkinter as tk
+
 from schoolInfo import *
 
 """Import for output display"""
@@ -222,43 +223,41 @@ class CutOffPage(tk.Frame):
         self.controller = controller
         self.sec = Cutoff("Data/cutoff.csv")
         self.jc = Cutoff("Data/jc_cutoff.csv")
+        print "hi", self.sec.search(lower=150, upper=300)
 
-        self.w1 = PanedWindow(self)
-        self.w1.grid(row=2,column=3)
-        self.w2 = PanedWindow(self)
-        self.w2.grid(row=3, column=3)
-        self.w3 = PanedWindow(self)
-        self.w3.grid(row=3, column=5)
         # Secondary Cut Off
         self.L1 = tk.Label(self, text="Secondary Cut Off: ")
         self.L1.grid(row=1, column=1, columnspan=3)
+
         self.mini = tk.Label(self, text="minimum: ")
-        self.mini.grid(row=2, column=1, columnspan=2)
-        self.E1 = Entry(self.w1, bd=5)
+        self.mini.grid(row=2, column=1)
+        self.E1 = tk.Entry(self, bd=5)
         self.E1.grid(row=2, column=3)
-        # L2 = tk.Label(self, text="To")
-        # L2.grid(row=2,column=2)
+
         self.maxi = tk.Label(self, text="maximum: ")
-        self.maxi.grid(row=3, column=1, columnspan=2)
-        self.E2 = Entry(self.w2, bd=5)
-        self.E2.grid(row=3, column=3, columnspan=2)
+        self.maxi.grid(row=3, column=1)
+
+        self.E2 = tk.Entry(self, bd=5)
+        self.E2.grid(row=3, column=3)
+
         self.B1 = tk.Button(self, text="Search", width=12, command=lambda: self.printInfo(self.E1.get(), self.E2.get()))
         self.B1.grid(row=4, column=3)
-        self.w1.add(self.E1)
-        self.w2.add(self.E2)
+
         # JC cut off
         self.L3 = tk.Label(self, text="JC Cut Off: ")
         self.L3.grid(row=1, column=5)
+
         self.variable = StringVar()
         self.variable.set(self.jc.getHeaders()[1])
+
         self.stream = OptionMenu(self, self.variable, self.jc.getHeaders()[1], self.jc.getHeaders()[2])
         self.stream.grid(row=2, column=5)
 
-        self.E3 = Entry(self.w3, bd=5)
-        self.E3.grid()
+        self.E3 = tk.Entry(self, bd=5)
+        self.E3.grid(row=3,column=5)
+
         self.B2 = tk.Button(self, text="Search", command=lambda: self.JCprintInfo(self.variable.get(), self.E3.get()))
         self.B2.grid(row=4, column=5)
-        self.w3.add(self.E3)
 
         self.back = tk.Button(self, text="self.back", width=20, command=lambda: controller.show_frame("StartPage"))
         self.quit = tk.Button(self, text="self.quit", width=20, command=self.quit)
@@ -297,16 +296,12 @@ class CutOffPage(tk.Frame):
                 tkMessageBox.showerror("Error", "Please enter input")
 
     def printInfo(self, x, y):
-        try:
-            if x == "":
-                self.messageBox("")
-            else:
-                print x, y
-                info = self.sec.search(lower=x, upper=y)
-                self.messageBox(info)
-
-        except:  # DO NOT USE BARE EXCEPT
-            self.messageBox("No such school found!")
+        if x == "":
+            tkMessageBox.showerror("Error", "Please enter input")
+        else:
+            print x, y
+            print "this", self.sec.search(upper=x)
+            print self.sec.search(lower=x, upper=y)
 
 
 if __name__ == "__main__":
