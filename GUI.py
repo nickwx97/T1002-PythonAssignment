@@ -42,6 +42,7 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+
         label = tk.Label(self, text="School Portal", font=("Courier", 44))
         label.grid(row=0, column=2)
         tk.title = "School Portal"
@@ -58,8 +59,8 @@ class StartPage(tk.Frame):
         button2.grid(row=2, column=2)
         button3.grid(row=3, column=2)
         button4.grid(row=4, column=2)
-        self.quit.grid(row=5, column=2)
-        self.grid_columnconfigure((0, 4), weight=1)
+        button5.grid(row=5, column=2)
+        self.quit.grid(row=6, column=2)
 
 
 class OverallSearchPage(tk.Frame):
@@ -431,15 +432,15 @@ class CutOffPage(tk.Frame):
 
         # Secondary Cut Off
         self.L1 = tk.Label(self, text="Secondary Cut Off: ")
-        self.L1.grid(row=1, column=1, columnspan=3)
+        self.L1.grid(row=1, column=0, columnspan=3)
 
         self.mini = tk.Label(self, text="minimum: ")
-        self.mini.grid(row=2, column=1)
+        self.mini.grid(row=2, column=0)
         self.E1 = tk.Entry(self, bd=5)
         self.E1.grid(row=2, column=3)
 
         self.maxi = tk.Label(self, text="maximum: ")
-        self.maxi.grid(row=3, column=1)
+        self.maxi.grid(row=3, column=0)
 
         self.E2 = tk.Entry(self, bd=5)
         self.E2.grid(row=3, column=3)
@@ -510,5 +511,8 @@ class CutOffPage(tk.Frame):
 
 if __name__ == "__main__":
     app = App()
-    app.minsize("1000", "500")
+    app.minsize("900", "400")
+    app.title("School Portal")
+    app.grid_rowconfigure(0, weight=1)
+    app.grid_columnconfigure(0, weight=1)
     app.mainloop()
