@@ -1,5 +1,5 @@
-import csv
-from csv import *
+import myCSV
+from myCSV import *
 
 
 def schoolstuff(x):

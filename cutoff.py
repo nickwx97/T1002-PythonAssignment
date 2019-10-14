@@ -1,4 +1,4 @@
-from csv import *
+from myCSV import *
 
 
 class Cutoff:
