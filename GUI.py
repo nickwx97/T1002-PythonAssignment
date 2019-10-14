@@ -66,37 +66,53 @@ class SearchPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
+        def appendArr(x, y, z):
+            del y[:]
+            sch_name_arr = schoolstuff(x, z)
 
-        def messageBox(x):
-            """messageBox generates the box which contains a string. x is the string to be printed, y is the tkinter
-            widget location. It is usually Tk(). DO NOT USE THIS FUNCTION TO CALL OUT THE BOX. FOR LOCAL USE ONLY"""
-            #label = Message(self, textself.variable=var, bd=6, relief=SUNKEN)
-            label1 = Message(self, textvar=var, bd=6, relief=SUNKEN)
-            label1.grid(column=1, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
-            #label.grid(column=1, row=4)
-            var.set(x)
+            for name in sch_name_arr:
+                # print name
+                y.append(name)
 
-        def printInfo(x):
-            """printInfo generates the messageBox outside of the function. x is the search string and y is the tkinter
-            widget location. It is usually Tk(). Use this function to call out the messagebox"""
-            try:
-                if x == "":
-                    messageBox("")
-                else:
-                    schstuff = schoolstuff(x)
-                    messageBox(schstuff)
+            return y
 
-            except:  # DO NOT USE BARE EXCEPT
-                messageBox("No such school found!")
-        var = StringVar()
+        def schListBox(x, y, z):
+            """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
+            the array to be processed"""
+
+            if x == "":
+                del y[:]
+                Lb1.delete(0, END)
+            else:
+                del y[:]
+                Lb1.delete(0, END)
+                appendArr("", y, z)
+                for schName in y:
+                    if x.upper() in schName[0].upper():
+                        Lb1.insert(END, schName[0])
+                        listBoxArray.append(schName)
+
+            # for z in y:
+            #     print z
+
+        schArray = []
+        listBoxArray = []
 
         self.L1 = tk.Label(self, text="Name of School")
         self.L1.grid(row=1, column=1)
         self.E1 = Entry(self, bd=5)
         self.E1.grid(row=2, column=1)
-        self.B1 = tk.Button(self, text="Search", command=lambda: printInfo(self.E1.get()))
+        self.B1 = tk.Button(self, text="Search", command=lambda: schListBox(self.E1.get(),schArray,'dgp_code'))
         self.B1.grid(row=3, column=1)
-        messageBox("")
+        Lb1 = Listbox(self, height=10, width=50)
+        Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(listBoxArray[Lb1.curselection()[0]][0],
+                                                              Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+        Lb1.grid(row=4, column=1)
+
+        scrollbar = Scrollbar(self)
+        scrollbar.grid(row=4, column=2, sticky=N + S + W)
+        Lb1.config(yscrollcommand=scrollbar.set)
+        scrollbar.config(command=Lb1.yview)
         #labeself.L1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
         #labeself.L1.grid(column=1, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
         self.back = tk.Button(self, text="self.back", width=20, command=lambda: controller.show_frame("StartPage"))
@@ -144,6 +160,7 @@ class SubjectPage(tk.Frame):
         var = StringVar()
         self.B1 = tk.Button(self, text="Search", command=lambda: printInfo('secondary'))
         self.B1.grid(row=1, column=2)
+
         #labeself.L1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
         #labeself.L1.grid(column=1, row=4, columnspan=3, sticky=(N, S, E, W))
         # self.E1 = Entry(self, bd=5)
