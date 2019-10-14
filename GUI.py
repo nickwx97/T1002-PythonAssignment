@@ -53,7 +53,7 @@ class StartPage(tk.Frame):
                             command=lambda: controller.show_frame("CutOffPage"))
         button5 = tk.Button(self, text="Search By Location", width=20,
                             command=lambda: controller.show_frame("LocationPage"))
-        self.quit = tk.Button(self, text="quit", width=20, command=self.quit)
+        self.quit = tk.Button(self, text="Quit", width=20, command=self.quit)
         button1.grid(row=1, column=2)
         button2.grid(row=2, column=2)
         button3.grid(row=3, column=2)
@@ -173,14 +173,14 @@ class OverallSearchPage(tk.Frame):
                 schoolLevelArray.append(x[1][0]["mainlevel_code"])
 
         filterFrame = Frame(self)
-        filterFrame.pack(side=TOP)
-        filterFrame.place(y=5, height=300, width=200, relx=0.1)
+        filterFrame.grid()
+        #filterFrame.place(y=5, height=300, width=200, relx=0.1)
 
         # School Level Type Dropdown
         schoollevelframe = Frame(filterFrame)
-        schoollevelframe.pack()
+        schoollevelframe.grid()
         L2 = Label(schoollevelframe, text="Student Level")
-        L2.pack()
+        L2.grid(column=1)
         variable2 = StringVar(schoollevelframe)
         variable2.set("")  # default value
 
@@ -189,13 +189,13 @@ class OverallSearchPage(tk.Frame):
         y.bind('<<OptionMenuSelect>>',
                lambda event: appendConditionArr(overallList, variable.get(), variable2.get(), variable1.get(),
                                                 schArray))
-        y.pack()
+        y.grid(column=1)
 
         # School Type Dropdown
         typecodeframe = Frame(filterFrame)
-        typecodeframe.pack()
+        typecodeframe.grid()
         L1 = Label(typecodeframe, text="School Type")
-        L1.pack()
+        L1.grid(column=1)
         variable = StringVar(typecodeframe)
         variable.set("")  # default value
 
@@ -204,13 +204,13 @@ class OverallSearchPage(tk.Frame):
         w.bind('<<OptionMenuSelect>>',
                lambda event: appendConditionArr(overallList, variable.get(), variable2.get(), variable1.get(),
                                                 schArray))
-        w.pack()
+        w.grid(column=1)
 
         # Student Gender Type Dropdown
         naturecodeframe = Frame(filterFrame)
-        naturecodeframe.pack()
+        naturecodeframe.grid()
         L2 = Label(naturecodeframe, text="Student Gender Type")
-        L2.pack()
+        L2.grid(column=1)
         variable1 = StringVar(naturecodeframe)
         variable1.set("")  # default value
 
@@ -219,20 +219,24 @@ class OverallSearchPage(tk.Frame):
         x.bind('<<OptionMenuSelect>>',
                lambda event: appendConditionArr(overallList, variable.get(), variable2.get(), variable1.get(),
                                                 schArray))
-        x.pack()
+        x.grid(column=1)
 
         """Change the filter by changing the column name of the last argument of schListBox"""
-        B = Button(self, text="Search",
+        B = Button(self, text="Search", width=12,
                    command=lambda: schListBox(overallList, variable.get(), variable2.get(), variable1.get(), schArray))
 
-        B.pack()
+        B.grid(pady=50)
+        self.back = tk.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
+        self.quit = tk.Button(self, text="Quit", width=12, command=self.quit)
+        self.back.grid()
+        self.quit.grid()
 
         frame = Frame(self)
-        frame.place(y=230, height=300, relwidth=0.3, relx=0.5, anchor="center")
+        frame.place(y=180, height=300, relwidth=0.6, relx=0.7, anchor="center")
         scrollbar = Scrollbar(frame)
         scrollbar.pack(side=RIGHT, fill=Y)
 
-        Lb1 = Listbox(frame, height=30, width=100)
+        Lb1 = Listbox(frame, height=30, width=200)
 
         """Lb1.bind contains the onclick event of the listBox. Lb1.curselection() is just the position number of each member 
         in the listbox i.e first member will be position number 0 and so on"""
@@ -285,7 +289,7 @@ class SearchPage(tk.Frame):
         self.L1.grid(row=1, column=1)
         self.E1 = Entry(self, bd=5)
         self.E1.grid(row=2, column=1)
-        self.B1 = tk.Button(self, text="Search", command=lambda: schListBox(self.E1.get(),schArray,'dgp_code'))
+        self.B1 = tk.Button(self, text="Search", width=12, command=lambda: schListBox(self.E1.get(),schArray,'dgp_code'))
         self.B1.grid(row=3, column=1)
         Lb1 = Listbox(self, height=10, width=50)
         Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(listBoxArray[Lb1.curselection()[0]][0],
@@ -298,8 +302,8 @@ class SearchPage(tk.Frame):
         scrollbar.config(command=Lb1.yview)
         #labeself.L1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
         #labeself.L1.grid(column=1, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
-        self.back = tk.Button(self, text="self.back", width=20, command=lambda: controller.show_frame("StartPage"))
-        self.quit = tk.Button(self, text="self.quit", width=20, command=self.quit)
+        self.back = tk.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
+        self.quit = tk.Button(self, text="Quit", width=12, command=self.quit)
         self.back.grid(row=6, column=1)
         self.quit.grid(row=7, column=1)
         self.grid_columnconfigure((1, 7), weight=1)
@@ -411,8 +415,8 @@ class LocationPage(tk.Frame):
         LB1.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=LB1.yview)
 
-        self.back = tk.Button(self, text="self.back", width=20, command=lambda: controller.show_frame("StartPage"))
-        self.quit = tk.Button(self, text="self.quit", width=20, command=self.quit)
+        self.back = tk.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
+        self.quit = tk.Button(self, text="Quit", width=12, command=self.quit)
         self.back.grid(row=5, column=2)
         self.quit.grid(row=6, column=2)
 
@@ -456,11 +460,11 @@ class CutOffPage(tk.Frame):
         self.E3 = tk.Entry(self, bd=5)
         self.E3.grid(row=3,column=5)
 
-        self.B2 = tk.Button(self, text="Search", command=lambda: self.JCprintInfo(self.variable.get(), self.E3.get()))
+        self.B2 = tk.Button(self, text="Search", width=12, command=lambda: self.JCprintInfo(self.variable.get(), self.E3.get()))
         self.B2.grid(row=4, column=5)
 
-        self.back = tk.Button(self, text="self.back", width=20, command=lambda: controller.show_frame("StartPage"))
-        self.quit = tk.Button(self, text="self.quit", width=20, command=self.quit)
+        self.back = tk.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
+        self.quit = tk.Button(self, text="Quit", width=12, command=self.quit)
         self.back.grid(row=9, column=4)
         self.quit.grid(row=10, column=4)
 
