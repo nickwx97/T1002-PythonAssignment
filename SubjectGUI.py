@@ -1,6 +1,6 @@
 import Tkinter
 import tkMessageBox
-import csv
+import myCSV
 
 
 app = Tkinter.Tk()

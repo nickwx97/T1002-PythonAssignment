@@ -1,10 +1,10 @@
-import csv
+import myCSV
 
 schEnquiry = raw_input("Which school do you want to research on?")
 schoolDict = {}
 
 with open('Data/general-information-of-schools.csv', 'r') as csvfile:
-    reader = csv.DictReader(csvfile)
+    reader = myCSV.DictReader(csvfile)
     for row in reader:
         # schoolDict called to store information of school from csv file with the school name as the key
         schoolDict[row['school_name']] = row

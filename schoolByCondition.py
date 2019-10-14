@@ -1,4 +1,4 @@
-from csv import *
+from myCSV import *
 
 def schoolstuff(x,y):
     """Main input is the substring taken from schEnquiry"""
