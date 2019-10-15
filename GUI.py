@@ -359,7 +359,11 @@ class SubjectPage(tk.Frame):
                 print "error"
 
         tkvar = StringVar(self)
-
+        def matchSubject(sub1):
+            matchlist = []
+            matchlist.append(str(sub1))
+            print matchlist
+        subjectmenu1 = StringVar(self)
         # Dictionary with options
         choices = {'Primary', 'Secondary', 'Junior College'}
         tkvar.set('Primary')  # set the default option
@@ -376,15 +380,12 @@ class SubjectPage(tk.Frame):
         var = StringVar()
         self.B1 = tk.Button(self, text="Apply", command=lambda: printInfo(tkvar.get()))
         self.B1.grid(row=0, column=3)
-
-        #labeself.L1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
-        #labeself.L1.grid(column=1, row=4, columnspan=3, sticky=(N, S, E, W))
-        # self.E1 = Entry(self, bd=5)
-        # self.E1.pack(side="top")
+        self.B2 = tk.Button(self, text="Search", command=lambda: matchSubject(subjectmenu1.get))
+        self.B2.grid(row=5, column=2)
         self.back = tk.Button(self, text="self.back", width=20, command=lambda: controller.show_frame("StartPage"))
         self.quit = tk.Button(self, text="self.quit", width=20, command=self.quit)
-        self.back.grid(row=5, column=2)
-        self.quit.grid(row=6, column=2)
+        self.back.grid(row=6, column=2)
+        self.quit.grid(row=7, column=2)
 
         self.grid_columnconfigure((0, 7), weight=1)
 
