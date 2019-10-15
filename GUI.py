@@ -335,22 +335,25 @@ class SubjectPage(tk.Frame):
                     subjectlist=[]
                     for i in schoolstuff:
                         subjectlist.append(i)
-
+                    global subjectmenu1
                     subjectmenu1 = StringVar(self)
                     subjectmenu = OptionMenu(self, subjectmenu1, *subjectlist)
                     subjectmenu1.set(subjectlist[0])  # default value
                     subjectmenu.grid(row=3, column=1)
 
+                    global subjectmenu2
                     subjectmenu2 = StringVar(self)
                     subjectmenu = OptionMenu(self, subjectmenu2, *subjectlist)
                     subjectmenu2.set(subjectlist[0])  # default value
                     subjectmenu.grid(row=3, column=2)
 
+                    global subjectmenu3
                     subjectmenu3 = StringVar(self)
                     subjectmenu = OptionMenu(self, subjectmenu3, *subjectlist)
                     subjectmenu3.set(subjectlist[0])  # default value
                     subjectmenu.grid(row=3, column=3)
 
+                    global subjectmenu4
                     subjectmenu4 = StringVar(self)
                     subjectmenu = OptionMenu(self, subjectmenu4, *subjectlist)
                     subjectmenu4.set(subjectlist[0])  # default value
@@ -359,11 +362,16 @@ class SubjectPage(tk.Frame):
                 print "error"
 
         tkvar = StringVar(self)
-        def matchSubject(sub1):
-            matchlist = []
-            matchlist.append(str(sub1))
-            print matchlist
-        subjectmenu1 = StringVar(self)
+
+        def matchSubject(sub1,sub2,sub3,sub4):
+            matchlist=[]
+            matchlist.append(sub1)
+            matchlist.append(sub2)
+            matchlist.append(sub3)
+            matchlist.append(sub4)
+
+            subjectDict = so.subjectDict()
+            print subjectDict
         # Dictionary with options
         choices = {'Primary', 'Secondary', 'Junior College'}
         tkvar.set('Primary')  # set the default option
@@ -380,10 +388,11 @@ class SubjectPage(tk.Frame):
         var = StringVar()
         self.B1 = tk.Button(self, text="Apply", command=lambda: printInfo(tkvar.get()))
         self.B1.grid(row=0, column=3)
-        self.B2 = tk.Button(self, text="Search", command=lambda: matchSubject(subjectmenu1.get))
+        self.B2 = tk.Button(self, text="Search", command=lambda: matchSubject(subjectmenu1.get(),subjectmenu2.get(),subjectmenu3.get(),
+                                                                              subjectmenu4.get()))
         self.B2.grid(row=5, column=2)
-        self.back = tk.Button(self, text="self.back", width=20, command=lambda: controller.show_frame("StartPage"))
-        self.quit = tk.Button(self, text="self.quit", width=20, command=self.quit)
+        self.back = tk.Button(self, text="back", width=20, command=lambda: controller.show_frame("StartPage"))
+        self.quit = tk.Button(self, text="quit", width=20, command=self.quit)
         self.back.grid(row=6, column=2)
         self.quit.grid(row=7, column=2)
 
