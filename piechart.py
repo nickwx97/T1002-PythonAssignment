@@ -24,7 +24,7 @@ def getPieChart(colname):
     plt.axis('equal')
     plt.title("Type of Schools")
     plt.ylabel('')
-    plt.savefig('pie_1.png')
+    # plt.savefig('pie_1.png')
     plt.show()
 
 
