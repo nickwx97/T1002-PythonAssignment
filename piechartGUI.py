@@ -1,4 +1,4 @@
-import tkinter
+import Tkinter
 from piechart import *
 
 
