@@ -332,22 +332,50 @@ class SubjectPage(tk.Frame):
                     so = SubjectsOffered()
                     so.createDict()
                     schoolstuff = so.getSubjectsByLevel(x)
+                    subjectlist=[]
                     for i in schoolstuff:
-                        num=0
-                        l = Checkbutton(self, text=str(i), var=num)
-                        l.grid()
-                        num+1
+                        subjectlist.append(i)
 
+                    subjectmenu1 = StringVar(self)
+                    subjectmenu = OptionMenu(self, subjectmenu1, *subjectlist)
+                    subjectmenu1.set(subjectlist[0])  # default value
+                    subjectmenu.grid(row=3, column=1)
 
+                    subjectmenu2 = StringVar(self)
+                    subjectmenu = OptionMenu(self, subjectmenu2, *subjectlist)
+                    subjectmenu2.set(subjectlist[0])  # default value
+                    subjectmenu.grid(row=3, column=2)
+
+                    subjectmenu3 = StringVar(self)
+                    subjectmenu = OptionMenu(self, subjectmenu3, *subjectlist)
+                    subjectmenu3.set(subjectlist[0])  # default value
+                    subjectmenu.grid(row=3, column=3)
+
+                    subjectmenu4 = StringVar(self)
+                    subjectmenu = OptionMenu(self, subjectmenu4, *subjectlist)
+                    subjectmenu4.set(subjectlist[0])  # default value
+                    subjectmenu.grid(row=4, column=2)
             except:  # DO NOT USE BARE EXCEPT
-                print
+                print "error"
 
+        tkvar = StringVar(self)
 
+        # Dictionary with options
+        choices = {'Primary', 'Secondary', 'Junior College'}
+        tkvar.set('Primary')  # set the default option
+        popupMenu = OptionMenu(self, tkvar, *choices)
+        popupMenu.grid(row=0, column=2)
+
+        def change_dropdown(*args):
+            print(tkvar.get())
+
+        # link function to change dropdown
+        tkvar.trace('w', change_dropdown)
         var2 = tk.IntVar()
         var3 = tk.IntVar()
         var = StringVar()
-        self.B1 = tk.Button(self, text="Search", command=lambda: printInfo('secondary'))
-        self.B1.grid(row=1, column=2)
+        self.B1 = tk.Button(self, text="Apply", command=lambda: printInfo(tkvar.get()))
+        self.B1.grid(row=0, column=3)
 
         #labeself.L1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
         #labeself.L1.grid(column=1, row=4, columnspan=3, sticky=(N, S, E, W))
