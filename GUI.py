@@ -5,6 +5,7 @@ import Tkinter as tk
 from schoolInfo import *
 
 """Import for output display"""
+import ExportFunction
 from cca import *
 from cutoff import *
 from schInfoGUIFunction import *
@@ -494,11 +495,8 @@ class CCAPage(tk.Frame):
         w = OptionMenu(self,variable,*sorted_ccaarray,command=lambda func: schListBox(variable.get(),schArray,'dgp_code'))
         w.grid()
 
-
-        frame = Frame(self)
-        frame.place(y=230,height=300, relwidth=0.3,relx=0.5,anchor="center")
-        scrollbar = Scrollbar(frame)
-        scrollbar.pack(side=RIGHT, fill=Y)
+        scrollbar = Scrollbar(self)
+        scrollbar.grid(row=2,column=1, sticky=N + S + W)
 
         Lb1 = Listbox(self, height=30, width=100)
         # appendArr('bedok',schArray,'dgp_code')
@@ -506,7 +504,7 @@ class CCAPage(tk.Frame):
         in the listbox i.e first member will be position number 0 and so on"""
         Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]][0],Toplevel()))  # Toplevel() just lets the function to be opened in a new window
 
-        Lb1.grid()
+        Lb1.grid(row=2, column=0)
 
         Lb1.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=Lb1.yview)
@@ -629,7 +627,7 @@ class CutOffPage(tk.Frame):
         top.minsize("1000", "500")
         var = StringVar()
         label = Message(top, textvar=var, bd=6, relief=SUNKEN)
-        e1 = tk.Button(top, text="Export", width=12)
+        e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.JCexport(x))
         var.set(x)
         label.pack(expand=1, side="top")
         e1.pack(expand=1, side="bottom")
@@ -659,7 +657,7 @@ class CutOffPage(tk.Frame):
         var2 = StringVar()
         var3 = StringVar()
         L1 = Message(top, textvar=var2, bd=6, relief=SUNKEN)
-        e1 = tk.Button(top, text="Export", width=12)
+        e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.export(x))
         var2.set(x)
         L1.pack(expand=1, side="top")
         e1.pack(expand=1, side="bottom")
