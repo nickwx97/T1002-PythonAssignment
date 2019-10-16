@@ -5,9 +5,10 @@ import Tkinter as tk
 from schoolInfo import *
 
 """Import for output display"""
+from cca import *
+from cutoff import *
 from schInfoGUIFunction import *
 from schoolByCondition import *
-from cutoff import *
 from subjectsOffered import *
 
 
@@ -18,7 +19,7 @@ class App(tk.Tk):
         container.grid()
 
         self.frames = {}
-        for F in (StartPage, OverallSearchPage, SearchPage, SubjectPage, CutOffPage, LocationPage):
+        for F in (StartPage, OverallSearchPage, SearchPage, SubjectPage, CutOffPage, CCAPage,LocationPage):
             pagename = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[pagename] = frame
@@ -50,17 +51,20 @@ class StartPage(tk.Frame):
         button2 = tk.Button(self, text="Search By Name", width=20, command=lambda: controller.show_frame("SearchPage"))
         button3 = tk.Button(self, text="Search By Subject", width=20,
                             command=lambda: controller.show_frame("SubjectPage"))
-        button4 = tk.Button(self, text="Search By Cut Off Points", width=20,
-                            command=lambda: controller.show_frame("CutOffPage"))
+        button4 = tk.Button(self, text="Search By CCA", width=20,
+                            command=lambda: controller.show_frame("CCAPage"))
         button5 = tk.Button(self, text="Search By Location", width=20,
                             command=lambda: controller.show_frame("LocationPage"))
-        self.quit = tk.Button(self, text="Quit", width=20, command=self.quit)
+        button6 = tk.Button(self, text="Search By Cut Off Points", width=20,
+                            command=lambda: controller.show_frame("CutOffPage"))
+        quit = tk.Button(self, text="Quit", width=20, command=self.quit)
         button1.grid(row=1, column=2)
         button2.grid(row=2, column=2)
         button3.grid(row=3, column=2)
         button4.grid(row=4, column=2)
         button5.grid(row=5, column=2)
-        self.quit.grid(row=6, column=2)
+        button6.grid(row=6, column=2)
+        quit.grid(row=7, column=2)
 
 
 class OverallSearchPage(tk.Frame):
@@ -434,6 +438,84 @@ class SubjectPage(tk.Frame):
         self.grid_columnconfigure((0, 7), weight=1)
 
 
+class CCAPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        def appendArr(y, z):
+            del y[:]
+            sch_name_arr = schoolstuff("", z)
+
+            for name in sch_name_arr:
+                # print name
+                y.append(name)
+
+            return y
+
+        def schListBox(x, y, z):
+            """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
+            the array to be processed"""
+            schlistarr = []
+
+            if x == "":
+                del y[:]
+                Lb1.delete(0, END)
+            else:
+                del y[:]
+                Lb1.delete(0, END)
+                appendArr(y, z)
+
+                for schName in y:
+                    for ccaName in cca.listCcaFromSch(schName[0]):
+                        if x.upper() in ccaName.upper():
+                            schlistarr.append(schName)
+                del y[:]
+                for names in schlistarr:
+                    y.append([names[0]])
+                    Lb1.insert(END, names[0])
+
+        L1 = Label(self, text="CCAs")
+        L1.grid()
+
+        _ccaarray = cca.listCcaFromSch("")
+        ccaarray = []
+        for i in _ccaarray:
+            if i not in ccaarray:
+                ccaarray.append(i)
+
+        sorted_ccaarray = sorted(ccaarray)
+
+        schArray = []
+        variable = StringVar(self)
+        variable.set("") # default value
+
+        """You can change the column you want you filter below here"""
+        w = OptionMenu(self,variable,*sorted_ccaarray,command=lambda func: schListBox(variable.get(),schArray,'dgp_code'))
+        w.grid()
+
+
+        frame = Frame(self)
+        frame.place(y=230,height=300, relwidth=0.3,relx=0.5,anchor="center")
+        scrollbar = Scrollbar(frame)
+        scrollbar.pack(side=RIGHT, fill=Y)
+
+        Lb1 = Listbox(self, height=30, width=100)
+        # appendArr('bedok',schArray,'dgp_code')
+        """Lb1.bind contains the onclick event of the listBox. Lb1.curselection() is just the position number of each member 
+        in the listbox i.e first member will be position number 0 and so on"""
+        Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]][0],Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+
+        Lb1.grid()
+
+        Lb1.config(yscrollcommand=scrollbar.set)
+        scrollbar.config(command=Lb1.yview)
+        self.back = tk.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
+        self.quit = tk.Button(self, text="Quit", width=12, command=self.quit)
+        self.back.grid()
+        self.quit.grid()
+
+
 class LocationPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -502,10 +584,9 @@ class CutOffPage(tk.Frame):
         self.sec = Cutoff("Data/cutoff.csv")
         self.jc = Cutoff("Data/jc_cutoff.csv")
 
-
         # Secondary Cut Off
         self.L1 = tk.Label(self, text="Secondary Cut Off: ")
-        self.L1.grid(row=1, column=0, columnspan=3)
+        self.L1.grid(row=1, column=0, columnspan=4)
 
         self.mini = tk.Label(self, text="minimum: ")
         self.mini.grid(row=2, column=0)
@@ -518,7 +599,7 @@ class CutOffPage(tk.Frame):
         self.E2 = tk.Entry(self, bd=5)
         self.E2.grid(row=3, column=3)
 
-        self.B1 = tk.Button(self, text="Search", width=12, command=lambda: self.printInfo(self.E1.get(), self.E2.get()))
+        self.B1 = tk.Button(self, text="Search", width=12, command=lambda: self.SECprintInfo(self.E1.get(), self.E2.get()))
         self.B1.grid(row=4, column=3)
 
         # JC cut off
@@ -543,18 +624,15 @@ class CutOffPage(tk.Frame):
         self.quit.grid(row=10, column=4)
 
     def JCmessageBox(self, x):
+        top = Toplevel()
+        top.title("JC Cut Off Points")
+        top.minsize("1000", "500")
         var = StringVar()
-        label = Message(self, textvar=var, bd=6, relief=SUNKEN)
-
+        label = Message(top, textvar=var, bd=6, relief=SUNKEN)
+        e1 = tk.Button(top, text="Export", width=12)
         var.set(x)
-        label.grid(row=6, column=5)
-
-    def messageBox(self, x):
-        var2 = StringVar()
-        self.L1 = Message(self, textvar=var2, bd=6, relief=SUNKEN)
-
-        var2.set(x)
-        self.L1.grid(row=6, column=2)
+        label.pack(expand=1, side="top")
+        e1.pack(expand=1, side="bottom")
 
     def JCprintInfo(self, x, y):
         if x == "":
@@ -562,24 +640,48 @@ class CutOffPage(tk.Frame):
         else:
             out = {}
             if y.isdigit():
-                info = self.jc.search(key=x, upper=y)
+                info = self.jc.search(key=x, upper=int(y))
                 if info:
                     for row in info:
                         out[row[0]] = {x.lower(): row[1][0].get(x.lower())}
                     self.JCmessageBox(out)
                 else:
-                    self.JCmessageBox("No school found")
+                    tkMessageBox.showerror("Error", "No schools found")
 
             else:
                 tkMessageBox.showerror("Error", "Please enter input")
 
-    def printInfo(self, x, y):
+    def messageBox(self, x):
+        top = Toplevel()
+        top.title("Secondary Cut Off Points")
+        top.minsize("1000", "500")
+
+        var2 = StringVar()
+        var3 = StringVar()
+        L1 = Message(top, textvar=var2, bd=6, relief=SUNKEN)
+        e1 = tk.Button(top, text="Export", width=12)
+        var2.set(x)
+        L1.pack(expand=1, side="top")
+        e1.pack(expand=1, side="bottom")
+
+    def SECprintInfo(self, x, y):
         if x == "":
             tkMessageBox.showerror("Error", "Please enter input")
         else:
-            print x, y
-            print "this", self.sec.search(upper=x)
-            print self.sec.search(lower=x, upper=y)
+            out = {}
+            cutoff = {}
+            if y.isdigit():
+                secinfo = self.sec.search(lower=int(x), upper=int(y))
+                if secinfo:
+                    for row in secinfo:
+                        cutoff = row[1][0]
+                        for v in cutoff.values():
+                            out[row[0]] = v
+                    self.messageBox(out)
+                else:
+                    tkMessageBox.showerror("Error", "No schools found")
+            else:
+                tkMessageBox.showerror("Error", "No schools found")
 
 
 if __name__ == "__main__":
