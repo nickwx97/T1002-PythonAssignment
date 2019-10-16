@@ -629,11 +629,15 @@ class CutOffPage(tk.Frame):
         top = Toplevel()
         top.title("JC Cut Off Points")
         top.minsize("1000", "500")
-        var = StringVar()
-        label = Message(top, textvar=var, bd=6, relief=SUNKEN)
+        scrollbar = Scrollbar(top)
+        scrollbar.pack(side=RIGHT, fill=Y)
+        L2 = Listbox(top, height=30, width=100)
         e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.JCexport(x))
-        var.set(x)
-        label.pack(expand=1, side="top")
+        for k, v in x.items():
+            L2.insert(END, str(k) + ": " + str(v))
+        L2.pack(expand=YES)
+        L2.config(yscrollcommand=scrollbar.set)
+        scrollbar.config(command=L2.yview)
         e1.pack(expand=1, side="bottom")
 
     def JCprintInfo(self, x, y):
@@ -645,8 +649,7 @@ class CutOffPage(tk.Frame):
                 info = self.jc.search(key=x, upper=int(y))
                 if info:
                     for row in info:
-                        out[row[0]] = {x.lower(): row[1][0].get(x.lower())}
-                    list(out)
+                        out[row[0]] = row[1][0].get(x.lower())
                     self.JCmessageBox(out)
                 else:
                     tkMessageBox.showerror("Error", "No schools found")
@@ -659,12 +662,16 @@ class CutOffPage(tk.Frame):
         top.title("Secondary Cut Off Points")
         top.minsize("1000", "500")
 
-        var2 = StringVar()
-        var3 = StringVar()
-        L1 = Message(top, textvar=var2, bd=6, relief=SUNKEN)
+        scrollbar = Scrollbar(top)
+        scrollbar.pack(side=RIGHT, fill=Y)
+
+        L1 = Listbox(top, height=30, width=100)
         e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.export(x))
-        var2.set(x)
-        L1.pack(expand=1, side="top")
+        for k, v in x.items():
+            L1.insert(END, str(k) + ": " + str(v))
+        L1.pack(expand=YES)
+        L1.config(yscrollcommand=scrollbar.set)
+        scrollbar.config(command=L1.yview)
         e1.pack(expand=1, side="bottom")
 
     def SECprintInfo(self, x, y):
