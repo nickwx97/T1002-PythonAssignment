@@ -329,7 +329,7 @@ class SubjectPage(tk.Frame):
             #label.grid(column=1, row=4)
             var.set(x)
 
-        def printInfo(x):
+        def printInfoDropdown(x):
             """printInfo generates the messageBox outside of the function. x is the search string and y is the tkinter
             widget location. It is usually Tk(). Use this function to call out the messagebox"""
             try:
@@ -378,19 +378,25 @@ class SubjectPage(tk.Frame):
 
             return y
 
-        def schListBox(x, y, z):
+        def schListBox(drop1,drop2,drop3,drop4,y, z):
             """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
             the array to be processed"""
+            schArray = []
+            schFinalArray=[]
+            for k, v in so.filterMultiSubs([drop1, drop2, drop3, drop4]).items():
+                schArray.append(k)
 
-            if x == "":
-                del y[:]
-                LB1.delete(0, END)
-            else:
-                del y[:]
-                LB1.delete(0, END)
-                appendArr(x, y, z)
-                for schName in y:
-                    LB1.insert(END, schName[0])
+            del y[:]
+            LB1.delete(0, END)
+            appendArr("", y, z)
+            for schName in y:
+                for schArrayMem in schArray:
+                    if schName[0].upper() in schArrayMem.upper():
+                        schFinalArray.append(schName[0])
+            del y[:]
+            for names in schFinalArray:
+                y.append(names)
+                LB1.insert(END, names)
 
 
         def matchSubject(sub1,sub2,sub3,sub4):
@@ -416,20 +422,18 @@ class SubjectPage(tk.Frame):
 
         def change_dropdown(*args):
             print(tkvar.get())
-
+        schArray = []
         # link function to change dropdown
         tkvar.trace('w', change_dropdown)
         var2 = tk.IntVar()
         var3 = tk.IntVar()
         var = StringVar()
-        self.B1 = tk.Button(self, text="Apply", command=lambda: printInfo(tkvar.get()))
+        self.B1 = tk.Button(self, text="Apply", command=lambda: printInfoDropdown(tkvar.get()))
         self.B1.grid(row=0, column=3)
-        self.B2 = tk.Button(self, text="Search", command=lambda: matchSubject(subjectmenu1.get(),subjectmenu2.get(),subjectmenu3.get(),
-                                                                              subjectmenu4.get()))
+        self.B2 = tk.Button(self, text="Search", command=lambda: schListBox(subjectmenu1.get(),subjectmenu2.get(),subjectmenu3.get(),subjectmenu4.get(),schArray,'dgp_code'))
         self.B2.grid(row=5, column=2)
         LB1 = Listbox(self, height=30, width=50)
-        LB1.bind('<<ListboxSelect>>', lambda event: printInfo(schoolResult[LB1.curselection()[0]][0],
-                                                              Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+        LB1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[LB1.curselection()[0]],Toplevel()))  # Toplevel() just lets the function to be opened in a new window
         LB1.grid(row=6, column=2)
         self.back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
         self.quit = tk.Button(self, text="Quit", width=20, command=self.quit)
