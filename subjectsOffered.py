@@ -1,5 +1,5 @@
 from schoolByCondition import *
-
+import csv
 
 class SubjectsOffered:
     def getDict(self):
@@ -90,6 +90,15 @@ class SubjectsOffered:
         self.__raw = openCSV("Data/subjects-offered.csv")
         self.__dict = None
         self.__headers = None
+
+    def subjectDict(self):
+        from collections import defaultdict
+        data = defaultdict(list)
+        with open('Data/subjects-offered.csv', 'rb') as data_file:
+            reader = csv.DictReader(data_file)
+            for row in reader:
+                data[row['School_Name']].append(row['Subject_Desc'])
+        return data
 
 
 so = SubjectsOffered()
