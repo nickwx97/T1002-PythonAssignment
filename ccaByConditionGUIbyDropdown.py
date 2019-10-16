@@ -1,11 +1,13 @@
 from cca import *
+from schInfoGUIFunction import *
+from schoolByCondition import *
 """appendArr uses the function schoolstuff from schoolByCondition to populate the array for populating the listbox.
 If you want to change the filter condition, please change it in schoolByCondition.py"""
 
 
-def appendArr(x, y, z):
+def appendArr(y, z):
     del y[:]
-    sch_name_arr = schoolstuff(x,z)
+    sch_name_arr = schoolstuff("",z)
 
     for name in sch_name_arr:
         # print name
@@ -18,6 +20,7 @@ def appendArr(x, y, z):
 def schListBox(x,y,z):
     """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
     the array to be processed"""
+    schlistarr = []
 
     if x=="":
         del y[:]
@@ -25,9 +28,20 @@ def schListBox(x,y,z):
     else:
         del y[:]
         Lb1.delete(0, END)
-        appendArr(x, y, z)
+        appendArr(y, z)
+
         for schName in y:
-            Lb1.insert(END, schName[0])
+            for ccaName in cca.listCcaFromSch(schName[0]):
+                if x.upper() in ccaName.upper():
+                    schlistarr.append(schName)
+        del y[:]
+        for names in schlistarr:
+            y.append([names[0]])
+            Lb1.insert(END, names[0])
+
+
+
+
 
 
     # for z in y:
