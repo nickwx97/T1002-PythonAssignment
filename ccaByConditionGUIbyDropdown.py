@@ -57,7 +57,11 @@ top.geometry("1000x500")
 L1 = Label(top, text="CCAs")
 L1.pack()
 
-ccaarray = cca.listCcaFromSch("")
+_ccaarray = cca.listCcaFromSch("")
+ccaarray = []
+for i in _ccaarray:
+    if i not in ccaarray:
+        ccaarray.append(i)
 
 schArray = []
 variable = StringVar(top)
