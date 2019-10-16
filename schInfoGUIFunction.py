@@ -2,7 +2,7 @@ import Tkinter
 from Tkinter import *
 from schoolByCondition import *
 import schoolInfo
-
+import ExportFunction
 
 # !/usr/bin/python
 
@@ -14,7 +14,7 @@ def messageBox(x, y):
     frame.place(y=230, height=500, relwidth=0.8,relx=0.5,anchor="center")
     var = StringVar()
     label = Message(frame, textvariable=var, bd=6, relief=SUNKEN)
-    e1 = Tkinter.Button(frame, text="Export", width=12)
+    e1 = Tkinter.Button(frame, text="Export", width=12, command=lambda: ExportFunction.schexport(x))
 
     y.geometry("1000x600")
     y.title("School Guide")

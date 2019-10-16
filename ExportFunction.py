@@ -18,12 +18,14 @@ db.printInfo()
 
 import csv
 import tkMessageBox
+import schoolInfo
+import StringIO
 
 
 def export(x):
     try:
         header = ["School Name", "Cut Off Points"]
-        with open("Data/SecCutOffSearchResult.csv", "w") as csvfile:
+        with open("Data/SecCutOffSearchResult.csv", "wb") as csvfile:
             w = csv.writer(csvfile, delimiter=",")
             w.writerow([h for h in header])
             for row in x.items():
@@ -37,12 +39,34 @@ def export(x):
 def JCexport(x):
     try:
         header = ["School Name", "Cut Off Points"]
-        with open("Data/JCcutoffSearchResult.csv", "w") as csvfile:
+        with open("Data/JCcutoffSearchResult.csv", "wb") as csvfile:
             w = csv.writer(csvfile, delimiter=",")
             w.writerow([h for h in header])
             for row in x.items():
                 w.writerow(row)
         csvfile.close()
         tkMessageBox.showinfo("Success", "Export successful")
+    except:
+        tkMessageBox.showerror("Error", "Export Unsuccessful")
+
+
+def schexport(x):
+    try:
+        if tkMessageBox.askyesno('Question', 'Export as new file?'):
+            s = StringIO.StringIO(x)
+            with open("testsch.txt", "w") as f:
+                for line in s:
+                    f.write(line)
+                f.write('-'*100 + '\n\n\n')
+            tkMessageBox.showinfo("Success", "Export successful")
+            f.close()
+        else:
+            s = StringIO.StringIO(x)
+            with open("Data/SchoolSearchResults.txt", "a") as f:
+                for line in s:
+                    f.write(line)
+                f.write('-' * 100 + '\n\n\n')
+            tkMessageBox.showinfo("Success", "Export successful")
+            f.close()
     except:
         tkMessageBox.showerror("Error", "Export Unsuccessful")

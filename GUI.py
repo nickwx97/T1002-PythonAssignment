@@ -642,6 +642,7 @@ class CutOffPage(tk.Frame):
                 if info:
                     for row in info:
                         out[row[0]] = {x.lower(): row[1][0].get(x.lower())}
+                    list(out)
                     self.JCmessageBox(out)
                 else:
                     tkMessageBox.showerror("Error", "No schools found")
