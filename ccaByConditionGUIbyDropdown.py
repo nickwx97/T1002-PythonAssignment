@@ -63,12 +63,14 @@ for i in _ccaarray:
     if i not in ccaarray:
         ccaarray.append(i)
 
+sorted_ccaarray = sorted(ccaarray)
+
 schArray = []
 variable = StringVar(top)
 variable.set("") # default value
 
 """You can change the column you want you filter below here"""
-w = OptionMenu(top,variable,*ccaarray,command=lambda func: schListBox(variable.get(),schArray,'dgp_code'))
+w = OptionMenu(top,variable,*sorted_ccaarray,command=lambda func: schListBox(variable.get(),schArray,'dgp_code'))
 w.pack()
 
 
