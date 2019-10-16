@@ -363,6 +363,31 @@ class SubjectPage(tk.Frame):
 
         tkvar = StringVar(self)
 
+        def appendArr(x, y, z):
+            del y[:]
+            sch_name_arr = schoolstuff(x, z)
+
+            for name in sch_name_arr:
+                # print name
+                y.append(name)
+
+            return y
+
+        def schListBox(x, y, z):
+            """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
+            the array to be processed"""
+
+            if x == "":
+                del y[:]
+                LB1.delete(0, END)
+            else:
+                del y[:]
+                LB1.delete(0, END)
+                appendArr(x, y, z)
+                for schName in y:
+                    LB1.insert(END, schName[0])
+
+
         def matchSubject(sub1,sub2,sub3,sub4):
             matchlist=[]
             matchlist.append(sub1)
@@ -371,7 +396,13 @@ class SubjectPage(tk.Frame):
             matchlist.append(sub4)
 
             subjectDict = so.subjectDict()
-            print subjectDict
+            global schoolResult
+            schoolResult = [school_name
+                 for school_name, school_content in subjectDict.items()
+                 if all(
+                    subject in school_content
+                    for subject in matchlist)]
+            print schoolResult
         # Dictionary with options
         choices = {'Primary', 'Secondary', 'Junior College'}
         tkvar.set('Primary')  # set the default option
@@ -391,10 +422,14 @@ class SubjectPage(tk.Frame):
         self.B2 = tk.Button(self, text="Search", command=lambda: matchSubject(subjectmenu1.get(),subjectmenu2.get(),subjectmenu3.get(),
                                                                               subjectmenu4.get()))
         self.B2.grid(row=5, column=2)
-        self.back = tk.Button(self, text="back", width=20, command=lambda: controller.show_frame("StartPage"))
-        self.quit = tk.Button(self, text="quit", width=20, command=self.quit)
-        self.back.grid(row=6, column=2)
-        self.quit.grid(row=7, column=2)
+        LB1 = Listbox(self, height=30, width=50)
+        LB1.bind('<<ListboxSelect>>', lambda event: printInfo(schoolResult[LB1.curselection()[0]][0],
+                                                              Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+        LB1.grid(row=6, column=2)
+        self.back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
+        self.quit = tk.Button(self, text="Quit", width=20, command=self.quit)
+        self.back.grid(row=7, column=2)
+        self.quit.grid(row=8, column=2)
 
         self.grid_columnconfigure((0, 7), weight=1)
 
@@ -466,7 +501,7 @@ class CutOffPage(tk.Frame):
         self.controller = controller
         self.sec = Cutoff("Data/cutoff.csv")
         self.jc = Cutoff("Data/jc_cutoff.csv")
-        print "hi", self.sec.search(lower=150, upper=300)
+
 
         # Secondary Cut Off
         self.L1 = tk.Label(self, text="Secondary Cut Off: ")
