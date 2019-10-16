@@ -31,7 +31,7 @@ def get1PieChart(input, colname, title, picname):
 def getPieChart(): #To remove at the end
     # This function is more more specific and hardcoded way of getting values and displaying as pie chart
     # Count specific values in a column and display as a pie chart and save the picture
-    with open("test.csv", 'r') as csvfile:
+    with open("Data/general-information-of-schools.csv", 'r') as csvfile:
         csv_reader = csv.reader(csvfile, delimiter=',')
         line_count = 0
         govern = []
