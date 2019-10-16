@@ -54,7 +54,7 @@ def schexport(x):
     try:
         if tkMessageBox.askyesno('Question', 'Export as new file?'):
             s = StringIO.StringIO(x)
-            with open("testsch.txt", "w") as f:
+            with open("Data/SchoolSearchResults.txt", "w") as f:
                 for line in s:
                     f.write(line)
                 f.write('-'*100 + '\n\n\n')
