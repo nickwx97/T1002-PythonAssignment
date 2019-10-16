@@ -36,15 +36,15 @@ class CCA:
         del self.__raw
 
     def __init__(self):
-        self.__raw = openCSV(csvPath())
-        # self.__raw = openCSV("Data/co-curricular-activities-ccas.csv")  # lazy :)
+        # self.__raw = openCSV(csvPath())
+        self.__raw = openCSV("Data/co-curricular-activities-ccas.csv")  # lazy :)
         self.__headers = None
         self.__dict = None
 
 
 cca = CCA()
 cca.genDict()
-print cca.getDict()
+# print cca.getDict()
 # writeCSV(cca.getHeader(), cca.getDict(), csvPath('save'))
 # print cca.searchDict(key='cca_grouping_desc', value="phy")
 # print cca.searchDict(value="Basketball")
