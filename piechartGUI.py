@@ -6,7 +6,7 @@ window = tkinter.Tk()
 window.title('Data Statistics')
 window.geometry("500x500+10+10")
 
-lbl = tkinter.Label(window, text="Data Statistics", fg='red', font=("Helvetica", 24))
+lbl = tkinter.Label(window, text="School Insights", fg='red', font=("Helvetica", 24))
 button1 = tkinter.Button(window, text="Types of School",
                          command=lambda: get1PieChart("Data/general-information-of-schools.csv", 'Type_Code', "Type of Schools",
                                                       "pie_SchoolTypes.png"))
