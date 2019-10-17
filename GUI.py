@@ -340,31 +340,29 @@ class SubjectPage(tk.Frame):
                     subjectlist=[]
                     for i in schoolstuff:
                         subjectlist.append(i)
-                    subjectlist.sort()
-                    global subjectmenu
                     global subjectmenu1
                     subjectmenu1 = StringVar(self)
                     subjectmenu = OptionMenu(self, subjectmenu1, *subjectlist)
-                    subjectmenu1.set('Select a Subject\t\t\t\t\t')  # default value
-                    subjectmenu.grid(row=3, column=2,sticky="ew")
+                    subjectmenu1.set(subjectlist[0])  # default value
+                    subjectmenu.grid(row=3, column=1)
 
                     global subjectmenu2
                     subjectmenu2 = StringVar(self)
                     subjectmenu = OptionMenu(self, subjectmenu2, *subjectlist)
-                    subjectmenu2.set('Select a Subject\t\t\t\t\t')  # default value
-                    subjectmenu.grid(row=4, column=2,sticky="ew")
+                    subjectmenu2.set(subjectlist[0])  # default value
+                    subjectmenu.grid(row=3, column=2)
 
                     global subjectmenu3
                     subjectmenu3 = StringVar(self)
                     subjectmenu = OptionMenu(self, subjectmenu3, *subjectlist)
-                    subjectmenu3.set('Select a Subject\t\t\t\t\t')  # default value
-                    subjectmenu.grid(row=5, column=2,sticky="ew")
+                    subjectmenu3.set(subjectlist[0])  # default value
+                    subjectmenu.grid(row=3, column=3)
 
                     global subjectmenu4
                     subjectmenu4 = StringVar(self)
                     subjectmenu = OptionMenu(self, subjectmenu4, *subjectlist)
-                    subjectmenu4.set('Select a Subject\t\t\t\t\t')  # default value
-                    subjectmenu.grid(row=6, column=2,sticky="ew")
+                    subjectmenu4.set(subjectlist[0])  # default value
+                    subjectmenu.grid(row=4, column=2)
             except:  # DO NOT USE BARE EXCEPT
                 print "error"
 
@@ -416,13 +414,9 @@ class SubjectPage(tk.Frame):
                     subject in school_content
                     for subject in matchlist)]
             print schoolResult
-
-        def reset():
-            subjectmenu.grid_remove
-
         # Dictionary with options
         choices = {'Primary', 'Secondary', 'Junior College'}
-        tkvar.set('Select Level')  # set the default option
+        tkvar.set('Primary')  # set the default option
         popupMenu = OptionMenu(self, tkvar, *choices)
         popupMenu.grid(row=0, column=2)
 
@@ -437,16 +431,16 @@ class SubjectPage(tk.Frame):
         self.B1 = tk.Button(self, text="Apply", command=lambda: printInfoDropdown(tkvar.get()))
         self.B1.grid(row=0, column=3)
         self.B2 = tk.Button(self, text="Search", command=lambda: schListBox(subjectmenu1.get(),subjectmenu2.get(),subjectmenu3.get(),subjectmenu4.get(),schArray,'dgp_code'))
-        self.B2.grid(row=7, column=2)
+        self.B2.grid(row=5, column=2)
         LB1 = Listbox(self, height=30, width=50)
         LB1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[LB1.curselection()[0]],Toplevel()))  # Toplevel() just lets the function to be opened in a new window
-        LB1.grid(row=8, column=2)
+        LB1.grid(row=6, column=2)
         self.back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
         self.quit = tk.Button(self, text="Quit", width=20, command=self.quit)
-        self.back.grid(row=9, column=2)
-        self.quit.grid(row=10, column=2)
+        self.back.grid(row=7, column=2)
+        self.quit.grid(row=8, column=2)
 
-        self.grid_columnconfigure((0, 10), weight=1)
+        self.grid_columnconfigure((0, 7), weight=1)
 
 
 class CCAPage(tk.Frame):
