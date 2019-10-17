@@ -3,6 +3,20 @@ from myCSV import *
 
 class CCA:
 
+    def getUniqueCcaList(self):
+        if self.__ccaList is not []:
+            return self.genUniqueCcaList()
+        else:
+            return self.__ccaList
+
+    def genUniqueCcaList(self):
+        for rows in self.__dict.values():
+            for cols in rows:
+                if not cols.get(self.__headers[3]) in self.__ccaList:
+                    self.__ccaList.append(cols.get(self.__headers[3]))
+        return self.__ccaList
+
+
     def listCcaFromSch(self, key):
         result = []
         for x in self.__dict.keys():
@@ -40,12 +54,13 @@ class CCA:
         self.__raw = openCSV("Data/co-curricular-activities-ccas.csv")  # lazy :)
         self.__headers = None
         self.__dict = None
+        self.__ccaList = []
 
 
 cca = CCA()
 cca.genDict()
-# print cca.getDict()
+print cca.genUniqueCcaList()
 # writeCSV(cca.getHeader(), cca.getDict(), csvPath('save'))
 # print cca.searchDict(key='cca_grouping_desc', value="phy")
-# print cca.searchDict(value="Basketball")
+# print cca.searchDict(value="Astronomy")
 # print cca.listCcaFromSch("Eunoia")

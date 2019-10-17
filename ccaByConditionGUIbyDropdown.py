@@ -1,12 +1,13 @@
 from cca import *
 from schInfoGUIFunction import *
-from schoolByCondition import *
 """appendArr uses the function schoolstuff from schoolByCondition to populate the array for populating the listbox.
 If you want to change the filter condition, please change it in schoolByCondition.py"""
 
 
 def appendArr(y, z):
+    print y
     del y[:]
+    print y
     sch_name_arr = schoolstuff("",z)
 
     for name in sch_name_arr:
