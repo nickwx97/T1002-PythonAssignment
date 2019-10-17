@@ -1,29 +1,13 @@
-'''
-from cutoff import *
-
-
-class Debug:
-    def __init__(self):
-        self.jc = Cutoff("Data/jc_cutoff.csv")
-        self.sec = Cutoff("Data/cutoff.csv")
-
-    def printInfo(self):
-        print self.sec.search(lower=0, upper=300)
-        print self.jc.search('arts', upper=12)
-
-
-db = Debug()
-db.printInfo()
-'''
-
 import csv
 import tkMessageBox
-import schoolInfo
 import StringIO
+import tkFileDialog
 
 
 def export(x):
     try:
+        filename = tkFileDialog.asksaveasfilename(initialdir='Data/', title="Save As", defaultextension=".csv",
+                                                  filetypes=(("CSV", "*.csv"), ("all files", "*.*")))
         header = ["School Name", "Cut Off Points"]
         with open("Data/SecCutOffSearchResult.csv", "wb") as csvfile:
             w = csv.writer(csvfile, delimiter=",")
@@ -38,8 +22,10 @@ def export(x):
 
 def JCexport(x):
     try:
+        filename = tkFileDialog.asksaveasfilename(initialdir='Data/', title="Save As", defaultextension=".csv",
+                                                  filetypes=(("CSV", "*.csv"), ("all files", "*.*")))
         header = ["School Name", "Cut Off Points"]
-        with open("Data/JCcutoffSearchResult.csv", "wb") as csvfile:
+        with open(filename, "wb") as csvfile:
             w = csv.writer(csvfile, delimiter=",")
             w.writerow([h for h in header])
             for row in x.items():
@@ -53,16 +39,21 @@ def JCexport(x):
 def schexport(x):
     try:
         if tkMessageBox.askyesno('Question', 'Export as new file?'):
+            filename = tkFileDialog.asksaveasfilename(initialdir='Data/', title="Save As", defaultextension=".txt", 
+                                                      filetypes=(("Text Files", "*.txt"), ("All Files", "*.*")))
             s = StringIO.StringIO(x)
-            with open("Data/SchoolSearchResults.txt", "w") as f:
+            with open(filename, "w") as f:
                 for line in s:
                     f.write(line)
                 f.write('-'*100 + '\n\n\n')
             tkMessageBox.showinfo("Success", "Export successful")
             f.close()
         else:
+            filename = tkFileDialog.askopenfilename(initialdir='Data/', title="Select Existing File",
+                                                    defaultextension=".txt",filetypes=(("Text Files", "*.txt"),
+                                                                                       ("All Files", "*.*")))
             s = StringIO.StringIO(x)
-            with open("Data/SchoolSearchResults.txt", "a") as f:
+            with open(filename, "a") as f:
                 for line in s:
                     f.write(line)
                 f.write('-' * 100 + '\n\n\n')
