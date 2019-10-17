@@ -51,7 +51,6 @@ def appendCCAs():
             ccaarray.append(i)
 
     return sorted(ccaarray)
-
 def listBox(selected, arr):
     itemsarr = []
     if selected == "":
