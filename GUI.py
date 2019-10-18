@@ -297,7 +297,7 @@ class SearchPage(tk.Frame):
         self.E1.grid(row=2, column=1)
         self.B1 = tk.Button(self, text="Search", width=12, command=lambda: schListBox(self.E1.get(),schArray,'dgp_code'))
         self.B1.grid(row=3, column=1)
-        Lb1 = Listbox(self, height=10, width=50)
+        Lb1 = Listbox(self, height=30, width=100)
         Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(listBoxArray[Lb1.curselection()[0]][0],
                                                               Toplevel()))  # Toplevel() just lets the function to be opened in a new window
         Lb1.grid(row=4, column=1)
@@ -310,9 +310,8 @@ class SearchPage(tk.Frame):
         #labeself.L1.grid(column=1, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
         self.back = tk.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
         self.quit = tk.Button(self, text="Quit", width=12, command=self.quit)
-        self.back.grid(row=6, column=1)
-        self.quit.grid(row=7, column=1)
-        self.grid_columnconfigure((1, 7), weight=1)
+        self.back.grid(row=5, column=1)
+        self.quit.grid(row=6, column=1)
 
 
 class SubjectPage(tk.Frame):
@@ -570,7 +569,7 @@ class LocationPage(tk.Frame):
         w = OptionMenu(self, self.variable, *areaarray, command=lambda func: schListBox(self.variable.get(), schArray, 'dgp_code'))
         w.grid(row=1, column=2)
 
-        LB1 = Listbox(self, height=30, width=50)
+        LB1 = Listbox(self, height=30, width=100)
         LB1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[LB1.curselection()[0]][0], Toplevel()))  # Toplevel() just lets the function to be opened in a new window
         LB1.grid(row=2, column=2)
 
@@ -638,13 +637,13 @@ class CutOffPage(tk.Frame):
         scrollbar = Scrollbar(top)
         scrollbar.pack(side=RIGHT, fill=Y)
         L2 = Listbox(top, height=30, width=100)
-        e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.JCexport(x))
+        e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.JCexport(x, top))
         for k, v in x.items():
             L2.insert(END, str(k) + ": " + str(v))
         L2.pack(expand=YES)
         L2.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=L2.yview)
-        e1.pack(expand=1, side="bottom")
+        e1.pack(expand=1, side="bottom", pady=20)
 
     def JCprintInfo(self, x, y):
         if x == "":
@@ -672,13 +671,13 @@ class CutOffPage(tk.Frame):
         scrollbar.pack(side=RIGHT, fill=Y)
 
         L1 = Listbox(top, height=30, width=100)
-        e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.export(x))
+        e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.export(x, top))
         for k, v in x.items():
             L1.insert(END, str(k) + ": " + str(v))
         L1.pack(expand=YES)
         L1.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=L1.yview)
-        e1.pack(expand=1, side="bottom")
+        e1.pack(expand=1, side="bottom", pady=20)
 
     def SECprintInfo(self, x, y):
         if x == "":
