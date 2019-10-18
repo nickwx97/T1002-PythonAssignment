@@ -653,10 +653,11 @@ class CutOffPage(tk.Frame):
         else:
             out = {}
             if y.isdigit():
-                info = self.jc.search(key=x, upper=int(y)).sort(key=x)
+                info = self.jc.search(key=x, upper=int(y))
                 if info:
-                    for row in info:
-                        out[row[0]] = row[1][0].get(x.lower())
+                    for row in info.items():
+                        print row[1][0]
+                        out[row[0]] = row[1][0].get(x)
                     self.JCmessageBox(out)
                 else:
                     tkMessageBox.showerror("Error", "No schools found")
