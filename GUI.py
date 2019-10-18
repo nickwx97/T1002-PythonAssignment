@@ -656,7 +656,6 @@ class CutOffPage(tk.Frame):
                 info = self.jc.search(key=x, upper=int(y))
                 if info:
                     for row in info.items():
-                        print row[1][0]
                         out[row[0]] = row[1][0].get(x)
                     self.JCmessageBox(out)
                 else:
