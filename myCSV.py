@@ -105,6 +105,20 @@ def writeCSV(headers, data, p):
         return True
 
 
+def schCSV(text, p):
+    try:
+        csv1 = open(p, 'w')
+    except IOError:
+        print "Please enter valid file path!"
+        return False
+    else:
+        for line in text:
+            csv1.write(line)
+        csv1.write('-' * 100 + '\n\n\n')
+        csv1.close()
+        return True
+
+
 def csvPath(defText, command='select'):
     """
     Creates GUI to accept user input for CSV file or to save CSV file
