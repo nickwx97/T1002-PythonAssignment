@@ -92,6 +92,7 @@ class SubjectsOffered:
         self.__raw = openCSV("Data/subjects-offered.csv")
         self.__dict = None
         self.__headers = None
+        self.createDict()
 
     def subjectDict(self):
         from collections import defaultdict
@@ -102,10 +103,3 @@ class SubjectsOffered:
                 data[row['School_Name']].append(row['Subject_Desc'])
         return data
 
-
-so = SubjectsOffered()
-so.createDict()
-# print so.getSubjectsByLevel('secondary')
-# print so.getUniqueSubjectList()
-# for k, v in so.filterMultiSubs(['Physics','Additional Mathematics',"Chemistry","Art"]).items():
-#     print k

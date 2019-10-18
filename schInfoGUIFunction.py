@@ -1,11 +1,11 @@
 import Tkinter
 
 import ExportFunction
+from cca import *
 import schoolInfo
 from schoolByCondition import *
 
-
-# !/usr/bin/python
+from subjectsOffered import SubjectsOffered
 
 
 def messageBox(x, y):
@@ -13,15 +13,30 @@ def messageBox(x, y):
     widget location. It is usually Tk(). DO NOT USE THIS FUNCTION TO CALL OUT THE BOX. FOR LOCAL USE ONLY"""
     frame = Frame(y)
     frame.place(y=230, height=500, relwidth=0.8, relx=0.5, anchor="center")
-    var = StringVar()
-    label = Message(frame, textvariable=var, bd=6, relief=SUNKEN)
+    frame.grid_propagate(False)
+    frame.grid(padx=10, pady=10, sticky="nsew")
+    # implement stretchability
+    frame.grid_rowconfigure(0, weight=1)
+    frame.grid_columnconfigure(0, weight=1)
+    txt = Text(frame, wrap=WORD)
+    txt.grid_rowconfigure(0, weight=2)
+    txt.grid_columnconfigure(0, weight=2)
+    txt.grid(row=0, column=0, sticky="nsew", padx=2, pady=2)
+    vscrollb = Tkinter.Scrollbar(frame, command=txt.yview)
+    txt['yscrollcommand'] = vscrollb.set
+    vscrollb.grid(row=0, column=1, sticky='nsew')
+    hscrollb = Tkinter.Scrollbar(frame, command=txt.xview, orient='horizontal')
+    txt['xscrollcommand'] = hscrollb.set
+    hscrollb.grid(row=1, column=0, sticky='nsew')
     e1 = Tkinter.Button(frame, text="Export", width=12, command=lambda: ExportFunction.schexport(x, y))
+    e1.grid(row=1, column=0, sticky='nsew')
 
     y.geometry("1000x600")
     y.title("School Guide")
+    txt.insert(INSERT, x)
+    txt["state"] = DISABLED
 
-    var.set(x)
-    label.pack(expand=1, side="top")
+    txt.pack(expand=1, side="bottom")
     e1.pack(expand=1, side="bottom")
     y.mainloop()
 
@@ -33,7 +48,15 @@ def printInfo(x, y):
         if x == "":
             messageBox("", y)
         else:
-            schstuff = schoolInfo.schoolstuff(x)
+            schstuff = schoolInfo.schoolstuff(x) + '\n'
+            schstuff += "-" * 80 + '\nCCA(s) offered:\n'
+            c = CCA()
+            for item in c.listCcaFromSch(x):
+                schstuff += item + '\n'
+            schstuff += "-" * 80 + '\nSubject(s) offered:\n'
+            s = SubjectsOffered()
+            for item in s.getSubjectsBySchoolName(x):
+                schstuff += item + '\n'
             messageBox(schstuff, y)
 
     except:  # DO NOT USE BARE EXCEPT
