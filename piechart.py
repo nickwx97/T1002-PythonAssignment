@@ -1,6 +1,6 @@
-import matplotlib.pyplot as plt
-import numpy as np
 import csv
+
+import matplotlib.pyplot as plt
 import pandas as pd
 
 
@@ -9,6 +9,7 @@ def make_autopct(values):  # to display the count and percentage in the chart
         total = sum(values)
         val = int(round(pct * total / 100.0))
         return '{p:.0f}% ({v:d})'.format(p=pct, v=val)
+
     return my_autopct
 
 
@@ -28,7 +29,7 @@ def get1PieChart(input, colname, title, picname):
     plt.show()
 
 
-def getPieChart(): #To remove at the end
+def getPieChart():  # To remove at the end
     # This function is more more specific and hardcoded way of getting values and displaying as pie chart
     # Count specific values in a column and display as a pie chart and save the picture
     with open("Data/general-information-of-schools.csv", 'r') as csvfile:
@@ -90,13 +91,14 @@ def get2PieCharts(input, col1, col2, title, picname):
 print getPieChart()  # Edit the function
 
 # Below are dynamic functions
-# To get 1 pie chart
+# To get 1.csv pie chart
 # Inputs for get1PieChart: Input csv, Column name, Title for the graph, name the picture of the graph to save as
 print get1PieChart("Data/test.csv", 'Type_Code', "Type of Schools", "pie_SchoolTypes.png")
 print get1PieChart("Data/school-distinctive-programmes.csv", 'Alp_Domain',
                    "Types of Applied Learning Programmes in School", 'pie_ALP.png')
-print get1PieChart("Data/moe-programmes.csv", 'Moe_Programme_Desc', "Type of Programmes in School", "pie_SchoolProgTypes.png")
+print get1PieChart("Data/moe-programmes.csv", 'Moe_Programme_Desc', "Type of Programmes in School",
+                   "pie_SchoolProgTypes.png")
 # To get 2 pie chart in one figure
 # Inputs for get2PieCharts: Input csv, Column name1, Column name2, Title for the graph, name the picture of the graph to save as
-print get2PieCharts("Data/school-distinctive-programmes.csv", "Domain 1", "Domain 2",
+print get2PieCharts("Data/school-distinctive-programmes.csv", "Domain 1.csv", "Domain 2",
                     "Types of Learning for Life Programmes in Schools", "pie_LLP.png")

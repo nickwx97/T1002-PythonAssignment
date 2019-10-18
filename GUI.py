@@ -1,15 +1,12 @@
-from Tkinter import *
-import tkMessageBox
 import Tkinter as tk
+import tkMessageBox
 
 from schoolInfo import *
 
 """Import for output display"""
-import ExportFunction
 from cca import *
 from cutoff import *
 from schInfoGUIFunction import *
-from schoolByCondition import *
 from subjectsOffered import *
 
 
@@ -162,9 +159,6 @@ class OverallSearchPage(tk.Frame):
                 """Messagebox pops up when there is no such school"""
                 tkMessageBox.showinfo("", "There is no such school")
 
-        def printtest(x):
-            print x
-
         typeCodeArray = [""]
         natureCodeArray = [""]
         sessionCodeArray = [""]
@@ -187,7 +181,7 @@ class OverallSearchPage(tk.Frame):
 
         filterFrame = Frame(self)
         filterFrame.grid()
-        # filterFrame.place(y=5, height=300, width=200, relx=0.1)
+        # filterFrame.place(y=5, height=300, width=200, relx=0.1.csv)
 
         # School Level Type Dropdown
         schoollevelframe = Frame(filterFrame)
@@ -316,7 +310,7 @@ class SearchPage(tk.Frame):
         Lb1.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=Lb1.yview)
         # labeself.L1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
-        # labeself.L1.grid(column=1, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
+        # labeself.L1.grid(column=1.csv, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
         self.back = tk.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
         self.quit = tk.Button(self, text="Quit", width=12, command=self.quit)
         self.back.grid(row=5, column=1)
@@ -334,7 +328,7 @@ class SubjectPage(tk.Frame):
             # label = Message(self, textself.variable=var, bd=6, relief=SUNKEN)
             label1 = Message(self, textvar=var, bd=6, relief=SUNKEN)
             label1.grid(column=1, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
-            # label.grid(column=1, row=4)
+            # label.grid(column=1.csv, row=4)
             var.set(x)
 
         def printInfoDropdown(x):
@@ -422,7 +416,6 @@ class SubjectPage(tk.Frame):
                             if all(
                     subject in school_content
                     for subject in matchlist)]
-            print schoolResult
 
         def reset():
             subjectmenu.grid_remove
@@ -433,12 +426,8 @@ class SubjectPage(tk.Frame):
         popupMenu = OptionMenu(self, tkvar, *choices)
         popupMenu.grid(row=0, column=2)
 
-        def change_dropdown(*args):
-            print(tkvar.get())
-
         schArray = []
         # link function to change dropdown
-        tkvar.trace('w', change_dropdown)
         var2 = tk.IntVar()
         var3 = tk.IntVar()
         var = StringVar()
@@ -684,7 +673,7 @@ class CutOffPage(tk.Frame):
         scrollbar.pack(side=RIGHT, fill=Y)
 
         L1 = Listbox(top, height=30, width=100)
-        e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.export(self.sec.getHeaders(), x))
+        e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.export(self.sec.getHeaders(), dict(x)))
         for k, v in x:
             L1.insert(END, str(k) + ": " + str(v))
         L1.pack(expand=YES)
@@ -698,10 +687,7 @@ class CutOffPage(tk.Frame):
         else:
             out = {}
             if y.isdigit():
-                secinfo = dict((k, v) for k, v in
-                               sorted(self.sec.search(lower=int(x), upper=int(y)),
-                                      key=lambda kv: kv[1][0].get('cutoff'),
-                                      reverse=True))
+                secinfo = self.sec.search(lower=int(x))
                 if secinfo:
                     for col, row in secinfo.items():
                         out[col] = row[0].get('cutoff')

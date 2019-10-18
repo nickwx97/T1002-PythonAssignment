@@ -1,5 +1,7 @@
-from schoolByCondition import *
 import csv
+
+from schoolByCondition import *
+
 
 class SubjectsOffered:
     def getDict(self):

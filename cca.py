@@ -57,5 +57,3 @@ class CCA:
         self.__dict = None
         self.__ccaList = []
         self.genDict()
-
-

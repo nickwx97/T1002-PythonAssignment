@@ -67,24 +67,33 @@ def writeCSV(headers, data, p):
             col = col[:x] + '"' + col[x:]
         if ',' in col:
             newcol = '"' + col + '"'
-        for item in data.get(col):
-            if newcol is None:
-                line += col + ','
-            else:
-                line += newcol + ','
-            if type(item) is str:
-                x = item
-                if ',' in x:
-                    x = '"' + x + '"'
-                line += x + ','
-            else:
-                for items in headers[1:]:
-                    x = item.get(items)
+
+        if type(data.get(col)) is str or int or chr or float:
+            result += col + "," + data.get(col) + '\n'
+        else:
+            for item in data.get(col):
+                if newcol is None:
+                    line += col + ','
+                else:
+                    line += newcol + ','
+                if type(item) is str or int or chr or float:
+                    x = item
                     if ',' in x:
                         x = '"' + x + '"'
                     line += x + ','
-            result += line[:-1] + '\n'
-            line = ""
+                elif type(item) is list:
+                    x = item[0]
+                    if ',' in x:
+                        x = '"' + x + '"'
+                    line += x + ','
+                else:
+                    for items in headers[1:]:
+                        x = item.get(items)
+                        if ',' in x:
+                            x = '"' + x + '"'
+                        line += x + ','
+                result += line[:-1] + '\n'
+                line = ""
     try:
         csv1 = open(p, 'w')
     except IOError:

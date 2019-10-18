@@ -1,25 +1,26 @@
-import tkMessageBox
 import StringIO
 import tkFileDialog
+import tkMessageBox
+
 import myCSV
+
 
 def closewindow(x):
     x.destroy()
 
-def export(headers, x,y):
-    if myCSV.writeCSV(headers, x, myCSV.csvPath("Saving Secondary cutoff points", "save")):
+
+def export(headers, data):
+    if myCSV.writeCSV(headers, data, myCSV.csvPath("Saving Secondary cutoff points", "save")):
         tkMessageBox.showinfo("Success", "Export successful")
     else:
         tkMessageBox.showerror("Error", "Export Unsuccessful")
-    closewindow(y)
 
 
-def JCexport(headers, x,y):
-    if myCSV.writeCSV(headers, x, myCSV.csvPath("Saving JC cutoff points", "save")):
+def JCexport(headers, data):
+    if myCSV.writeCSV(headers, data, myCSV.csvPath("Saving JC cutoff points", "save")):
         tkMessageBox.showinfo("Success", "Export successful")
     else:
         tkMessageBox.showerror("Error", "Export Unsuccessful")
-        closewindow(y)
 
 
 def schexport(x, y):

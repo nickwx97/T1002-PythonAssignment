@@ -1,6 +1,4 @@
 import matplotlib.pyplot as plt
-import numpy as np
-import csv
 import pandas as pd
 
 
@@ -9,6 +7,7 @@ def make_autopct(values):  # to display the count and percentage in the chart
         total = sum(values)
         val = int(round(pct * total / 100.0))
         return '{p:.0f}% ({v:d})'.format(p=pct, v=val)
+
     return my_autopct
 
 
@@ -38,13 +37,13 @@ def get1PieChart(input, colname, title, picname):
 #         nogovern = []
 #         for row in csv_reader:
 #             if line_count == 0:
-#                 line_count += 1
+#                 line_count += 1.csv
 #             else:
 #                 if 'Government' in row[24]:  # Enter the specific value in the column and column index
-#                     line_count += 1
+#                     line_count += 1.csv
 #                     govern.append({", ".join(row)})
 #                 else:  # Add elif, if need to find more specific values
-#                     line_count += 1
+#                     line_count += 1.csv
 #                     nogovern.append({", ".join(row)})
 #
 #     # Below are for pie chart appearance
@@ -85,12 +84,11 @@ def get2PieCharts(input, col1, col2, title, picname):
     fig.savefig(picname, dpi=100)
     plt.show()
 
-
 # Below is a specific function
 # print getPieChart()  # Edit the function
 
 # Below are dynamic functions
-# To get 1 pie chart
+# To get 1.csv pie chart
 # Inputs for get1PieChart: Input csv, Column name, Title for the graph, name the picture of the graph to save as
 # print get1PieChart("test.csv", 'Type_Code', "Type of Schools", "pie_SchoolTypes.png")
 # print get1PieChart("school-distinctive-programmes.csv", 'Alp_Domain',
@@ -98,5 +96,5 @@ def get2PieCharts(input, col1, col2, title, picname):
 # print get1PieChart("moe-programmes.csv", 'Moe_Programme_Desc', "Type of Programmes in School", "pie_SchoolProgTypes.png")
 # # To get 2 pie chart in one figure
 # # Inputs for get2PieCharts: Input csv, Column name1, Column name2, Title for the graph, name the picture of the graph to save as
-# print get2PieCharts("school-distinctive-programmes.csv", "Domain 1", "Domain 2",
+# print get2PieCharts("school-distinctive-programmes.csv", "Domain 1.csv", "Domain 2",
 #                     "Types of Learning for Life Programmes in Schools", "pie_LLP.png")

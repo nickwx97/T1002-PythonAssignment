@@ -1,7 +1,4 @@
 import Tkinter
-import tkMessageBox
-import myCSV
-
 
 app = Tkinter.Tk()
 app.minsize(1200, 400)
@@ -21,4 +18,3 @@ var1 = Tkinter.IntVar()
 c = Tkinter.Checkbutton(app, text="Expand", variable=var1)
 c.pack()
 app.mainloop()
-

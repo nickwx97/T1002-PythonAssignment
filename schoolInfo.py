@@ -1,10 +1,7 @@
-import myCSV
 from myCSV import *
 
 
 def schoolstuff(x):
-
-
     schEnquiry = x
 
     schoolDictItemsList = genDict(openCSV("Data/general-information-of-schools.csv"))
@@ -14,14 +11,10 @@ def schoolstuff(x):
 
     for x in schoolDictItems.items():
         for y in schoolDictItemsHeader[1:]:
-            x[1][0][y] = x[1][0].get(y).replace('|',',')
-
-
+            x[1][0][y] = x[1][0].get(y).replace('|', ',')
 
     # schoolDictItems is the list of all the information of the requested school retrived from schoolDictItems with the school name as the key
-    #schoolDictItemsItems = list(v for k, v in schoolDictItems.items() if schEnquiry in k.lower())
-
-
+    # schoolDictItemsItems = list(v for k, v in schoolDictItems.items() if schEnquiry in k.lower())
 
     schoolName = ""
 
@@ -33,26 +26,24 @@ def schoolstuff(x):
 
     schoolDictItems = schoolDictItems[schoolName.title()][0]
 
-
-
     schoolAdd = schoolDictItems["address"]
     schTel = schoolDictItems["telephone_no"]
     schEmail = schoolDictItems["email_address"]
     schMRT = schoolDictItems["mrt station"]
     schBus = schoolDictItems["buses"]
-    schType = schoolDictItems["type_code"] + "/" + schoolDictItems["nature_code"] + "/" + schoolDictItems["session_code"] + "/" + schoolDictItems["mainlevel_code"]
+    schType = schoolDictItems["type_code"] + "/" + schoolDictItems["nature_code"] + "/" + schoolDictItems[
+        "session_code"] + "/" + schoolDictItems["mainlevel_code"]
     mission = schoolDictItems["missionstatement_desc"]
     vision = schoolDictItems["visionstatement_desc"]
 
-
     resultstr = "School Name: " + schoolName + "\n\n" \
-                "Address: " + schoolAdd + "\n\n" \
-                "Contact No: " + schTel + "\n\n" \
-                "Email: " + schEmail + "\n\n" \
-                "Nearby MRTs: " + schMRT + "\n\n" \
-                "Buses: " + schBus + "\n\n" \
-                "School Type: " + schType + "\n\n" \
-                "Mission: " + mission + "\n\n" \
-                "Vision: " + vision + "\n\n"
+                                               "Address: " + schoolAdd + "\n\n" \
+                                                                         "Contact No: " + schTel + "\n\n" \
+                                                                                                   "Email: " + schEmail + "\n\n" \
+                                                                                                                          "Nearby MRTs: " + schMRT + "\n\n" \
+                                                                                                                                                     "Buses: " + schBus + "\n\n" \
+                                                                                                                                                                          "School Type: " + schType + "\n\n" \
+                                                                                                                                                                                                      "Mission: " + mission + "\n\n" \
+                                                                                                                                                                                                                              "Vision: " + vision + "\n\n"
 
     return resultstr
