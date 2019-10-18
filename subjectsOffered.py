@@ -105,5 +105,5 @@ so = SubjectsOffered()
 so.createDict()
 # print so.getSubjectsByLevel('secondary')
 # print so.getUniqueSubjectList()
-# for k, v in so.filterMultiSubs(['Physics', 'H1 Physics', 'Active Citizenry Education']).items():
-#     print k, v
+# for k, v in so.filterMultiSubs(['Physics','Additional Mathematics',"Chemistry","Art"]).items():
+#     print k

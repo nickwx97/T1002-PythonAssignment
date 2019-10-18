@@ -5,6 +5,7 @@ import Tkinter as tk
 from schoolInfo import *
 
 """Import for output display"""
+import ExportFunction
 from cca import *
 from cutoff import *
 from schInfoGUIFunction import *
@@ -328,7 +329,7 @@ class SubjectPage(tk.Frame):
             #label.grid(column=1, row=4)
             var.set(x)
 
-        def printInfo(x):
+        def printInfoDropdown(x):
             """printInfo generates the messageBox outside of the function. x is the search string and y is the tkinter
             widget location. It is usually Tk(). Use this function to call out the messagebox"""
             try:
@@ -339,29 +340,31 @@ class SubjectPage(tk.Frame):
                     subjectlist=[]
                     for i in schoolstuff:
                         subjectlist.append(i)
+                    subjectlist.sort()
+                    global subjectmenu
                     global subjectmenu1
                     subjectmenu1 = StringVar(self)
                     subjectmenu = OptionMenu(self, subjectmenu1, *subjectlist)
-                    subjectmenu1.set(subjectlist[0])  # default value
-                    subjectmenu.grid(row=3, column=1)
+                    subjectmenu1.set('Select a Subject\t\t\t\t\t')  # default value
+                    subjectmenu.grid(row=3, column=2,sticky="ew")
 
                     global subjectmenu2
                     subjectmenu2 = StringVar(self)
                     subjectmenu = OptionMenu(self, subjectmenu2, *subjectlist)
-                    subjectmenu2.set(subjectlist[0])  # default value
-                    subjectmenu.grid(row=3, column=2)
+                    subjectmenu2.set('Select a Subject\t\t\t\t\t')  # default value
+                    subjectmenu.grid(row=4, column=2,sticky="ew")
 
                     global subjectmenu3
                     subjectmenu3 = StringVar(self)
                     subjectmenu = OptionMenu(self, subjectmenu3, *subjectlist)
-                    subjectmenu3.set(subjectlist[0])  # default value
-                    subjectmenu.grid(row=3, column=3)
+                    subjectmenu3.set('Select a Subject\t\t\t\t\t')  # default value
+                    subjectmenu.grid(row=5, column=2,sticky="ew")
 
                     global subjectmenu4
                     subjectmenu4 = StringVar(self)
                     subjectmenu = OptionMenu(self, subjectmenu4, *subjectlist)
-                    subjectmenu4.set(subjectlist[0])  # default value
-                    subjectmenu.grid(row=4, column=2)
+                    subjectmenu4.set('Select a Subject\t\t\t\t\t')  # default value
+                    subjectmenu.grid(row=6, column=2,sticky="ew")
             except:  # DO NOT USE BARE EXCEPT
                 print "error"
 
@@ -377,19 +380,25 @@ class SubjectPage(tk.Frame):
 
             return y
 
-        def schListBox(x, y, z):
+        def schListBox(drop1,drop2,drop3,drop4,y, z):
             """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
             the array to be processed"""
+            schArray = []
+            schFinalArray=[]
+            for k, v in so.filterMultiSubs([drop1, drop2, drop3, drop4]).items():
+                schArray.append(k)
 
-            if x == "":
-                del y[:]
-                LB1.delete(0, END)
-            else:
-                del y[:]
-                LB1.delete(0, END)
-                appendArr(x, y, z)
-                for schName in y:
-                    LB1.insert(END, schName[0])
+            del y[:]
+            LB1.delete(0, END)
+            appendArr("", y, z)
+            for schName in y:
+                for schArrayMem in schArray:
+                    if schName[0].upper() in schArrayMem.upper():
+                        schFinalArray.append(schName[0])
+            del y[:]
+            for names in schFinalArray:
+                y.append(names)
+                LB1.insert(END, names)
 
 
         def matchSubject(sub1,sub2,sub3,sub4):
@@ -407,35 +416,37 @@ class SubjectPage(tk.Frame):
                     subject in school_content
                     for subject in matchlist)]
             print schoolResult
+
+        def reset():
+            subjectmenu.grid_remove
+
         # Dictionary with options
         choices = {'Primary', 'Secondary', 'Junior College'}
-        tkvar.set('Primary')  # set the default option
+        tkvar.set('Select Level')  # set the default option
         popupMenu = OptionMenu(self, tkvar, *choices)
         popupMenu.grid(row=0, column=2)
 
         def change_dropdown(*args):
             print(tkvar.get())
-
+        schArray = []
         # link function to change dropdown
         tkvar.trace('w', change_dropdown)
         var2 = tk.IntVar()
         var3 = tk.IntVar()
         var = StringVar()
-        self.B1 = tk.Button(self, text="Apply", command=lambda: printInfo(tkvar.get()))
+        self.B1 = tk.Button(self, text="Apply", command=lambda: printInfoDropdown(tkvar.get()))
         self.B1.grid(row=0, column=3)
-        self.B2 = tk.Button(self, text="Search", command=lambda: matchSubject(subjectmenu1.get(),subjectmenu2.get(),subjectmenu3.get(),
-                                                                              subjectmenu4.get()))
-        self.B2.grid(row=5, column=2)
+        self.B2 = tk.Button(self, text="Search", command=lambda: schListBox(subjectmenu1.get(),subjectmenu2.get(),subjectmenu3.get(),subjectmenu4.get(),schArray,'dgp_code'))
+        self.B2.grid(row=7, column=2)
         LB1 = Listbox(self, height=30, width=50)
-        LB1.bind('<<ListboxSelect>>', lambda event: printInfo(schoolResult[LB1.curselection()[0]][0],
-                                                              Toplevel()))  # Toplevel() just lets the function to be opened in a new window
-        LB1.grid(row=6, column=2)
+        LB1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[LB1.curselection()[0]],Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+        LB1.grid(row=8, column=2)
         self.back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
         self.quit = tk.Button(self, text="Quit", width=20, command=self.quit)
-        self.back.grid(row=7, column=2)
-        self.quit.grid(row=8, column=2)
+        self.back.grid(row=9, column=2)
+        self.quit.grid(row=10, column=2)
 
-        self.grid_columnconfigure((0, 7), weight=1)
+        self.grid_columnconfigure((0, 10), weight=1)
 
 
 class CCAPage(tk.Frame):
@@ -494,11 +505,8 @@ class CCAPage(tk.Frame):
         w = OptionMenu(self,variable,*sorted_ccaarray,command=lambda func: schListBox(variable.get(),schArray,'dgp_code'))
         w.grid()
 
-
-        frame = Frame(self)
-        frame.place(y=230,height=300, relwidth=0.3,relx=0.5,anchor="center")
-        scrollbar = Scrollbar(frame)
-        scrollbar.pack(side=RIGHT, fill=Y)
+        scrollbar = Scrollbar(self)
+        scrollbar.grid(row=2,column=1, sticky=N + S + W)
 
         Lb1 = Listbox(self, height=30, width=100)
         # appendArr('bedok',schArray,'dgp_code')
@@ -506,7 +514,7 @@ class CCAPage(tk.Frame):
         in the listbox i.e first member will be position number 0 and so on"""
         Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]][0],Toplevel()))  # Toplevel() just lets the function to be opened in a new window
 
-        Lb1.grid()
+        Lb1.grid(row=2, column=0)
 
         Lb1.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=Lb1.yview)
@@ -627,11 +635,15 @@ class CutOffPage(tk.Frame):
         top = Toplevel()
         top.title("JC Cut Off Points")
         top.minsize("1000", "500")
-        var = StringVar()
-        label = Message(top, textvar=var, bd=6, relief=SUNKEN)
-        e1 = tk.Button(top, text="Export", width=12)
-        var.set(x)
-        label.pack(expand=1, side="top")
+        scrollbar = Scrollbar(top)
+        scrollbar.pack(side=RIGHT, fill=Y)
+        L2 = Listbox(top, height=30, width=100)
+        e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.JCexport(x))
+        for k, v in x.items():
+            L2.insert(END, str(k) + ": " + str(v))
+        L2.pack(expand=YES)
+        L2.config(yscrollcommand=scrollbar.set)
+        scrollbar.config(command=L2.yview)
         e1.pack(expand=1, side="bottom")
 
     def JCprintInfo(self, x, y):
@@ -643,7 +655,7 @@ class CutOffPage(tk.Frame):
                 info = self.jc.search(key=x, upper=int(y))
                 if info:
                     for row in info:
-                        out[row[0]] = {x.lower(): row[1][0].get(x.lower())}
+                        out[row[0]] = row[1][0].get(x.lower())
                     self.JCmessageBox(out)
                 else:
                     tkMessageBox.showerror("Error", "No schools found")
@@ -656,12 +668,16 @@ class CutOffPage(tk.Frame):
         top.title("Secondary Cut Off Points")
         top.minsize("1000", "500")
 
-        var2 = StringVar()
-        var3 = StringVar()
-        L1 = Message(top, textvar=var2, bd=6, relief=SUNKEN)
-        e1 = tk.Button(top, text="Export", width=12)
-        var2.set(x)
-        L1.pack(expand=1, side="top")
+        scrollbar = Scrollbar(top)
+        scrollbar.pack(side=RIGHT, fill=Y)
+
+        L1 = Listbox(top, height=30, width=100)
+        e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.export(x))
+        for k, v in x.items():
+            L1.insert(END, str(k) + ": " + str(v))
+        L1.pack(expand=YES)
+        L1.config(yscrollcommand=scrollbar.set)
+        scrollbar.config(command=L1.yview)
         e1.pack(expand=1, side="bottom")
 
     def SECprintInfo(self, x, y):
