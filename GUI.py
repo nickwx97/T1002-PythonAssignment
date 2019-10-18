@@ -73,16 +73,6 @@ class OverallSearchPage(tk.Frame):
 
         overallList = schoolstuff("", "type_code")
 
-        def appendArr(x, y, z):
-            del y[:]
-            sch_name_arr = schoolstuff(x, z)
-
-            for name in sch_name_arr:
-                # print name
-                y.append(name)
-
-            return y
-
         def appendConditionArr(arr, type, level, gender, returnarr):
             if len(returnarr) != 0:
                 del returnarr[:]
@@ -93,13 +83,14 @@ class OverallSearchPage(tk.Frame):
                 for x in arr:
                     if level:
                         if gender:
-                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in x[1][0][
-                                "mainlevel_code"].lower() and gender.lower() in x[1][0]["nature_code"].lower():
-                                resultArr.append(x)
+                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in \
+                                    x[1][0]["mainlevel_code"].lower():
+                                if gender.lower() in x[1][0]["nature_code"].lower():
+                                    resultArr.append(x)
 
                         else:
-                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in x[1][0][
-                                "mainlevel_code"].lower():
+                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in \
+                                    x[1][0]["mainlevel_code"].lower():
                                 resultArr.append(x)
 
                     else:
@@ -110,13 +101,14 @@ class OverallSearchPage(tk.Frame):
                 for x in arr:
                     if type:
                         if gender:
-                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in x[1][0][
-                                "mainlevel_code"].lower() and gender.lower() in x[1][0]["nature_code"].lower():
+                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in \
+                                    x[1][0]["mainlevel_code"].lower() and gender.lower() in x[1][0][
+                                "nature_code"].lower():
                                 resultArr.append(x)
 
                         else:
-                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in x[1][0][
-                                "mainlevel_code"].lower():
+                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in \
+                                    x[1][0]["mainlevel_code"].lower():
                                 resultArr.append(x)
 
                     else:
@@ -127,13 +119,14 @@ class OverallSearchPage(tk.Frame):
                 for x in arr:
                     if type:
                         if level:
-                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in x[1][0][
-                                "mainlevel_code"].lower() and gender.lower() in x[1][0]["nature_code"].lower():
+                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in \
+                                    x[1][0]["mainlevel_code"].lower() and gender.lower() in x[1][0][
+                                "nature_code"].lower():
                                 resultArr.append(x)
 
                         else:
-                            if gender.lower() in x[1][0]["nature_code"].lower() and type.lower() in x[1][0][
-                                "type_code"].lower():
+                            if gender.lower() in x[1][0]["nature_code"].lower() and type.lower() in \
+                                    x[1][0]["type_code"].lower():
                                 resultArr.append(x)
 
                     else:
@@ -161,9 +154,7 @@ class OverallSearchPage(tk.Frame):
 
         typeCodeArray = [""]
         natureCodeArray = [""]
-        sessionCodeArray = [""]
         schoolLevelArray = [""]
-        areaarray = [""]
 
         schArray = []
         """You can change the column you want you populate in the dropdown box below here"""
@@ -181,7 +172,6 @@ class OverallSearchPage(tk.Frame):
 
         filterFrame = Frame(self)
         filterFrame.grid()
-        # filterFrame.place(y=5, height=300, width=200, relx=0.1.csv)
 
         # School Level Type Dropdown
         schoollevelframe = Frame(filterFrame)
@@ -322,15 +312,6 @@ class SubjectPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
-        def messageBox(x):
-            """messageBox generates the box which contains a string. x is the string to be printed, y is the tkinter
-            widget location. It is usually Tk(). DO NOT USE THIS FUNCTION TO CALL OUT THE BOX. FOR LOCAL USE ONLY"""
-            # label = Message(self, textself.variable=var, bd=6, relief=SUNKEN)
-            label1 = Message(self, textvar=var, bd=6, relief=SUNKEN)
-            label1.grid(column=1, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
-            # label.grid(column=1.csv, row=4)
-            var.set(x)
-
         def printInfoDropdown(x):
             """printInfo generates the messageBox outside of the function. x is the search string and y is the tkinter
             widget location. It is usually Tk(). Use this function to call out the messagebox"""
@@ -338,34 +319,34 @@ class SubjectPage(tk.Frame):
 
                 so = SubjectsOffered()
                 so.createDict()
-                schoolstuff = so.getSubjectsByLevel(x)
+                school_subjects = so.getSubjectsByLevel(x)
                 subjectlist = []
-                for i in schoolstuff:
+                for i in school_subjects:
                     subjectlist.append(i)
                 subjectlist.sort()
                 global subjectmenu
                 global subjectmenu1
                 subjectmenu1 = StringVar(self)
                 subjectmenu = OptionMenu(self, subjectmenu1, *subjectlist)
-                subjectmenu1.set('Select a Subject\t\t\t\t\t')  # default value
+                subjectmenu1.set('Select a Subject')  # default value
                 subjectmenu.grid(row=3, column=2, sticky="ew")
 
                 global subjectmenu2
                 subjectmenu2 = StringVar(self)
                 subjectmenu = OptionMenu(self, subjectmenu2, *subjectlist)
-                subjectmenu2.set('Select a Subject\t\t\t\t\t')  # default value
+                subjectmenu2.set('Select a Subject')  # default value
                 subjectmenu.grid(row=4, column=2, sticky="ew")
 
                 global subjectmenu3
                 subjectmenu3 = StringVar(self)
                 subjectmenu = OptionMenu(self, subjectmenu3, *subjectlist)
-                subjectmenu3.set('Select a Subject\t\t\t\t\t')  # default value
+                subjectmenu3.set('Select a Subject')  # default value
                 subjectmenu.grid(row=5, column=2, sticky="ew")
 
                 global subjectmenu4
                 subjectmenu4 = StringVar(self)
                 subjectmenu = OptionMenu(self, subjectmenu4, *subjectlist)
-                subjectmenu4.set('Select a Subject\t\t\t\t\t')  # default value
+                subjectmenu4.set('Select a Subject')  # default value
                 subjectmenu.grid(row=6, column=2, sticky="ew")
             except:  # DO NOT USE BARE EXCEPT
                 print "error"
@@ -385,40 +366,24 @@ class SubjectPage(tk.Frame):
         def schListBox(drop1, drop2, drop3, drop4, y, z):
             """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
             the array to be processed"""
-            schArray = []
+            schArray1 = []
             schFinalArray = []
-            for k, v in so.filterMultiSubs([drop1, drop2, drop3, drop4]).items():
-                schArray.append(k)
+            cri = [drop1, drop2, drop3, drop4]
+            cri = filter(lambda x: x != "Select a Subject", cri)
+            for k, v in so.filterMultiSubs(cri).items():
+                schArray1.append(k)
 
             del y[:]
             LB1.delete(0, END)
             appendArr("", y, z)
             for schName in y:
-                for schArrayMem in schArray:
+                for schArrayMem in schArray1:
                     if schName[0].upper() in schArrayMem.upper():
                         schFinalArray.append(schName[0])
             del y[:]
             for names in schFinalArray:
                 y.append(names)
                 LB1.insert(END, names)
-
-        def matchSubject(sub1, sub2, sub3, sub4):
-            matchlist = []
-            matchlist.append(sub1)
-            matchlist.append(sub2)
-            matchlist.append(sub3)
-            matchlist.append(sub4)
-
-            subjectDict = so.subjectDict()
-            global schoolResult
-            schoolResult = [school_name
-                            for school_name, school_content in subjectDict.items()
-                            if all(
-                    subject in school_content
-                    for subject in matchlist)]
-
-        def reset():
-            subjectmenu.grid_remove
 
         # Dictionary with options
         choices = {'Primary', 'Secondary', 'Junior College'}
@@ -428,9 +393,6 @@ class SubjectPage(tk.Frame):
 
         schArray = []
         # link function to change dropdown
-        var2 = tk.IntVar()
-        var3 = tk.IntVar()
-        var = StringVar()
         self.B1 = tk.Button(self, text="Apply", command=lambda: printInfoDropdown(tkvar.get()))
         self.B1.grid(row=0, column=3)
         self.B2 = tk.Button(self, text="Search",
@@ -673,7 +635,8 @@ class CutOffPage(tk.Frame):
         scrollbar.pack(side=RIGHT, fill=Y)
 
         L1 = Listbox(top, height=30, width=100)
-        e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.export(self.sec.getHeaders(), dict(x)))
+        e1 = tk.Button(top, text="Export", width=12,
+                       command=lambda: ExportFunction.export(self.sec.getHeaders(), dict(x)))
         for k, v in x:
             L1.insert(END, str(k) + ": " + str(v))
         L1.pack(expand=YES)
