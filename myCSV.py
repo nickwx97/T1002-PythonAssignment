@@ -18,7 +18,7 @@ class Application(Frame):
         self.path = self.__text.get()
         self.quit()
 
-    def createWidgets(self, command):
+    def createWidgets(self, command, defText):
         # Create quit button
         self.__NEXT["text"] = "Next"
         self.__NEXT["fg"] = "#1d7a3f"
@@ -36,6 +36,7 @@ class Application(Frame):
 
         # Create text field
         self.__text["width"] = 50
+        self.__text.insert(END, defText)
         self.__text.pack({"side": "right"})
 
     def __init__(self, master=None):
@@ -47,6 +48,7 @@ class Application(Frame):
         self.__text = Entry(self)
 
         self.pack(expand=1)
+        master.attributes("-topmost", True)
 
 
 def writeCSV(headers, data, p):
@@ -70,11 +72,17 @@ def writeCSV(headers, data, p):
                 line += col + ','
             else:
                 line += newcol + ','
-            for items in headers[1:]:
-                x = item.get(items)
+            if type(item) is str:
+                x = item
                 if ',' in x:
                     x = '"' + x + '"'
                 line += x + ','
+            else:
+                for items in headers[1:]:
+                    x = item.get(items)
+                    if ',' in x:
+                        x = '"' + x + '"'
+                    line += x + ','
             result += line[:-1] + '\n'
             line = ""
     try:
@@ -88,9 +96,11 @@ def writeCSV(headers, data, p):
         return True
 
 
-def csvPath(command='select'):
+def csvPath(defText, command='select'):
     """
     Creates GUI to accept user input for CSV file or to save CSV file
+    :type defText: String
+    :param defText: default text to display in text field
     :param command: command accepts 'select' or 'save', default 'select'
     :return: file path to CSV file
     """
@@ -98,12 +108,12 @@ def csvPath(command='select'):
     root = Tk()
     app = Application(master=root)
     if command is 'select':
-        app.createWidgets('select')
+        app.createWidgets('select', defText)
     elif command is 'save':
-        app.createWidgets('save')
+        app.createWidgets('save', defText)
     else:
         print "Invalid command for csvPath(), defaulting to 'select'"
-        app.createWidgets('select')
+        app.createWidgets('select', defText)
     # Display GUI
     app.mainloop()
     path = app.path

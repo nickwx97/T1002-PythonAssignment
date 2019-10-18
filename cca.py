@@ -16,7 +16,6 @@ class CCA:
                     self.__ccaList.append(cols.get(self.__headers[3]))
         return self.__ccaList
 
-
     def listCcaFromSch(self, key):
         result = []
         for x in self.__dict.keys():
@@ -38,9 +37,11 @@ class CCA:
                             result.append((x, y.get('cca_generic_name')))
         return result
 
-    def getDict(self): return self.__dict
+    def getDict(self):
+        return self.__dict
 
-    def getHeader(self): return self.__headers
+    def getHeader(self):
+        return self.__headers
 
     # split into dict
     def genDict(self):
@@ -50,17 +51,11 @@ class CCA:
         del self.__raw
 
     def __init__(self):
-        # self.__raw = openCSV(csvPath())
+        # self.__raw = openCSV(csvPath("Select your CCA CSV"))
         self.__raw = openCSV("Data/co-curricular-activities-ccas.csv")  # lazy :)
         self.__headers = None
         self.__dict = None
         self.__ccaList = []
+        self.genDict()
 
 
-cca = CCA()
-cca.genDict()
-print cca.genUniqueCcaList()
-# writeCSV(cca.getHeader(), cca.getDict(), csvPath('save'))
-# print cca.searchDict(key='cca_grouping_desc', value="phy")
-# print cca.searchDict(value="Astronomy")
-# print cca.listCcaFromSch("Eunoia")

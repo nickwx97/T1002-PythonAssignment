@@ -1,46 +1,23 @@
-import csv
 import tkMessageBox
 import StringIO
 import tkFileDialog
-
+import myCSV
 
 def closewindow(x):
     x.destroy()
 
-
-def export(x, y):
-    try:
-        filename = tkFileDialog.asksaveasfilename(initialdir='Data/', title="Save As", defaultextension=".csv",
-                                                  filetypes=(("CSV", "*.csv"), ("all files", "*.*")))
-        header = ["School Name", "Cut Off Points"]
-        with open(filename, "wb") as csvfile:
-            w = csv.writer(csvfile, delimiter=",")
-            w.writerow([h for h in header])
-            for row in x.items():
-                w.writerow(row)
-        csvfile.close()
-        closewindow(y)
+def export(headers, x,y):
+    if myCSV.writeCSV(headers, x, myCSV.csvPath("Saving Secondary cutoff points", "save")):
         tkMessageBox.showinfo("Success", "Export successful")
-    except:
+    else:
         tkMessageBox.showerror("Error", "Export Unsuccessful")
-        closewindow(y)
+    closewindow(y)
 
 
-def JCexport(x, y):
-    try:
-        filename = tkFileDialog.asksaveasfilename(initialdir='Data/', title="Save As", defaultextension=".csv",
-                                                  filetypes=(("CSV", "*.csv"), ("all files", "*.*")))
-        header = ["School Name", "Cut Off Points"]
-        with open(filename, "wb") as csvfile:
-            w = csv.writer(csvfile, delimiter=",")
-            w.writerow([h for h in header])
-            for row in x.items():
-                w.writerow(row)
-        csvfile.close()
-        closewindow(y)
+def JCexport(headers, x,y):
+    if myCSV.writeCSV(headers, x, myCSV.csvPath("Saving JC cutoff points", "save")):
         tkMessageBox.showinfo("Success", "Export successful")
-
-    except:
+    else:
         tkMessageBox.showerror("Error", "Export Unsuccessful")
         closewindow(y)
 
@@ -51,6 +28,15 @@ def schexport(x, y):
     s = StringIO.StringIO(x)
     try:
         if tkMessageBox.askyesno('Question', 'Export as new file?'):
+            filename = tkFileDialog.asksaveasfilename(initialdir='Data/', title="Save As", defaultextension=".txt",
+                                                      filetypes=(("Text Files", "*.txt"), ("All Files", "*.*")))
+            s = StringIO.StringIO(x)
+            with open(filename, "w") as f:
+                for line in s:
+                    f.write(line)
+                f.write('-' * 100 + '\n\n\n')
+            tkMessageBox.showinfo("Success", "Export successful")
+            f.close()
             filename = tkFileDialog.asksaveasfilename(initialdir='Data/', title="Save As", defaultextension=".csv",
                                                       filetypes=(("CSV", "*.csv"), ("all files", "*.*")))
             for line in s:

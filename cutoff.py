@@ -11,7 +11,7 @@ class Cutoff:
         result = filter(lambda x: lower <= int(x[1][0].get(key.lower())) <= upper, result.items())
         return result
 
-    def sort(self, key='cutoff', reverse=False):
+    def mySort(self, key='cutoff', reverse=False):
         self.__dict = dict((k, v) for k, v in sorted(self.__dict.items(), key=lambda kv: kv[1][0].get(key),
                                                      reverse=reverse))
 

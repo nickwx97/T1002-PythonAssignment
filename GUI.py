@@ -20,7 +20,7 @@ class App(tk.Tk):
         container.grid()
 
         self.frames = {}
-        for F in (StartPage, OverallSearchPage, SearchPage, SubjectPage, CutOffPage, CCAPage,LocationPage):
+        for F in (StartPage, OverallSearchPage, SearchPage, SubjectPage, CutOffPage, CCAPage, LocationPage):
             pagename = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[pagename] = frame
@@ -48,7 +48,8 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="School Portal", font=("Courier", 44))
         label.grid(row=0, column=2)
         tk.title = "School Portal"
-        button1 = tk.Button(self, text="General Search", width=20, command=lambda: controller.show_frame("OverallSearchPage"))
+        button1 = tk.Button(self, text="General Search", width=20,
+                            command=lambda: controller.show_frame("OverallSearchPage"))
         button2 = tk.Button(self, text="Search By Name", width=20, command=lambda: controller.show_frame("SearchPage"))
         button3 = tk.Button(self, text="Search By Subject", width=20,
                             command=lambda: controller.show_frame("SubjectPage"))
@@ -95,11 +96,13 @@ class OverallSearchPage(tk.Frame):
                 for x in arr:
                     if level:
                         if gender:
-                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in x[1][0]["mainlevel_code"].lower() and gender.lower() in x[1][0]["nature_code"].lower():
+                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in x[1][0][
+                                "mainlevel_code"].lower() and gender.lower() in x[1][0]["nature_code"].lower():
                                 resultArr.append(x)
 
                         else:
-                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in x[1][0]["mainlevel_code"].lower():
+                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in x[1][0][
+                                "mainlevel_code"].lower():
                                 resultArr.append(x)
 
                     else:
@@ -110,11 +113,13 @@ class OverallSearchPage(tk.Frame):
                 for x in arr:
                     if type:
                         if gender:
-                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in x[1][0]["mainlevel_code"].lower() and gender.lower() in x[1][0]["nature_code"].lower():
+                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in x[1][0][
+                                "mainlevel_code"].lower() and gender.lower() in x[1][0]["nature_code"].lower():
                                 resultArr.append(x)
 
                         else:
-                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in x[1][0]["mainlevel_code"].lower():
+                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in x[1][0][
+                                "mainlevel_code"].lower():
                                 resultArr.append(x)
 
                     else:
@@ -125,11 +130,13 @@ class OverallSearchPage(tk.Frame):
                 for x in arr:
                     if type:
                         if level:
-                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in x[1][0]["mainlevel_code"].lower() and gender.lower() in x[1][0]["nature_code"].lower():
+                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in x[1][0][
+                                "mainlevel_code"].lower() and gender.lower() in x[1][0]["nature_code"].lower():
                                 resultArr.append(x)
 
                         else:
-                            if gender.lower() in x[1][0]["nature_code"].lower() and type.lower() in x[1][0]["type_code"].lower():
+                            if gender.lower() in x[1][0]["nature_code"].lower() and type.lower() in x[1][0][
+                                "type_code"].lower():
                                 resultArr.append(x)
 
                     else:
@@ -180,7 +187,7 @@ class OverallSearchPage(tk.Frame):
 
         filterFrame = Frame(self)
         filterFrame.grid()
-        #filterFrame.place(y=5, height=300, width=200, relx=0.1)
+        # filterFrame.place(y=5, height=300, width=200, relx=0.1)
 
         # School Level Type Dropdown
         schoollevelframe = Frame(filterFrame)
@@ -246,7 +253,8 @@ class OverallSearchPage(tk.Frame):
 
         """Lb1.bind contains the onclick event of the listBox. Lb1.curselection() is just the position number of each member 
         in the listbox i.e first member will be position number 0 and so on"""
-        Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]][0], Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+        Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]][0],
+                                                              Toplevel()))  # Toplevel() just lets the function to be opened in a new window
 
         Lb1.pack(fill=X, expand=1)
 
@@ -295,7 +303,8 @@ class SearchPage(tk.Frame):
         self.L1.grid(row=1, column=1)
         self.E1 = Entry(self, bd=5)
         self.E1.grid(row=2, column=1)
-        self.B1 = tk.Button(self, text="Search", width=12, command=lambda: schListBox(self.E1.get(),schArray,'dgp_code'))
+        self.B1 = tk.Button(self, text="Search", width=12,
+                            command=lambda: schListBox(self.E1.get(), schArray, 'dgp_code'))
         self.B1.grid(row=3, column=1)
         Lb1 = Listbox(self, height=30, width=100)
         Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(listBoxArray[Lb1.curselection()[0]][0],
@@ -306,8 +315,8 @@ class SearchPage(tk.Frame):
         scrollbar.grid(row=4, column=2, sticky=N + S + W)
         Lb1.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=Lb1.yview)
-        #labeself.L1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
-        #labeself.L1.grid(column=1, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
+        # labeself.L1 = tk.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
+        # labeself.L1.grid(column=1, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
         self.back = tk.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
         self.quit = tk.Button(self, text="Quit", width=12, command=self.quit)
         self.back.grid(row=5, column=1)
@@ -322,10 +331,10 @@ class SubjectPage(tk.Frame):
         def messageBox(x):
             """messageBox generates the box which contains a string. x is the string to be printed, y is the tkinter
             widget location. It is usually Tk(). DO NOT USE THIS FUNCTION TO CALL OUT THE BOX. FOR LOCAL USE ONLY"""
-            #label = Message(self, textself.variable=var, bd=6, relief=SUNKEN)
+            # label = Message(self, textself.variable=var, bd=6, relief=SUNKEN)
             label1 = Message(self, textvar=var, bd=6, relief=SUNKEN)
             label1.grid(column=1, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
-            #label.grid(column=1, row=4)
+            # label.grid(column=1, row=4)
             var.set(x)
 
         def printInfoDropdown(x):
@@ -333,37 +342,37 @@ class SubjectPage(tk.Frame):
             widget location. It is usually Tk(). Use this function to call out the messagebox"""
             try:
 
-                    so = SubjectsOffered()
-                    so.createDict()
-                    schoolstuff = so.getSubjectsByLevel(x)
-                    subjectlist=[]
-                    for i in schoolstuff:
-                        subjectlist.append(i)
-                    subjectlist.sort()
-                    global subjectmenu
-                    global subjectmenu1
-                    subjectmenu1 = StringVar(self)
-                    subjectmenu = OptionMenu(self, subjectmenu1, *subjectlist)
-                    subjectmenu1.set('Select a Subject\t\t\t\t\t')  # default value
-                    subjectmenu.grid(row=3, column=2,sticky="ew")
+                so = SubjectsOffered()
+                so.createDict()
+                schoolstuff = so.getSubjectsByLevel(x)
+                subjectlist = []
+                for i in schoolstuff:
+                    subjectlist.append(i)
+                subjectlist.sort()
+                global subjectmenu
+                global subjectmenu1
+                subjectmenu1 = StringVar(self)
+                subjectmenu = OptionMenu(self, subjectmenu1, *subjectlist)
+                subjectmenu1.set('Select a Subject\t\t\t\t\t')  # default value
+                subjectmenu.grid(row=3, column=2, sticky="ew")
 
-                    global subjectmenu2
-                    subjectmenu2 = StringVar(self)
-                    subjectmenu = OptionMenu(self, subjectmenu2, *subjectlist)
-                    subjectmenu2.set('Select a Subject\t\t\t\t\t')  # default value
-                    subjectmenu.grid(row=4, column=2,sticky="ew")
+                global subjectmenu2
+                subjectmenu2 = StringVar(self)
+                subjectmenu = OptionMenu(self, subjectmenu2, *subjectlist)
+                subjectmenu2.set('Select a Subject\t\t\t\t\t')  # default value
+                subjectmenu.grid(row=4, column=2, sticky="ew")
 
-                    global subjectmenu3
-                    subjectmenu3 = StringVar(self)
-                    subjectmenu = OptionMenu(self, subjectmenu3, *subjectlist)
-                    subjectmenu3.set('Select a Subject\t\t\t\t\t')  # default value
-                    subjectmenu.grid(row=5, column=2,sticky="ew")
+                global subjectmenu3
+                subjectmenu3 = StringVar(self)
+                subjectmenu = OptionMenu(self, subjectmenu3, *subjectlist)
+                subjectmenu3.set('Select a Subject\t\t\t\t\t')  # default value
+                subjectmenu.grid(row=5, column=2, sticky="ew")
 
-                    global subjectmenu4
-                    subjectmenu4 = StringVar(self)
-                    subjectmenu = OptionMenu(self, subjectmenu4, *subjectlist)
-                    subjectmenu4.set('Select a Subject\t\t\t\t\t')  # default value
-                    subjectmenu.grid(row=6, column=2,sticky="ew")
+                global subjectmenu4
+                subjectmenu4 = StringVar(self)
+                subjectmenu = OptionMenu(self, subjectmenu4, *subjectlist)
+                subjectmenu4.set('Select a Subject\t\t\t\t\t')  # default value
+                subjectmenu.grid(row=6, column=2, sticky="ew")
             except:  # DO NOT USE BARE EXCEPT
                 print "error"
 
@@ -379,11 +388,11 @@ class SubjectPage(tk.Frame):
 
             return y
 
-        def schListBox(drop1,drop2,drop3,drop4,y, z):
+        def schListBox(drop1, drop2, drop3, drop4, y, z):
             """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
             the array to be processed"""
             schArray = []
-            schFinalArray=[]
+            schFinalArray = []
             for k, v in so.filterMultiSubs([drop1, drop2, drop3, drop4]).items():
                 schArray.append(k)
 
@@ -399,9 +408,8 @@ class SubjectPage(tk.Frame):
                 y.append(names)
                 LB1.insert(END, names)
 
-
-        def matchSubject(sub1,sub2,sub3,sub4):
-            matchlist=[]
+        def matchSubject(sub1, sub2, sub3, sub4):
+            matchlist = []
             matchlist.append(sub1)
             matchlist.append(sub2)
             matchlist.append(sub3)
@@ -410,8 +418,8 @@ class SubjectPage(tk.Frame):
             subjectDict = so.subjectDict()
             global schoolResult
             schoolResult = [school_name
-                 for school_name, school_content in subjectDict.items()
-                 if all(
+                            for school_name, school_content in subjectDict.items()
+                            if all(
                     subject in school_content
                     for subject in matchlist)]
             print schoolResult
@@ -427,6 +435,7 @@ class SubjectPage(tk.Frame):
 
         def change_dropdown(*args):
             print(tkvar.get())
+
         schArray = []
         # link function to change dropdown
         tkvar.trace('w', change_dropdown)
@@ -435,10 +444,13 @@ class SubjectPage(tk.Frame):
         var = StringVar()
         self.B1 = tk.Button(self, text="Apply", command=lambda: printInfoDropdown(tkvar.get()))
         self.B1.grid(row=0, column=3)
-        self.B2 = tk.Button(self, text="Search", command=lambda: schListBox(subjectmenu1.get(),subjectmenu2.get(),subjectmenu3.get(),subjectmenu4.get(),schArray,'dgp_code'))
+        self.B2 = tk.Button(self, text="Search",
+                            command=lambda: schListBox(subjectmenu1.get(), subjectmenu2.get(), subjectmenu3.get(),
+                                                       subjectmenu4.get(), schArray, 'dgp_code'))
         self.B2.grid(row=7, column=2)
         LB1 = Listbox(self, height=30, width=50)
-        LB1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[LB1.curselection()[0]],Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+        LB1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[LB1.curselection()[0]],
+                                                              Toplevel()))  # Toplevel() just lets the function to be opened in a new window
         LB1.grid(row=8, column=2)
         self.back = tk.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
         self.quit = tk.Button(self, text="Quit", width=20, command=self.quit)
@@ -452,6 +464,7 @@ class CCAPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+        self.cca = CCA()
 
         def appendArr(y, z):
             del y[:]
@@ -477,7 +490,7 @@ class CCAPage(tk.Frame):
                 appendArr(y, z)
 
                 for schName in y:
-                    for ccaName in cca.listCcaFromSch(schName[0]):
+                    for ccaName in self.cca.listCcaFromSch(schName[0]):
                         if x.upper() in ccaName.upper():
                             schlistarr.append(schName)
                 del y[:]
@@ -488,30 +501,25 @@ class CCAPage(tk.Frame):
         L1 = Label(self, text="CCAs")
         L1.grid()
 
-        _ccaarray = cca.listCcaFromSch("")
-        ccaarray = []
-        for i in _ccaarray:
-            if i not in ccaarray:
-                ccaarray.append(i)
-
-        sorted_ccaarray = sorted(ccaarray)
+        sorted_cca = sorted(self.cca.getUniqueCcaList())
 
         schArray = []
         variable = StringVar(self)
-        variable.set("") # default value
+        variable.set("")  # default value
 
         """You can change the column you want you filter below here"""
-        w = OptionMenu(self,variable,*sorted_ccaarray,command=lambda func: schListBox(variable.get(),schArray,'dgp_code'))
+        w = OptionMenu(self, variable, *sorted_cca,
+                       command=lambda func: schListBox(variable.get(), schArray, 'dgp_code'))
         w.grid()
 
         scrollbar = Scrollbar(self)
-        scrollbar.grid(row=2,column=1, sticky=N + S + W)
+        scrollbar.grid(row=2, column=1, sticky=N + S + W)
 
         Lb1 = Listbox(self, height=30, width=100)
-        # appendArr('bedok',schArray,'dgp_code')
         """Lb1.bind contains the onclick event of the listBox. Lb1.curselection() is just the position number of each member 
         in the listbox i.e first member will be position number 0 and so on"""
-        Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]][0],Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+        Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]][0],
+                                                              Toplevel()))
 
         Lb1.grid(row=2, column=0)
 
@@ -566,11 +574,13 @@ class LocationPage(tk.Frame):
         self.variable.set("")  # default value
 
         """You can change the column you want you filter below here"""
-        w = OptionMenu(self, self.variable, *areaarray, command=lambda func: schListBox(self.variable.get(), schArray, 'dgp_code'))
+        w = OptionMenu(self, self.variable, *areaarray,
+                       command=lambda func: schListBox(self.variable.get(), schArray, 'dgp_code'))
         w.grid(row=1, column=2)
 
-        LB1 = Listbox(self, height=30, width=100)
-        LB1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[LB1.curselection()[0]][0], Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+        LB1 = Listbox(self, height=30, width=50)
+        LB1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[LB1.curselection()[0]][0],
+                                                              Toplevel()))  # Toplevel() just lets the function to be opened in a new window
         LB1.grid(row=2, column=2)
 
         scrollbar = Scrollbar(self)
@@ -606,7 +616,8 @@ class CutOffPage(tk.Frame):
         self.E2 = tk.Entry(self, bd=5)
         self.E2.grid(row=3, column=3)
 
-        self.B1 = tk.Button(self, text="Search", width=12, command=lambda: self.SECprintInfo(self.E1.get(), self.E2.get()))
+        self.B1 = tk.Button(self, text="Search", width=12,
+                            command=lambda: self.SECprintInfo(self.E1.get(), self.E2.get()))
         self.B1.grid(row=4, column=3)
 
         # JC cut off
@@ -620,9 +631,10 @@ class CutOffPage(tk.Frame):
         self.stream.grid(row=2, column=5)
 
         self.E3 = tk.Entry(self, bd=5)
-        self.E3.grid(row=3,column=5)
+        self.E3.grid(row=3, column=5)
 
-        self.B2 = tk.Button(self, text="Search", width=12, command=lambda: self.JCprintInfo(self.variable.get(), self.E3.get()))
+        self.B2 = tk.Button(self, text="Search", width=12,
+                            command=lambda: self.JCprintInfo(self.variable.get(), self.E3.get()))
         self.B2.grid(row=4, column=5)
 
         self.back = tk.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
@@ -637,7 +649,8 @@ class CutOffPage(tk.Frame):
         scrollbar = Scrollbar(top)
         scrollbar.pack(side=RIGHT, fill=Y)
         L2 = Listbox(top, height=30, width=100)
-        e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.JCexport(x, top))
+        e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.JCexport([self.jc.getHeaders()[0],
+                                                                                              self.variable.get()], x))
         for k, v in x.items():
             L2.insert(END, str(k) + ": " + str(v))
         L2.pack(expand=YES)
@@ -651,7 +664,7 @@ class CutOffPage(tk.Frame):
         else:
             out = {}
             if y.isdigit():
-                info = self.jc.search(key=x, upper=int(y))
+                info = self.jc.search(key=x, upper=int(y)).sort(key=x)
                 if info:
                     for row in info:
                         out[row[0]] = row[1][0].get(x.lower())
@@ -671,8 +684,8 @@ class CutOffPage(tk.Frame):
         scrollbar.pack(side=RIGHT, fill=Y)
 
         L1 = Listbox(top, height=30, width=100)
-        e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.export(x, top))
-        for k, v in x.items():
+        e1 = tk.Button(top, text="Export", width=12, command=lambda: ExportFunction.export(self.sec.getHeaders(), x))
+        for k, v in x:
             L1.insert(END, str(k) + ": " + str(v))
         L1.pack(expand=YES)
         L1.config(yscrollcommand=scrollbar.set)
@@ -684,14 +697,15 @@ class CutOffPage(tk.Frame):
             tkMessageBox.showerror("Error", "Please enter input")
         else:
             out = {}
-            cutoff = {}
             if y.isdigit():
-                secinfo = self.sec.search(lower=int(x), upper=int(y))
+                secinfo = dict((k, v) for k, v in
+                               sorted(self.sec.search(lower=int(x), upper=int(y)),
+                                      key=lambda kv: kv[1][0].get('cutoff'),
+                                      reverse=True))
                 if secinfo:
-                    for row in secinfo:
-                        cutoff = row[1][0]
-                        for v in cutoff.values():
-                            out[row[0]] = v
+                    for col, row in secinfo.items():
+                        out[col] = row[0].get('cutoff')
+                    out = sorted(out.items(), key=lambda kv: kv[1], reverse=True)
                     self.messageBox(out)
                 else:
                     tkMessageBox.showerror("Error", "No schools found")
