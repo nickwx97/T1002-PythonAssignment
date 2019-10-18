@@ -370,7 +370,7 @@ class SubjectPage(tk.Frame):
             schFinalArray = []
             cri = [drop1, drop2, drop3, drop4]
             cri = filter(lambda x: x != "Select a Subject", cri)
-            for k, v in so.filterMultiSubs(cri).items():
+            for k, v in SubjectsOffered().filterMultiSubs(cri).items():
                 schArray1.append(k)
 
             del y[:]
