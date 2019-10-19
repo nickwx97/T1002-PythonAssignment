@@ -51,6 +51,34 @@ class Application(Frame):
         master.attributes("-topmost", True)
 
 
+def writeListCSV(headers, data, p):
+    result = ','.join(headers) + '\n'
+    for index, col in enumerate(data, 0):
+        if type(col) is not list:
+            col = col.replace('"', '""')
+            if '""' in col:
+                result += '"' + col + '"' + ","
+            else:
+                result += col + ","
+        else:
+            for row in col:
+                row = row.replace('"', '""')
+                if '""' in row:
+                    result += '"' + row + '"' + ","
+                else:
+                    result += row + ","
+            result = result[:-1] + "\n"
+    try:
+        csv1 = open(p, 'w')
+    except IOError:
+        print "Please enter valid file path!"
+        return False
+    else:
+        csv1.writelines(result[:-1])
+        csv1.close()
+        return True
+
+
 def writeCSV(headers, data, p):
     """
     Reads in a dictionary and writes to file
@@ -101,20 +129,6 @@ def writeCSV(headers, data, p):
         return False
     else:
         csv1.writelines(result)
-        csv1.close()
-        return True
-
-
-def schCSV(text, p):
-    try:
-        csv1 = open(p, 'w')
-    except IOError:
-        print "Please enter valid file path!"
-        return False
-    else:
-        for line in text:
-            csv1.write(line)
-        csv1.write('-' * 100 + '\n\n\n')
         csv1.close()
         return True
 
