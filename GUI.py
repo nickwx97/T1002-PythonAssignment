@@ -8,6 +8,7 @@ from cca import *
 from cutoff import *
 from schInfoGUIFunction import *
 from subjectsOffered import *
+from piechart import *
 
 
 class App(tk.Tk):
@@ -17,7 +18,7 @@ class App(tk.Tk):
         container.grid()
 
         self.frames = {}
-        for F in (StartPage, OverallSearchPage, SearchPage, SubjectPage, CutOffPage, CCAPage, LocationPage):
+        for F in (StartPage, OverallSearchPage, SearchPage, SubjectPage, CutOffPage, CCAPage, LocationPage, InsightsPage):
             pagename = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[pagename] = frame
@@ -56,6 +57,8 @@ class StartPage(tk.Frame):
                             command=lambda: controller.show_frame("LocationPage"))
         button6 = tk.Button(self, text="Search By Cut Off Points", width=20,
                             command=lambda: controller.show_frame("CutOffPage"))
+        button7 = tk.Button(self, text="School Insights", width=20,
+                            command=lambda: controller.show_frame("InsightsPage"))
         quit = tk.Button(self, text="Quit", width=20, command=self.quit)
         button1.grid(row=1, column=2)
         button2.grid(row=2, column=2)
@@ -63,7 +66,8 @@ class StartPage(tk.Frame):
         button4.grid(row=4, column=2)
         button5.grid(row=5, column=2)
         button6.grid(row=6, column=2)
-        quit.grid(row=7, column=2)
+        button7.grid(row=7, column=2)
+        quit.grid(row=8, column=2)
 
 
 class OverallSearchPage(tk.Frame):
@@ -660,6 +664,50 @@ class CutOffPage(tk.Frame):
                     tkMessageBox.showerror("Error", "No schools found")
             else:
                 tkMessageBox.showerror("Error", "No schools found")
+
+
+class InsightsPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        lbl = tk.Label(self, text="School Insights", fg='red', font=("Helvetica", 24))
+        button1 = tkinter.Button(self, text="Types of School",
+                                 command=lambda: get1PieChart("Data/general-information-of-schools.csv", 'Type_Code',
+                                                              "Type of Schools",
+                                                              "pie_SchoolTypes.png"))
+        button3 = tkinter.Button(self, text="Data/Types of Applied Learning Programmes in School",
+                                 command=lambda: get1PieChart("school-distinctive-programmes.csv", 'Alp_Domain',
+                                                              "Types of Applied Learning Programmes in School",
+                                                              'pie_ALP.png'))
+        button2 = tkinter.Button(self, text="Data/Type of Elective Programmes in School",
+                                 command=lambda: get1PieChart("moe-programmes.csv", 'Moe_Programme_Desc',
+                                                              "Type of Elective Programmes in School",
+                                                              "pie_SchoolProgTypes.png"))
+        button4 = tkinter.Button(self, text="Data/Types of Learning for Life Programmes in Schools",
+                                 command=lambda: get2PieCharts("school-distinctive-programmes.csv", "Domain 1.csv",
+                                                               "Domain 2",
+                                                               "Types of Learning for Life Programmes in Schools",
+                                                               "pie_LLP.png"))
+        button5 = tkinter.Button(self, text="Data/Which Area in Singapore has more school?",
+                                 command=lambda: get1PieChart("general-information-of-schools.csv", "Zone_Code",
+                                                              "Which Area in Singapore has more school?",
+                                                              "pie_regioncode.png"))
+        button6 = tkinter.Button(self, text="Data/Level Types in School",
+                                 command=lambda: get1PieChart("general-information-of-schools.csv", "Mainlevel_Code",
+                                                              "Level Types in School", "pie_schoollevel.png"))
+
+        self.back = tk.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
+        self.quit = tk.Button(self, text="Quit", width=12, command=self.quit)
+        lbl.place(x=80, y=50)
+        button1.place(x=80, y=140)
+        button2.place(x=80, y=180)
+        button3.place(x=80, y=220)
+        button4.place(x=80, y=260)
+        button5.place(x=80, y=300)
+        button6.place(x=80, y=340)
+        self.back.place(x=80, y=360)
+        self.quit.place(x=80, y=400)
 
 
 if __name__ == "__main__":
