@@ -30,6 +30,9 @@ class insights:
     button6 = tkinter.Button(window, text="Data/Level Types in School",
                              command=lambda: get1PieChart("general-information-of-schools.csv", "Mainlevel_Code",
                                                           "Level Types in School", "pie_schoollevel.png"))
+    button7 = tkinter.Button(window, text="Top School Rankings in Singapore",
+                             command=lambda: get1BarChart("Data/cutoff.csv", 20, "Ranking of School",
+                                                          "pie_schoolrank.png"))
 
     lbl.place(x=80, y=50)
     button1.place(x=80, y=140)
@@ -38,5 +41,6 @@ class insights:
     button4.place(x=80, y=260)
     button5.place(x=80, y=300)
     button6.place(x=80, y=340)
+    button6.place(x=80, y=380)
 
     window.mainloop()

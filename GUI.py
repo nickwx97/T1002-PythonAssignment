@@ -676,38 +676,42 @@ class InsightsPage(tk.Frame):
                                  command=lambda: get1PieChart("Data/general-information-of-schools.csv", 'Type_Code',
                                                               "Type of Schools",
                                                               "pie_SchoolTypes.png"))
-        button3 = tkinter.Button(self, text="Data/Types of Applied Learning Programmes in School",
-                                 command=lambda: get1PieChart("school-distinctive-programmes.csv", 'Alp_Domain',
+        button3 = tkinter.Button(self, text="Types of Applied Learning Programmes in School",
+                                 command=lambda: get1PieChart("Data/school-distinctive-programmes.csv", 'Alp_Domain',
                                                               "Types of Applied Learning Programmes in School",
                                                               'pie_ALP.png'))
-        button2 = tkinter.Button(self, text="Data/Type of Elective Programmes in School",
-                                 command=lambda: get1PieChart("moe-programmes.csv", 'Moe_Programme_Desc',
+        button2 = tkinter.Button(self, text="Type of Elective Programmes in School",
+                                 command=lambda: get1PieChart("Data/moe-programmes.csv", 'Moe_Programme_Desc',
                                                               "Type of Elective Programmes in School",
                                                               "pie_SchoolProgTypes.png"))
-        button4 = tkinter.Button(self, text="Data/Types of Learning for Life Programmes in Schools",
-                                 command=lambda: get2PieCharts("school-distinctive-programmes.csv", "Domain 1.csv",
+        button4 = tkinter.Button(self, text="Types of Learning for Life Programmes in Schools",
+                                 command=lambda: get2PieCharts("Data/school-distinctive-programmes.csv", "Domain 1.csv",
                                                                "Domain 2",
                                                                "Types of Learning for Life Programmes in Schools",
                                                                "pie_LLP.png"))
-        button5 = tkinter.Button(self, text="Data/Which Area in Singapore has more school?",
-                                 command=lambda: get1PieChart("general-information-of-schools.csv", "Zone_Code",
+        button5 = tkinter.Button(self, text="Which Area in Singapore has more school?",
+                                 command=lambda: get1PieChart("Data/general-information-of-schools.csv", "Zone_Code",
                                                               "Which Area in Singapore has more school?",
                                                               "pie_regioncode.png"))
-        button6 = tkinter.Button(self, text="Data/Level Types in School",
-                                 command=lambda: get1PieChart("general-information-of-schools.csv", "Mainlevel_Code",
+        button6 = tkinter.Button(self, text="Level Types in School",
+                                 command=lambda: get1PieChart("Data/general-information-of-schools.csv", "Mainlevel_Code",
                                                               "Level Types in School", "pie_schoollevel.png"))
+        button7 = tkinter.Button(self, text="Top School Rankings in Singapore",
+                                 command=lambda: get1BarChart("Data/cutoff.csv", 20, "Top School Rankings in Singapore",
+                                                              "pie_schoolrank.png"))
 
         self.back = tk.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
         self.quit = tk.Button(self, text="Quit", width=12, command=self.quit)
         lbl.place(x=80, y=50)
-        button1.place(x=80, y=140)
-        button2.place(x=80, y=180)
-        button3.place(x=80, y=220)
-        button4.place(x=80, y=260)
-        button5.place(x=80, y=300)
-        button6.place(x=80, y=340)
-        self.back.place(x=80, y=360)
-        self.quit.place(x=80, y=400)
+        button7.place(x=80, y=140)
+        button1.place(x=80, y=180)
+        button2.place(x=80, y=220)
+        button3.place(x=80, y=260)
+        button4.place(x=80, y=300)
+        button5.place(x=80, y=340)
+        button6.place(x=80, y=380)
+        self.back.place(x=80, y=420)
+        self.quit.place(x=80, y=460)
 
 
 if __name__ == "__main__":

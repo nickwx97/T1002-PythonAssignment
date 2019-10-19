@@ -58,6 +58,22 @@ def getPieChart():  # To remove at the end
     plt.show()
 
 
+
+def get1BarChart(input, rank, title, picname):
+    # Rank top x schools and display as a bar and save the picture
+    df = pd.read_csv(input)
+    series1 = df.sort_values(by='cutoff')
+    df.sort_values(by='cutoff',ascending=False)[['cutoff', 'sec_sch_name']][:rank].plot(x='sec_sch_name', y='cutoff', kind='barh', legend='', figsize=[20, 20])
+    # print series1
+
+    # # Below are for pie chart appearance
+    plt.legend(bbox_to_anchor=(1.0, 0.53), loc="lower right", fontsize=10, bbox_transform=plt.gcf().transFigure)
+    plt.title(title)
+    plt.savefig(picname)
+    plt.show()
+
+
+
 def get2PieCharts(input, col1, col2, title, picname):
     # Count all the unique values in a column and display as a pie chart and save the picture
     df = pd.read_csv(input)
