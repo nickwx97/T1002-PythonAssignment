@@ -7,7 +7,7 @@ from schoolByCondition import *
 from subjectsOffered import SubjectsOffered
 
 
-def doExport(x,y):
+def doExport(x, y):
     ExportFunction.schexport(x)
     y.lift()
 
