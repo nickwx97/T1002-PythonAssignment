@@ -1,11 +1,15 @@
 import Tkinter
 
 import ExportFunction
-from cca import *
 import schoolInfo
+from cca import *
 from schoolByCondition import *
-
 from subjectsOffered import SubjectsOffered
+
+
+def doExport(x,y):
+    ExportFunction.schexport(x)
+    y.lift()
 
 
 def messageBox(x, y):
@@ -28,7 +32,7 @@ def messageBox(x, y):
     hscrollb = Tkinter.Scrollbar(frame, command=txt.xview, orient='horizontal')
     txt['xscrollcommand'] = hscrollb.set
     hscrollb.grid(row=1, column=0, sticky='nsew')
-    e1 = Tkinter.Button(frame, text="Export", width=12, command=lambda: ExportFunction.schexport(x))
+    e1 = Tkinter.Button(frame, text="Export", width=12, command=lambda: doExport(x, y))
     e1.grid(row=1, column=0, sticky='nsew')
 
     y.geometry("1000x600")

@@ -70,7 +70,8 @@ class Application(Frame):
         self.__text = Entry(self)
 
         self.pack(expand=1)
-        master.attributes("-topmost", True)
+        master.lift()
+        master.wm_attributes("-topmost", True)
 
 
 def writeListCSV(headers, data, p):
@@ -164,7 +165,7 @@ def writeCSV(headers, data, p):
 
 def csvPath(defText, command='select', filetype="csv"):
     """
-    Creates GUI to accept user inp for CSV file or to save CSV file
+    Creates GUI to accept user input for CSV file or to save CSV file
     :param filetype: String containing filetype to select or save
     :type defText: String
     :param defText: default text to display in text field

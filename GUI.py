@@ -710,6 +710,7 @@ class InsightsPage(Tkinter.Frame):
 
 if __name__ == "__main__":
     app = App()
+    app.bind_all()
     app.minsize("900", "400")
     app.title("School Portal")
     app.grid_rowconfigure(0, weight=1)
