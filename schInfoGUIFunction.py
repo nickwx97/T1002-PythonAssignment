@@ -53,7 +53,7 @@ def printInfo(x, y):
             schstuff = schoolInfo.schoolstuff(x) + '\n'
             schstuff += "-" * 80 + '\nCCA(s) offered:\n'
             c = CCA()
-            for item in c.listCcaFromSch(x):
+            for item in c.listCustomCcaFromSch(x):
                 schstuff += item + '\n'
             schstuff += "-" * 80 + '\nSubject(s) offered:\n'
             s = SubjectsOffered()

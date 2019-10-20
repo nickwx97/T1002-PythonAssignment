@@ -28,10 +28,10 @@ class Application(Frame):
         # Create file button
         if command is 'select':
             self.__file_select["command"] = self.__fileSelect
-            self.__file_select["text"] = "Select CSV File"
+            self.__file_select["text"] = "Select File"
         elif command is 'save':
             self.__file_select["command"] = self.__fileSave
-            self.__file_select["text"] = "Save CSV File"
+            self.__file_select["text"] = "Save File"
         self.__file_select.pack({"side": "right"})
 
         # Create text field
@@ -52,6 +52,13 @@ class Application(Frame):
 
 
 def writeListCSV(headers, data, p):
+    """
+    Reads in a list and writes to file
+    :param headers: a list containing headers for the csv
+    :param data: a list containing data
+    :param p: path of file to write to
+    :return: True if success, False if fail
+    """
     result = ','.join(headers) + '\n'
     for index, col in enumerate(data, 0):
         if type(col) is not list:

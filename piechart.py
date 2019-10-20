@@ -25,7 +25,7 @@ def get1PieChart(input, colname, title, picname):
     plt.axis('equal')
     plt.title(title)
     plt.ylabel('')
-    plt.savefig(picname)
+    # plt.savefig(picname)
     plt.show()
 
 
@@ -54,24 +54,22 @@ def getPieChart():  # To remove at the end
     plt.pie(num, explode=[0, 0], labels=types, autopct=make_autopct(num), startangle=0, colors=['orange', 'lightblue'])
     plt.axis('equal')
     plt.title("Type of Schools")
-    plt.savefig('pie_1.png')
+    # plt.savefig('pie_1.png')
     plt.show()
-
 
 
 def get1BarChart(input, rank, title, picname):
     # Rank top x schools and display as a bar and save the picture
     df = pd.read_csv(input)
-    series1 = df.sort_values(by='cutoff')
-    df.sort_values(by='cutoff',ascending=False)[['cutoff', 'sec_sch_name']][:rank].plot(x='sec_sch_name', y='cutoff', kind='barh', legend='', figsize=[20, 20])
-    # print series1
+    df.sort_values(by='cutoff', ascending=False)[['cutoff', 'sec_sch_name']][:rank].plot(x='sec_sch_name', y='cutoff',
+                                                                                         kind='barh', legend='',
+                                                                                         figsize=[20, 20])
 
     # # Below are for pie chart appearance
     plt.legend(bbox_to_anchor=(1.0, 0.53), loc="lower right", fontsize=10, bbox_transform=plt.gcf().transFigure)
     plt.title(title)
-    plt.savefig(picname)
+    # plt.savefig(picname)
     plt.show()
-
 
 
 def get2PieCharts(input, col1, col2, title, picname):
@@ -102,19 +100,18 @@ def get2PieCharts(input, col1, col2, title, picname):
     fig.savefig(picname, dpi=100)
     plt.show()
 
-
-# Below is a specific function
-print getPieChart()  # Edit the function
-
-# Below are dynamic functions
-# To get 1.csv pie chart
-# Inputs for get1PieChart: Input csv, Column name, Title for the graph, name the picture of the graph to save as
-print get1PieChart("Data/test.csv", 'Type_Code', "Type of Schools", "pie_SchoolTypes.png")
-print get1PieChart("Data/school-distinctive-programmes.csv", 'Alp_Domain',
-                   "Types of Applied Learning Programmes in School", 'pie_ALP.png')
-print get1PieChart("Data/moe-programmes.csv", 'Moe_Programme_Desc', "Type of Programmes in School",
-                   "pie_SchoolProgTypes.png")
-# To get 2 pie chart in one figure
-# Inputs for get2PieCharts: Input csv, Column name1, Column name2, Title for the graph, name the picture of the graph to save as
-print get2PieCharts("Data/school-distinctive-programmes.csv", "Domain 1.csv", "Domain 2",
-                    "Types of Learning for Life Programmes in Schools", "pie_LLP.png")
+# # Below is a specific function
+# print getPieChart()  # Edit the function
+#
+# # Below are dynamic functions
+# # To get 1.csv pie chart
+# # Inputs for get1PieChart: Input csv, Column name, Title for the graph, name the picture of the graph to save as
+# print get1PieChart("Data/general-information-of-schools.csv", 'Type_Code', "Type of Schools", "pie_SchoolTypes.png")
+# print get1PieChart("Data/school-distinctive-programmes.csv", 'Alp_Domain',
+#                    "Types of Applied Learning Programmes in School", 'pie_ALP.png')
+# print get1PieChart("Data/moe-programmes.csv", 'Moe_Programme_Desc', "Type of Programmes in School",
+#                    "pie_SchoolProgTypes.png")
+# # To get 2 pie chart in one figure
+# # Inputs for get2PieCharts: Input csv, Column name1, Column name2, Title for the graph, name the picture of the graph to save as
+# print get2PieCharts("Data/school-distinctive-programmes.csv", "Domain 1", "Domain 2",
+#                     "Types of Learning for Life Programmes in Schools", "pie_LLP.png")
