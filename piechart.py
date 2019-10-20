@@ -13,9 +13,9 @@ def make_autopct(values):  # to display the count and percentage in the chart
     return my_autopct
 
 
-def get1PieChart(input, colname, title, picname):
+def get1PieChart(inp, colname, title):
     # Count all the unique values in a column and display as a pie chart and save the picture
-    df = pd.read_csv(input)
+    df = pd.read_csv(inp)
     series1 = df[colname].value_counts()  # Enter column name, using pandas to convert the csv into series
     print series1
 
@@ -25,7 +25,6 @@ def get1PieChart(input, colname, title, picname):
     plt.axis('equal')
     plt.title(title)
     plt.ylabel('')
-    # plt.savefig(picname)
     plt.show()
 
 
@@ -54,13 +53,12 @@ def getPieChart():  # To remove at the end
     plt.pie(num, explode=[0, 0], labels=types, autopct=make_autopct(num), startangle=0, colors=['orange', 'lightblue'])
     plt.axis('equal')
     plt.title("Type of Schools")
-    # plt.savefig('pie_1.png')
     plt.show()
 
 
-def get1BarChart(input, rank, title, picname):
+def get1BarChart(inp, rank, title):
     # Rank top x schools and display as a bar and save the picture
-    df = pd.read_csv(input)
+    df = pd.read_csv(inp)
     df.sort_values(by='cutoff', ascending=False)[['cutoff', 'sec_sch_name']][:rank].plot(x='sec_sch_name', y='cutoff',
                                                                                          kind='barh', legend='',
                                                                                          figsize=[20, 20])
@@ -68,13 +66,12 @@ def get1BarChart(input, rank, title, picname):
     # # Below are for pie chart appearance
     plt.legend(bbox_to_anchor=(1.0, 0.53), loc="lower right", fontsize=10, bbox_transform=plt.gcf().transFigure)
     plt.title(title)
-    # plt.savefig(picname)
     plt.show()
 
 
-def get2PieCharts(input, col1, col2, title, picname):
+def get2PieCharts(inp, col1, col2, title):
     # Count all the unique values in a column and display as a pie chart and save the picture
-    df = pd.read_csv(input)
+    df = pd.read_csv(inp)
     series1 = df[col1].value_counts()  # Enter column name, using pandas to convert the csv into series
     series2 = df[col2].value_counts()  # Enter column name, using pandas to convert the csv into series
     print series1, series2
@@ -97,21 +94,4 @@ def get2PieCharts(input, col1, col2, title, picname):
     plt.axis('equal')
     fig = plt.gcf()
     fig.set_size_inches(20, 20)
-    fig.savefig(picname, dpi=100)
     plt.show()
-
-# # Below is a specific function
-# print getPieChart()  # Edit the function
-#
-# # Below are dynamic functions
-# # To get 1.csv pie chart
-# # Inputs for get1PieChart: Input csv, Column name, Title for the graph, name the picture of the graph to save as
-# print get1PieChart("Data/general-information-of-schools.csv", 'Type_Code', "Type of Schools", "pie_SchoolTypes.png")
-# print get1PieChart("Data/school-distinctive-programmes.csv", 'Alp_Domain',
-#                    "Types of Applied Learning Programmes in School", 'pie_ALP.png')
-# print get1PieChart("Data/moe-programmes.csv", 'Moe_Programme_Desc', "Type of Programmes in School",
-#                    "pie_SchoolProgTypes.png")
-# # To get 2 pie chart in one figure
-# # Inputs for get2PieCharts: Input csv, Column name1, Column name2, Title for the graph, name the picture of the graph to save as
-# print get2PieCharts("Data/school-distinctive-programmes.csv", "Domain 1", "Domain 2",
-#                     "Types of Learning for Life Programmes in Schools", "pie_LLP.png")

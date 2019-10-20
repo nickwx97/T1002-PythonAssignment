@@ -615,7 +615,7 @@ class CutOffPage(Tkinter.Frame):
 
     def JCprintInfo(self, x, y):
         if x == "":
-            tkMessageBox.showerror("Error", "Please enter input")
+            tkMessageBox.showerror("Error", "Please enter inp")
         else:
             out = {}
             if y.isdigit():
@@ -628,7 +628,7 @@ class CutOffPage(Tkinter.Frame):
                     tkMessageBox.showerror("Error", "No schools found")
 
             else:
-                tkMessageBox.showerror("Error", "Please enter input")
+                tkMessageBox.showerror("Error", "Please enter inp")
 
     def messageBox(self, x):
         top = Toplevel()
@@ -650,7 +650,7 @@ class CutOffPage(Tkinter.Frame):
 
     def SECprintInfo(self, x, y):
         if x == "":
-            tkMessageBox.showerror("Error", "Please enter input")
+            tkMessageBox.showerror("Error", "Please enter inp")
         else:
             out = {}
             if y.isdigit():
@@ -674,31 +674,25 @@ class InsightsPage(Tkinter.Frame):
         lbl = Tkinter.Label(self, text="School Insights", fg='red', font=("Helvetica", 24))
         button1 = Tkinter.Button(self, text="Types of School",
                                  command=lambda: get1PieChart("Data/general-information-of-schools.csv", 'Type_Code',
-                                                              "Type of Schools",
-                                                              "pie_SchoolTypes.png"))
+                                                              "Type of Schools"))
         button3 = Tkinter.Button(self, text="Types of Applied Learning Programmes in School",
                                  command=lambda: get1PieChart("Data/school-distinctive-programmes.csv", 'Alp_Domain',
-                                                              "Types of Applied Learning Programmes in School",
-                                                              'pie_ALP.png'))
+                                                              "Types of Applied Learning Programmes in School"))
         button2 = Tkinter.Button(self, text="Type of Elective Programmes in School",
                                  command=lambda: get1PieChart("Data/moe-programmes.csv", 'Moe_Programme_Desc',
-                                                              "Type of Elective Programmes in School",
-                                                              "pie_SchoolProgTypes.png"))
+                                                              "Type of Elective Programmes in School"))
         button4 = Tkinter.Button(self, text="Types of Learning for Life Programmes in Schools",
-                                 command=lambda: get2PieCharts("Data/school-distinctive-programmes.csv", "Domain 1.csv",
+                                 command=lambda: get2PieCharts("Data/school-distinctive-programmes.csv", "Domain 1",
                                                                "Domain 2",
-                                                               "Types of Learning for Life Programmes in Schools",
-                                                               "pie_LLP.png"))
+                                                               "Types of Learning for Life Programmes in Schools"))
         button5 = Tkinter.Button(self, text="Which Area in Singapore has more school?",
                                  command=lambda: get1PieChart("Data/general-information-of-schools.csv", "Zone_Code",
-                                                              "Which Area in Singapore has more school?",
-                                                              "pie_regioncode.png"))
+                                                              "Which Area in Singapore has more school?"))
         button6 = Tkinter.Button(self, text="Level Types in School",
                                  command=lambda: get1PieChart("Data/general-information-of-schools.csv", "Mainlevel_Code",
-                                                              "Level Types in School", "pie_schoollevel.png"))
+                                                              "Level Types in School"))
         button7 = Tkinter.Button(self, text="Top School Rankings in Singapore",
-                                 command=lambda: get1BarChart("Data/cutoff.csv", 20, "Top School Rankings in Singapore",
-                                                              "pie_schoolrank.png"))
+                                 command=lambda: get1BarChart("Data/cutoff.csv", 20, "Top School Rankings in Singapore"))
 
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
         self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.quit)
