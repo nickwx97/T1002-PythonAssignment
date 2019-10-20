@@ -39,32 +39,32 @@ class StartPage(Tkinter.Frame):
         Tkinter.Frame.__init__(self, parent)
         self.controller = controller
 
-        self.label = Tkinter.Label(self, text="School Portal", font=("Courier", 44))
-        self.label.grid(row=0, column=2)
+        label = Tkinter.Label(self, text="School Portal", font=("Courier", 44))
+        label.grid(row=0, column=2)
         Tkinter.title = "School Portal"
-        self.button1 = Tkinter.Button(self, text="General Search", width=20,
+        button1 = Tkinter.Button(self, text="General Search", width=20,
                                  command=lambda: controller.show_frame("OverallSearchPage"))
-        self.button2 = Tkinter.Button(self, text="Search By Name", width=20,
+        button2 = Tkinter.Button(self, text="Search By Name", width=20,
                                  command=lambda: controller.show_frame("SearchPage"))
-        self.button3 = Tkinter.Button(self, text="Search By Subject", width=20,
+        button3 = Tkinter.Button(self, text="Search By Subject", width=20,
                                  command=lambda: controller.show_frame("SubjectPage"))
-        self.button4 = Tkinter.Button(self, text="Search By CCA", width=20,
+        button4 = Tkinter.Button(self, text="Search By CCA", width=20,
                                  command=lambda: controller.show_frame("CCAPage"))
-        self.button5 = Tkinter.Button(self, text="Search By Location", width=20,
+        button5 = Tkinter.Button(self, text="Search By Location", width=20,
                                  command=lambda: controller.show_frame("LocationPage"))
-        self.button6 = Tkinter.Button(self, text="Search By Cut Off Points", width=20,
+        button6 = Tkinter.Button(self, text="Search By Cut Off Points", width=20,
                                  command=lambda: controller.show_frame("CutOffPage"))
-        self.button7 = Tkinter.Button(self, text="School Insights", width=20,
+        button7 = Tkinter.Button(self, text="School Insights", width=20,
                                  command=lambda: controller.show_frame("InsightsPage"))
-        self.quit = Tkinter.Button(self, text="Quit", width=20, command=self.destroy)
-        self.button1.grid(row=1, column=2)
-        self.button2.grid(row=2, column=2)
-        self.button3.grid(row=3, column=2)
-        self.button4.grid(row=4, column=2)
-        self.button5.grid(row=5, column=2)
-        self.button6.grid(row=6, column=2)
-        self.button7.grid(row=7, column=2)
-        self.quit.grid(row=8, column=2)
+        quit = Tkinter.Button(self, text="Quit", width=20, command=self.quit)
+        button1.grid(row=1, column=2)
+        button2.grid(row=2, column=2)
+        button3.grid(row=3, column=2)
+        button4.grid(row=4, column=2)
+        button5.grid(row=5, column=2)
+        button6.grid(row=6, column=2)
+        button7.grid(row=7, column=2)
+        quit.grid(row=8, column=2)
 
 
 class OverallSearchPage(Tkinter.Frame):
@@ -225,7 +225,7 @@ class OverallSearchPage(Tkinter.Frame):
 
         B.grid(pady=50)
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
-        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.destroy)
+        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.quit)
         self.back.grid()
         self.quit.grid()
 
@@ -303,7 +303,7 @@ class SearchPage(Tkinter.Frame):
         # labeself.L1 = Tkinter.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
         # labeself.L1.grid(column=1.csv, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
-        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.destroy)
+        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.quit)
         self.back.grid(row=5, column=1)
         self.quit.grid(row=6, column=1)
 
@@ -405,7 +405,7 @@ class SubjectPage(Tkinter.Frame):
                                                               Toplevel()))  # Toplevel() just lets the function to be opened in a new window
         LB1.grid(row=8, column=2)
         self.back = Tkinter.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
-        self.quit = Tkinter.Button(self, text="Quit", width=20, command=self.destroy)
+        self.quit = Tkinter.Button(self, text="Quit", width=20, command=self.quit)
         self.back.grid(row=9, column=2)
         self.quit.grid(row=10, column=2)
 
@@ -478,7 +478,7 @@ class CCAPage(Tkinter.Frame):
         Lb1.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=Lb1.yview)
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
-        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.destroy)
+        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.quit)
         self.back.grid()
         self.quit.grid()
 
@@ -541,7 +541,7 @@ class LocationPage(Tkinter.Frame):
         scrollbar.config(command=LB1.yview)
 
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
-        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.destroy)
+        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.quit)
         self.back.grid(row=5, column=2)
         self.quit.grid(row=6, column=2)
 
@@ -590,7 +590,7 @@ class CutOffPage(Tkinter.Frame):
         self.B2.grid(row=4, column=5)
 
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
-        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.destroy)
+        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.quit)
         self.back.grid(row=9, column=4)
         self.quit.grid(row=10, column=4)
 
@@ -695,7 +695,7 @@ class InsightsPage(Tkinter.Frame):
                                                               "Top School Rankings in Singapore"))
 
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
-        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.destroy)
+        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.quit)
         lbl.place(x=80, y=50)
         button7.place(x=80, y=140)
         button1.place(x=80, y=180)
