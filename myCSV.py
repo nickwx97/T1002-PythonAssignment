@@ -1,24 +1,46 @@
 """Reads in CSV file and performs list and dictionary manipulation for this program"""
-import tkFileDialog
+import tkFileDialog as tkfd
 from Tkinter import *
 
 
 class Application(Frame):
-    def __fileSelect(self):
+    def __fileSelect(self, filetype):
+        temp = self.__text.get()
         self.__text.delete(0, END)
-        self.__text.insert(0, tkFileDialog.askopenfilename())
+        if filetype == "csv":
+            self.__text.insert(0, tkfd.askopenfilename(filetypes=[("CSV files", "*.csv")]))
+        elif filetype == "txt":
+            self.__text.insert(0, tkfd.askopenfilename(filetypes=[("Text files", "*.txt")]))
+        else:
+            print "Invalid file select option."
+            self.__text.insert(0, temp)
+        if not self.__text.get():
+            self.__text.insert(0, temp)
         return
 
-    def __fileSave(self):
+    def __fileSave(self, filetype):
+        temp = self.__text.get()
         self.__text.delete(0, END)
-        self.__text.insert(0, tkFileDialog.asksaveasfilename())
+        if filetype == "csv":
+            self.__text.insert(0, tkfd.asksaveasfilename(filetypes=[("CSV files", "*.csv")]))
+        elif filetype == "txt":
+            self.__text.insert(0, tkfd.asksaveasfilename(filetypes=[("Text files", "*.txt")]))
+        else:
+            print "Invalid file save option."
+            self.__text.insert(0, temp)
+        if not self.__text.get():
+            self.__text.insert(0, temp)
+        elif filetype == "csv" and ".csv" not in self.__text.get():
+            self.__text.insert(END, ".csv")
+        elif filetype == "txt" and ".txt" not in self.__text.get():
+            self.__text.insert(END, ".txt")
         return
 
     def __getText(self):
         self.path = self.__text.get()
         self.quit()
 
-    def createWidgets(self, command, defText):
+    def createWidgets(self, command, defText, filetype):
         # Create quit button
         self.__NEXT["text"] = "Next"
         self.__NEXT["fg"] = "#1d7a3f"
@@ -27,10 +49,10 @@ class Application(Frame):
 
         # Create file button
         if command is 'select':
-            self.__file_select["command"] = self.__fileSelect
+            self.__file_select["command"] = lambda: self.__fileSelect(filetype)
             self.__file_select["text"] = "Select File"
         elif command is 'save':
-            self.__file_select["command"] = self.__fileSave
+            self.__file_select["command"] = lambda: self.__fileSave(filetype)
             self.__file_select["text"] = "Save File"
         self.__file_select.pack({"side": "right"})
 
@@ -140,9 +162,10 @@ def writeCSV(headers, data, p):
         return True
 
 
-def csvPath(defText, command='select'):
+def csvPath(defText, command='select', filetype="csv"):
     """
     Creates GUI to accept user input for CSV file or to save CSV file
+    :param filetype: String containing filetype to select or save
     :type defText: String
     :param defText: default text to display in text field
     :param command: command accepts 'select' or 'save', default 'select'
@@ -152,18 +175,26 @@ def csvPath(defText, command='select'):
     root = Tk()
     app = Application(master=root)
     if command is 'select':
-        app.createWidgets('select', defText)
+        app.createWidgets('select', defText, filetype)
     elif command is 'save':
-        app.createWidgets('save', defText)
+        app.createWidgets('save', defText, filetype)
     else:
         print "Invalid command for csvPath(), defaulting to 'select'"
         app.createWidgets('select', defText)
     # Display GUI
+    w = 400  # width for the Tk root
+    h = 30  # height for the Tk root
+    ws = root.winfo_screenwidth()
+    hs = root.winfo_screenheight()
+    # calculate x and y coordinates
+    x = (ws * 3 / 4) - (w / 2)
+    y = (hs / 2) - (h / 2)
+    root.geometry('%dx%d+%d+%d' % (w, h, x, y))
+
     app.mainloop()
     path = app.path
     if path == "":
-        print "No path specified... Quitting"
-        quit(0)
+        pass
     else:
         root.destroy()
         return path
