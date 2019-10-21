@@ -423,6 +423,12 @@ class SubjectPage(Tkinter.Frame):
         LB1 = Listbox(self, height=30, width=50)
         LB1.bind('<<ListboxSelect>>', lambda event: checkBeforePrintInfo(LB1, schArray))
         LB1.grid(row=8, column=2)
+
+        scrollbar = Scrollbar(self)
+        scrollbar.grid(row=8, column=3, sticky=N + S + E)
+        # scrollbar.pack(side=RIGHT, fill=Y)
+        LB1.config(yscrollcommand=scrollbar.set)
+        scrollbar.config(command=LB1.yview)
         self.back = Tkinter.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
         self.quit = Tkinter.Button(self, text="Quit", width=20, command=quit)
         self.back.grid(row=9, column=2)
