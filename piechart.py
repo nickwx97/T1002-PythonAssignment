@@ -56,14 +56,13 @@ def getPieChart():  # To remove at the end
     plt.show()
 
 
-def get1BarChart(inp, rank, title):
+def get1BarChart(inp, rank, title, colname, colname1):
     # Rank top x1 schools and display as a bar and save the picture
     df = pd.read_csv(inp)
-    df.sort_values(by='cutoff', ascending=False)[['cutoff', 'sec_sch_name']][:rank].plot(x='sec_sch_name', y='cutoff',
+    df.sort_values(by=colname, ascending=False)[[colname, colname1]][:rank].plot(x=colname1, y=colname,
                                                                                          kind='barh', legend='',
                                                                                          figsize=[20, 20])
-
-    # # Below are for pie chart appearance
+    # Below are for pie chart appearance
     plt.gcf().subplots_adjust(left=0.25)
     plt.ylabel('School Name')
     plt.legend(bbox_to_anchor=(1.0, 0.53), loc="lower right", fontsize=10, bbox_transform=plt.gcf().transFigure)
