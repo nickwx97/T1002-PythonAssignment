@@ -269,7 +269,7 @@ class SearchPage(Tkinter.Frame):
         def schListBox(x, y, z):
             """schListBox populates the listbox based on the search substring. x is the search substring and y is the
             name of the array to be processed"""
-
+            del listBoxArray[:]
             if x == "":
                 del y[:]
                 Lb1.delete(0, END)
@@ -296,7 +296,7 @@ class SearchPage(Tkinter.Frame):
                                  command=lambda: schListBox(self.E1.get(), schArray, 'dgp_code'))
         self.B1.grid(row=3, column=1)
         Lb1 = Listbox(self, height=30, width=100)
-        Lb1.bind('<<ListboxSelect>>', lambda event: checkBeforePrintInfo(Lb1, schArray))
+        Lb1.bind('<<ListboxSelect>>', lambda event: checkBeforePrintInfo(Lb1, listBoxArray))
         Lb1.grid(row=4, column=1)
 
         scrollbar = Scrollbar(self)
