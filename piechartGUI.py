@@ -28,7 +28,13 @@ button6 = Tkinter.Button(window, text="Data/Level Types in School",
                          command=lambda: get1PieChart("general-information-of-schools.csv", "Mainlevel_Code",
                                                       "Level Types in School"))
 button7 = Tkinter.Button(window, text="Top School Rankings in Singapore",
-                         command=lambda: get1BarChart("Data/cutoff.csv", 20, "Ranking of School"))
+                         command=lambda: get1BarChart("Data/cutoff.csv", 20, "Ranking of School", "cutoff", "sec_sch_name"))
+button8 = Tkinter.Button(window, text="Rank",
+                         command=lambda: get1BarChart("Data/jc_cutoff.csv", 20,
+                                                      "Ranking of School", "pie_schoollevel.png", "Arts", "JC"))
+button9 = Tkinter.Button(window, text="Rank",
+                         command=lambda: get1BarChart("Data/jc_cutoff.csv", 20,
+                                                      "Ranking of School", "pie_schoollevel.png", "Science / IB", "JC"))
 
 lbl.place(x=80, y=50)
 button1.place(x=80, y=140)
@@ -37,6 +43,8 @@ button3.place(x=80, y=220)
 button4.place(x=80, y=260)
 button5.place(x=80, y=300)
 button6.place(x=80, y=340)
-button6.place(x=80, y=380)
+button7.place(x=80, y=380)
+button8.place(x=80, y=420)
+button9.place(x=80, y=460)
 
 window.mainloop()

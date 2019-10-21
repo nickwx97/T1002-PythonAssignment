@@ -56,6 +56,14 @@ class StartPage(Tkinter.Frame):
                                  command=lambda: controller.show_frame("CutOffPage"))
         button7 = Tkinter.Button(self, text="School Insights", width=20,
                                  command=lambda: controller.show_frame("InsightsPage"))
+        button8 = Tkinter.Button(self, text="Rank",
+                                 command=lambda: get1BarChart("Data/jc_cutoff.csv", 20,
+                                                              "Ranking of School", "pie_schoollevel.png", "Arts", "JC"))
+        button9 = Tkinter.Button(self, text="Rank",
+                                 command=lambda: get1BarChart("Data/jc_cutoff.csv", 20,
+                                                              "Ranking of School", "pie_schoollevel.png",
+                                                              "Science / IB", "JC"))
+
         q = Tkinter.Button(self, text="Quit", width=20, command=quit)
         button1.grid(row=1, column=2)
         button2.grid(row=2, column=2)
@@ -415,6 +423,12 @@ class SubjectPage(Tkinter.Frame):
         LB1 = Listbox(self, height=30, width=50)
         LB1.bind('<<ListboxSelect>>', lambda event: checkBeforePrintInfo(LB1, schArray))
         LB1.grid(row=8, column=2)
+
+        scrollbar = Scrollbar(self)
+        scrollbar.grid(row=8, column=3, sticky=N + S + E)
+        # scrollbar.pack(side=RIGHT, fill=Y)
+        LB1.config(yscrollcommand=scrollbar.set)
+        scrollbar.config(command=LB1.yview)
         self.back = Tkinter.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
         self.quit = Tkinter.Button(self, text="Quit", width=20, command=quit)
         self.back.grid(row=9, column=2)
@@ -701,22 +715,30 @@ class InsightsPage(Tkinter.Frame):
                                  command=lambda: get1PieChart("Data/general-information-of-schools.csv",
                                                               "Mainlevel_Code",
                                                               "Level Types in School"))
-        button7 = Tkinter.Button(self, text="Top School Rankings in Singapore",
+        button7 = Tkinter.Button(self, text="Top Secondary School Rankings in Singapore",
                                  command=lambda: get1BarChart("Data/cutoff.csv", 20,
                                                               "Top School Rankings in Singapore"))
-
+        button8 = Tkinter.Button(self, text="Top JC Rankings in Singapore (Arts)",
+                                 command=lambda: get1BarChart("Data/jc_cutoff.csv", 20,
+                                                              "Ranking of School", "pie_schoollevel.png", "Arts", "JC"))
+        button9 = Tkinter.Button(self, text="Top JC Rankings in Singapore (Science/IB)",
+                                 command=lambda: get1BarChart("Data/jc_cutoff.csv", 20,
+                                                              "Ranking of School", "pie_schoollevel.png",
+                                                              "Science / IB", "JC"))
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
         self.quit = Tkinter.Button(self, text="Quit", width=12, command=quit)
         lbl.place(x=80, y=50)
         button7.place(x=80, y=140)
-        button1.place(x=80, y=180)
-        button2.place(x=80, y=220)
-        button3.place(x=80, y=260)
-        button4.place(x=80, y=300)
-        button5.place(x=80, y=340)
-        button6.place(x=80, y=380)
-        self.back.place(x=80, y=420)
-        self.quit.place(x=80, y=460)
+        button8.place(x=80, y=180)
+        button9.place(x=80, y=220)
+        button1.place(x=80, y=260)
+        button2.place(x=80, y=300)
+        button3.place(x=80, y=340)
+        button4.place(x=80, y=380)
+        button5.place(x=80, y=420)
+        button6.place(x=80, y=460)
+        self.back.place(x=80, y=500)
+        self.quit.place(x=80, y=540)
 
 
 if __name__ == "__main__":
