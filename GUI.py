@@ -56,13 +56,6 @@ class StartPage(Tkinter.Frame):
                                  command=lambda: controller.show_frame("CutOffPage"))
         button7 = Tkinter.Button(self, text="School Insights", width=20,
                                  command=lambda: controller.show_frame("InsightsPage"))
-        button8 = Tkinter.Button(self, text="Rank",
-                                 command=lambda: get1BarChart("Data/jc_cutoff.csv", 20,
-                                                              "Ranking of School", "pie_schoollevel.png", "Arts", "JC"))
-        button9 = Tkinter.Button(self, text="Rank",
-                                 command=lambda: get1BarChart("Data/jc_cutoff.csv", 20,
-                                                              "Ranking of School", "pie_schoollevel.png",
-                                                              "Science / IB", "JC"))
 
         q = Tkinter.Button(self, text="Quit", width=20, command=quit)
         button1.grid(row=1, column=2)
@@ -188,7 +181,7 @@ class OverallSearchPage(Tkinter.Frame):
         L2 = Label(schoollevelframe, text="Student Level")
         L2.grid(column=1)
         variable2 = StringVar(schoollevelframe)
-        variable2.set("")  # default value
+        variable2.set("")
 
         """You can change the column you want you filter below here"""
         y = OptionMenu(schoollevelframe, variable2, *schoolLevelArray)
@@ -203,7 +196,7 @@ class OverallSearchPage(Tkinter.Frame):
         L1 = Label(typecodeframe, text="School Type")
         L1.grid(column=1)
         variable = StringVar(typecodeframe)
-        variable.set("")  # default value
+        variable.set("")
 
         """You can change the column you want you filter below here"""
         w = OptionMenu(typecodeframe, variable, *typeCodeArray)
@@ -218,7 +211,7 @@ class OverallSearchPage(Tkinter.Frame):
         L2 = Label(naturecodeframe, text="Student Gender Type")
         L2.grid(column=1)
         variable1 = StringVar(naturecodeframe)
-        variable1.set("")  # default value
+        variable1.set("")
 
         """You can change the column you want you filter below here"""
         x = OptionMenu(naturecodeframe, variable1, *natureCodeArray)
@@ -265,7 +258,6 @@ class SearchPage(Tkinter.Frame):
             sch_name_arr = schoolstuff(x, z)
 
             for name in sch_name_arr:
-                # print name
                 y.append(name)
 
             return y
@@ -291,10 +283,7 @@ class SearchPage(Tkinter.Frame):
                         Lb1.insert(END, schName[0])
                         listBoxArray.append(schName)
                 if len(listBoxArray) == 0:
-                    tkMessageBox.showerror("No such school","There is no such school found!")
-
-            # for z in y:
-            #     print z
+                    tkMessageBox.showerror("No such school", "There is no such school found!")
 
         schArray = []
         listBoxArray = []
@@ -314,8 +303,6 @@ class SearchPage(Tkinter.Frame):
         scrollbar.grid(row=4, column=2, sticky=N + S + W)
         Lb1.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=Lb1.yview)
-        # labeself.L1 = Tkinter.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
-        # labeself.L1.grid(column=1.csv, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
         self.quit = Tkinter.Button(self, text="Quit", width=12, command=quit)
         self.back.grid(row=5, column=1)
@@ -342,25 +329,25 @@ class SubjectPage(Tkinter.Frame):
                 global subjectmenu1
                 subjectmenu1 = StringVar(self)
                 subjectmenu = OptionMenu(self, subjectmenu1, *subjectlist)
-                subjectmenu1.set('Select a Subject')  # default value
+                subjectmenu1.set('Select a Subject')
                 subjectmenu.grid(row=3, column=2, sticky="ew")
 
                 global subjectmenu2
                 subjectmenu2 = StringVar(self)
                 subjectmenu = OptionMenu(self, subjectmenu2, *subjectlist)
-                subjectmenu2.set('Select a Subject')  # default value
+                subjectmenu2.set('Select a Subject')
                 subjectmenu.grid(row=4, column=2, sticky="ew")
 
                 global subjectmenu3
                 subjectmenu3 = StringVar(self)
                 subjectmenu = OptionMenu(self, subjectmenu3, *subjectlist)
-                subjectmenu3.set('Select a Subject')  # default value
+                subjectmenu3.set('Select a Subject')
                 subjectmenu.grid(row=5, column=2, sticky="ew")
 
                 global subjectmenu4
                 subjectmenu4 = StringVar(self)
                 subjectmenu = OptionMenu(self, subjectmenu4, *subjectlist)
-                subjectmenu4.set('Select a Subject')  # default value
+                subjectmenu4.set('Select a Subject')
                 subjectmenu.grid(row=6, column=2, sticky="ew")
             except Exception as e:
                 print e
@@ -372,7 +359,6 @@ class SubjectPage(Tkinter.Frame):
             sch_name_arr = schoolstuff(x, z)
 
             for name in sch_name_arr:
-                # print name
                 y.append(name)
 
             return y
@@ -381,7 +367,7 @@ class SubjectPage(Tkinter.Frame):
             if x.curselection():
                 printInfo(y[x.curselection()[0]], Toplevel())
 
-        def checkBeforeSchListBox(x,y):
+        def checkBeforeSchListBox(x, y):
             try:
                 if x not in y:
                     tkMessageBox.showerror("", "Please select a level")
@@ -415,7 +401,7 @@ class SubjectPage(Tkinter.Frame):
 
         # Dictionary with options
         choices = {'Primary', 'Secondary', 'Junior College'}
-        tkvar.set('Select Level')  # set the default option
+        tkvar.set('Select Level')
         popupMenu = OptionMenu(self, tkvar, *choices)
         popupMenu.grid(row=0, column=2)
 
@@ -424,7 +410,7 @@ class SubjectPage(Tkinter.Frame):
         self.B1 = Tkinter.Button(self, text="Apply", command=lambda: printInfoDropdown(tkvar.get()))
         self.B1.grid(row=0, column=3)
         self.B2 = Tkinter.Button(self, text="Search",
-                                 command=lambda: checkBeforeSchListBox(tkvar.get(),choices))
+                                 command=lambda: checkBeforeSchListBox(tkvar.get(), choices))
         self.B2.grid(row=7, column=2)
         LB1 = Listbox(self, height=30, width=50)
         LB1.bind('<<ListboxSelect>>', lambda event: checkBeforePrintInfo(LB1, schArray))
@@ -432,7 +418,6 @@ class SubjectPage(Tkinter.Frame):
 
         scrollbar = Scrollbar(self)
         scrollbar.grid(row=8, column=3, sticky=N + S + E)
-        # scrollbar.pack(side=RIGHT, fill=Y)
         LB1.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=LB1.yview)
         self.back = Tkinter.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
@@ -454,7 +439,6 @@ class CCAPage(Tkinter.Frame):
             sch_name_arr = schoolstuff("", z)
 
             for name in sch_name_arr:
-                # print name
                 y.append(name)
 
             return y
@@ -488,7 +472,7 @@ class CCAPage(Tkinter.Frame):
 
         schArray = []
         variable = StringVar(self)
-        variable.set("")  # default value
+        variable.set("")
 
         """You can change the column you want you filter below here"""
         w = OptionMenu(self, variable, *sorted_cca,
@@ -531,7 +515,6 @@ class LocationPage(Tkinter.Frame):
             sch_name_arr = schoolstuff(x1, z)
 
             for name in sch_name_arr:
-                # print name
                 y.append(name)
 
             return y
@@ -554,7 +537,7 @@ class LocationPage(Tkinter.Frame):
         self.L1.grid(row=0, column=2)
 
         self.variable = StringVar()
-        self.variable.set("")  # default value
+        self.variable.set("")
 
         """You can change the column you want you filter below here"""
         w = OptionMenu(self, self.variable, *areaarray,
@@ -635,7 +618,7 @@ class CutOffPage(Tkinter.Frame):
         e1 = Tkinter.Button(top, text="Export", width=12,
                             command=lambda: ExportFunction.JCexport([self.jc.getHeaders()[0],
                                                                      self.variable.get()], x, top))
-        for k, v in x.items():
+        for k, v in sorted(x.items(), key=lambda kv: int(kv[1])):
             L2.insert(END, str(k) + ": " + str(v))
         L2.pack(expand=YES)
         L2.config(yscrollcommand=scrollbar.set)
@@ -644,7 +627,7 @@ class CutOffPage(Tkinter.Frame):
 
     def JCprintInfo(self, x, y):
         if x == "":
-            tkMessageBox.showerror("Error", "Please enter inp")
+            tkMessageBox.showerror("Error", "Please enter input")
         else:
             out = {}
             if y.isdigit():
@@ -657,7 +640,7 @@ class CutOffPage(Tkinter.Frame):
                     tkMessageBox.showerror("Error", "No schools found")
 
             else:
-                tkMessageBox.showerror("Error", "Please enter inp")
+                tkMessageBox.showerror("Error", "Please enter input")
 
     def messageBox(self, x):
         top = Toplevel()
@@ -670,7 +653,7 @@ class CutOffPage(Tkinter.Frame):
         L1 = Listbox(top, height=30, width=100)
         e1 = Tkinter.Button(top, text="Export", width=12,
                             command=lambda: ExportFunction.export(self.sec.getHeaders(), dict(x), top))
-        for k, v in x:
+        for k, v in sorted(x.items(), key=lambda kv: int(kv[1])):
             L1.insert(END, str(k) + ": " + str(v))
         L1.pack(expand=YES)
         L1.config(yscrollcommand=scrollbar.set)
@@ -679,15 +662,14 @@ class CutOffPage(Tkinter.Frame):
 
     def SECprintInfo(self, x, y):
         if x == "":
-            tkMessageBox.showerror("Error", "Please enter inp")
+            tkMessageBox.showerror("Error", "Please enter input")
         else:
             out = {}
             if y.isdigit():
-                secinfo = self.sec.search(lower=int(x),upper=int(y))
+                secinfo = self.sec.search(lower=int(x), upper=int(y))
                 if secinfo:
                     for col, row in secinfo.items():
                         out[col] = row[0].get('cutoff')
-                    out = sorted(out.items(), key=lambda kv: kv[1], reverse=True)
                     self.messageBox(out)
                 else:
                     tkMessageBox.showerror("Error", "No schools found")
@@ -723,13 +705,14 @@ class InsightsPage(Tkinter.Frame):
                                                               "Level Types in School"))
         button7 = Tkinter.Button(self, text="Top Secondary School Rankings in Singapore",
                                  command=lambda: get1BarChart("Data/cutoff.csv", 20,
-                                                              "Top School Rankings in Singapore"))
+                                                              "Top School Rankings in Singapore", "cutoff",
+                                                              "sec_sch_name"))
         button8 = Tkinter.Button(self, text="Top JC Rankings in Singapore (Arts)",
                                  command=lambda: get1BarChart("Data/jc_cutoff.csv", 20,
-                                                              "Ranking of School", "pie_schoollevel.png", "Arts", "JC"))
+                                                              "Ranking of School", "Arts", "JC"))
         button9 = Tkinter.Button(self, text="Top JC Rankings in Singapore (Science/IB)",
                                  command=lambda: get1BarChart("Data/jc_cutoff.csv", 20,
-                                                              "Ranking of School", "pie_schoollevel.png",
+                                                              "Ranking of School",
                                                               "Science / IB", "JC"))
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
         self.quit = Tkinter.Button(self, text="Quit", width=12, command=quit)

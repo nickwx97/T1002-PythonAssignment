@@ -32,7 +32,7 @@ class CCA:
                     if y.get("cca_customized_name").lower() == "na":
                         result.append(y.get("cca_generic_name"))
                     else:
-                        result.append(y.get("cca_generic_name") + " (" + y.get("cca_customized_name")+")")
+                        result.append(y.get("cca_generic_name") + " (" + y.get("cca_customized_name") + ")")
         return result
 
     def searchDict(self, key="cca_generic_name", value=""):

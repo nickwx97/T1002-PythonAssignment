@@ -49,7 +49,7 @@ class SubjectsOffered:
             if i.upper() == school_name.upper():
                 for x in self.__dict[i]:
                     subjects.append(x[self.__headers[1]])
-        return subjects  # returns an array
+        return subjects
 
     def getSchoolsBySubjectDesc(self, subject_name):
         _subj_name = subject_name.upper()
@@ -82,7 +82,6 @@ class SubjectsOffered:
         self.__headers = x[0]
 
     def __init__(self):
-        # self.rw = openCSV(csvPath())
         self.__subList = []
         self.__raw = openCSV("Data/subjects-offered.csv")
         self.__dict = None

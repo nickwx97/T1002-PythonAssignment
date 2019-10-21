@@ -8,8 +8,7 @@ class Cutoff:
         for i in result.items():
             if not i[1][0].get(key.lower()).isdigit():
                 del result[i[0]]
-        result = dict(filter(lambda x: lower <= int(x[1][0].get(key.lower())) <= upper, result.items()))
-        return result
+        return dict(filter(lambda x: lower <= int(x[1][0].get(key.lower())) <= upper, result.items()))
 
     def mySort(self, key='cutoff', reverse=False):
         self.__dict = dict((k, v) for k, v in sorted(self.__dict.items(), key=lambda kv: kv[1][0].get(key),

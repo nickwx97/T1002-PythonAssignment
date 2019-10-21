@@ -10,7 +10,6 @@ def appendArr(x, y, z):
     sch_name_arr = schoolstuff(x, z)
 
     for name in sch_name_arr:
-        # print name
         y.append(name)
 
     return y
@@ -30,9 +29,6 @@ def schListBox(x, y, z):
         for schName in y:
             Lb1.insert(END, schName[0])
 
-    # for z in y:
-    #     print z
-
 
 top = Tk()
 
@@ -49,15 +45,11 @@ frame = Frame(top)
 frame.place(rely=0.5, relheight=0.6, relwidth=1.0)
 
 Lb1 = Listbox(top, height=20, width=50)
-# appendArr('bedok',schArray,'dgp_code')
 """Lb1.bind contains the onclick event of the listBox. Lb1.curselection() is just the position number of each member 
 in the listbox i.e first member will be position number 0 and so on"""
 Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]][0],
                                                       Toplevel()))
 Lb1.pack()
-
-"""Creates an empty listbox when the program is opened"""
-# schListBox("","dgp_code")
 
 """Change the filter by changing the column name of the last argument of schListBox"""
 B = Button(top, text="Search", command=lambda: schListBox(E1.get(), schArray, 'type_Code'))

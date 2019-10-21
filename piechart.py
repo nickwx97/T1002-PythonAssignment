@@ -1,5 +1,3 @@
-import csv
-
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -14,7 +12,7 @@ def make_autopct(values):  # to display the count and percentage in the chart
 
 
 def get1PieChart(inp, colname, title):
-    # Count all the unique values in a column and display as a pie chart and save the picture
+    # Count all the unique values in a column and display as a pie chart
     df = pd.read_csv(inp)
     series1 = df[colname].value_counts()  # Enter column name, using pandas to convert the csv into series
     print series1
@@ -28,40 +26,12 @@ def get1PieChart(inp, colname, title):
     plt.show()
 
 
-def getPieChart():  # To remove at the end
-    # This function is more more specific and hardcoded way of getting values and displaying as pie chart
-    # Count specific values in a column and display as a pie chart and save the picture
-    with open("Data/general-information-of-schools.csv", 'r') as csvfile:
-        csv_reader = csv.reader(csvfile, delimiter=',')
-        line_count = 0
-        govern = []
-        nogovern = []
-        for row in csv_reader:
-            if line_count == 0:
-                line_count += 1
-            else:
-                if 'Government' in row[24]:  # Enter the specific value in the column and column index
-                    line_count += 1
-                    govern.append({", ".join(row)})
-                else:  # Add elif, if need to find more specific values
-                    line_count += 1
-                    nogovern.append({", ".join(row)})
-
-    # Below are for pie chart appearance
-    types = ["Government", "Non-Government"]
-    num = [len(govern), len(nogovern)]
-    plt.pie(num, explode=[0, 0], labels=types, autopct=make_autopct(num), startangle=0, colors=['orange', 'lightblue'])
-    plt.axis('equal')
-    plt.title("Type of Schools")
-    plt.show()
-
-
 def get1BarChart(inp, rank, title, colname, colname1):
-    # Rank top x1 schools and display as a bar and save the picture
+    # Rank top x1 schools and display as a bar
     df = pd.read_csv(inp)
     df.sort_values(by=colname, ascending=False)[[colname, colname1]][:rank].plot(x=colname1, y=colname,
-                                                                                         kind='barh', legend='',
-                                                                                         figsize=[20, 20])
+                                                                                 kind='barh', legend='',
+                                                                                 figsize=[20, 20])
     # Below are for pie chart appearance
     plt.gcf().subplots_adjust(left=0.25)
     plt.ylabel('School Name')
@@ -71,7 +41,7 @@ def get1BarChart(inp, rank, title, colname, colname1):
 
 
 def get2PieCharts(inp, col1, col2, title):
-    # Count all the unique values in a column and display as a pie chart and save the picture
+    # Count all the unique values in a column and display as a pie chart
     df = pd.read_csv(inp)
     series1 = df[col1].value_counts()  # Enter column name, using pandas to convert the csv into series
     series2 = df[col2].value_counts()  # Enter column name, using pandas to convert the csv into series

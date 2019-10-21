@@ -56,7 +56,6 @@ class Application(Frame):
             self.__file_select["text"] = "Save File"
         self.__file_select.pack({"side": "right"})
 
-        # Create text field
         self.__text["width"] = 50
         self.__text.insert(END, defText)
         self.__text.pack({"side": "right"})

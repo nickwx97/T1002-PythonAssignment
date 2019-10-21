@@ -19,7 +19,6 @@ def messageBox(x, y):
     frame.place(y=230, height=500, relwidth=0.8, relx=0.5, anchor="center")
     frame.grid_propagate(False)
     frame.grid(padx=10, pady=10, sticky="nsew")
-    # implement stretchability
     frame.grid_rowconfigure(0, weight=1)
     frame.grid_columnconfigure(0, weight=1)
     txt = Text(frame, wrap=WORD)

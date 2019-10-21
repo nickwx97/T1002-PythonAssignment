@@ -10,7 +10,6 @@ def appendArr(x1, y, z):
     sch_name_arr = schoolstuff(x1, z)
 
     for name in sch_name_arr:
-        # print name
         y.append(name)
 
     return y
@@ -30,9 +29,6 @@ def schListBox(x1, y, z):
         for schName in y:
             Lb1.insert(END, schName[0])
 
-    # for z in y:
-    #     print z
-
 
 top = Tk()
 
@@ -51,7 +47,7 @@ for x in schoolstuff("", "dgp_code"):
         areaarray.append(x[1][0]["dgp_code"])
 
 variable = StringVar(top)
-variable.set("")  # default value
+variable.set("")
 
 """You can change the column you want you filter below here"""
 w = OptionMenu(top, variable, *areaarray, command=lambda func: schListBox(variable.get(), schArray, 'dgp_code'))
@@ -63,7 +59,6 @@ scrollbar = Scrollbar(frame)
 scrollbar.pack(side=RIGHT, fill=Y)
 
 Lb1 = Listbox(frame, height=30, width=100)
-# appendArr('bedok',schArray,'dgp_code')
 """Lb1.bind contains the onclick event of the listBox. Lb1.curselection() is just the position number of each member 
 in the listbox i.e first member will be position number 0 and so on"""
 Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]][0],
@@ -75,7 +70,5 @@ Lb1.config(yscrollcommand=scrollbar.set)
 scrollbar.config(command=Lb1.yview)
 
 """Change the filter by changing the column name of the last argument of schListBox"""
-# B = Button(top, text="Search", command=lambda: schListBox(variable.get(),schArray,'dgp_code'))
 
-# B.pack()
 top.mainloop()
