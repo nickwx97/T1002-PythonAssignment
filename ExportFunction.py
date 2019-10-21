@@ -4,18 +4,20 @@ from Tkinter import *
 import myCSV
 
 
-def export(headers, data):
+def export(headers, data, y):
     if myCSV.writeCSV(headers, data, myCSV.csvPath("Saving Secondary cutoff points", "save")):
         showMessage(typ="success")
     else:
         showMessage(typ="error")
+    y.lift()
 
 
-def JCexport(headers, data):
+def JCexport(headers, data, y):
     if myCSV.writeCSV(headers, data, myCSV.csvPath("Saving JC cutoff points", "save")):
         showMessage(typ="success")
     else:
         showMessage(typ="error")
+    y.lift()
 
 
 def schexport(x):
@@ -45,12 +47,7 @@ def writeSchTxt(text, p):
 
 
 def showMessage(typ="error"):
-    root = Tk()
-    root.attributes('-topmost', 1)
-    root.attributes('-topmost', 0)
-    root.withdraw()
     if typ == "error":
         tkMessageBox.showerror("Title", "Export Unsuccessful")
     elif typ == "success":
         tkMessageBox.showinfo("Success", "Export successful")
-    root.destroy()

@@ -603,7 +603,7 @@ class CutOffPage(Tkinter.Frame):
         L2 = Listbox(top, height=30, width=100)
         e1 = Tkinter.Button(top, text="Export", width=12,
                             command=lambda: ExportFunction.JCexport([self.jc.getHeaders()[0],
-                                                                     self.variable.get()], x))
+                                                                     self.variable.get()], x, top))
         for k, v in x.items():
             L2.insert(END, str(k) + ": " + str(v))
         L2.pack(expand=YES)
@@ -638,7 +638,7 @@ class CutOffPage(Tkinter.Frame):
 
         L1 = Listbox(top, height=30, width=100)
         e1 = Tkinter.Button(top, text="Export", width=12,
-                            command=lambda: ExportFunction.export(self.sec.getHeaders(), dict(x)))
+                            command=lambda: ExportFunction.export(self.sec.getHeaders(), dict(x), top))
         for k, v in x:
             L1.insert(END, str(k) + ": " + str(v))
         L1.pack(expand=YES)
