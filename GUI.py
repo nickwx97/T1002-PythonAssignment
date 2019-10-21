@@ -151,7 +151,7 @@ class OverallSearchPage(Tkinter.Frame):
                     Lb1.insert(END, schName[0])
             if len(returnarr) == 0:
                 """Messagebox pops up when there is no such school"""
-                tkMessageBox.showinfo("", "There is no such school")
+                tkMessageBox.showerror("", "There is no such school")
 
         typeCodeArray = [""]
         natureCodeArray = [""]
@@ -271,6 +271,7 @@ class SearchPage(Tkinter.Frame):
             name of the array to be processed"""
             del listBoxArray[:]
             if x == "":
+                tkMessageBox.showerror("Empty Field", "Please enter a search query in the textbox.")
                 del y[:]
                 Lb1.delete(0, END)
             else:
@@ -281,6 +282,8 @@ class SearchPage(Tkinter.Frame):
                     if x.upper() in schName[0].upper():
                         Lb1.insert(END, schName[0])
                         listBoxArray.append(schName)
+                if len(listBoxArray) == 0:
+                    tkMessageBox.showerror("No such school","There is no such school found!")
 
             # for z in y:
             #     print z
@@ -370,10 +373,14 @@ class SubjectPage(Tkinter.Frame):
             if x.curselection():
                 printInfo(y[x.curselection()[0]], Toplevel())
 
-        def checkBeforeSchListBox():
+        def checkBeforeSchListBox(x,y):
             try:
+                if x not in y:
+                    tkMessageBox.showerror("", "Please select a level")
+
                 schListBox(subjectmenu1.get(), subjectmenu2.get(), subjectmenu3.get(),
                            subjectmenu4.get(), schArray, 'dgp_code')
+
             except NameError:
                 pass
 
@@ -386,7 +393,6 @@ class SubjectPage(Tkinter.Frame):
             cri = filter(lambda x: x != "Select a Subject", cri)
             for k, v in SubjectsOffered().filterMultiSubs(cri).items():
                 schArray1.append(k)
-
             del y[:]
             LB1.delete(0, END)
             appendArr("", y, z)
@@ -410,7 +416,7 @@ class SubjectPage(Tkinter.Frame):
         self.B1 = Tkinter.Button(self, text="Apply", command=lambda: printInfoDropdown(tkvar.get()))
         self.B1.grid(row=0, column=3)
         self.B2 = Tkinter.Button(self, text="Search",
-                                 command=lambda: checkBeforeSchListBox())
+                                 command=lambda: checkBeforeSchListBox(tkvar.get(),choices))
         self.B2.grid(row=7, column=2)
         LB1 = Listbox(self, height=30, width=50)
         LB1.bind('<<ListboxSelect>>', lambda event: checkBeforePrintInfo(LB1, schArray))
@@ -669,7 +675,7 @@ class CutOffPage(Tkinter.Frame):
         else:
             out = {}
             if y.isdigit():
-                secinfo = self.sec.search(lower=int(x))
+                secinfo = self.sec.search(lower=int(x),upper=int(y))
                 if secinfo:
                     for col, row in secinfo.items():
                         out[col] = row[0].get('cutoff')
