@@ -2,7 +2,7 @@ from myCSV import *
 
 
 def schoolstuff(x, y):
-    """Main input is the substring taken from schEnquiry"""
+    """Main inp is the substring taken from schEnquiry"""
     sch_enquiry = x
 
     school_dict_items_list = genDict(openCSV("Data/general-information-of-schools.csv"))

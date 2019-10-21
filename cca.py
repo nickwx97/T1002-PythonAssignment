@@ -24,6 +24,17 @@ class CCA:
                     result.append(y.get("cca_generic_name"))
         return result
 
+    def listCustomCcaFromSch(self, key):
+        result = []
+        for x in self.__dict.keys():
+            if key.upper() in x.upper():
+                for y in self.__dict.get(x):
+                    if y.get("cca_customized_name").lower() == "na":
+                        result.append(y.get("cca_generic_name"))
+                    else:
+                        result.append(y.get("cca_generic_name") + " (" + y.get("cca_customized_name")+")")
+        return result
+
     def searchDict(self, key="cca_generic_name", value=""):
         if key not in self.__headers:
             print "Invalid search critera"

@@ -1,29 +1,35 @@
 import StringIO
 import tkMessageBox
-
+from Tkinter import *
 import myCSV
 
 
-def export(headers, data):
+def export(headers, data, y):
     if myCSV.writeCSV(headers, data, myCSV.csvPath("Saving Secondary cutoff points", "save")):
-        tkMessageBox.showinfo("Success", "Export successful")
+        showMessage(typ="success")
     else:
-        tkMessageBox.showerror("Error", "Export Unsuccessful")
+        showMessage(typ="error")
+    y.lift()
 
 
-def JCexport(headers, data):
+def JCexport(headers, data, y):
     if myCSV.writeCSV(headers, data, myCSV.csvPath("Saving JC cutoff points", "save")):
-        tkMessageBox.showinfo("Success", "Export successful")
+        showMessage(typ="success")
     else:
-        tkMessageBox.showerror("Error", "Export Unsuccessful")
+        showMessage(typ="error")
+    y.lift()
 
 
 def schexport(x):
     s = StringIO.StringIO(x)
-    if writeSchTxt(s, myCSV.csvPath("School Search Info", "save")):
-        tkMessageBox.showinfo("Success", "Export successful")
+    path = myCSV.csvPath("School Search Info", "save", filetype="txt")
+    if not path:
+        showMessage(typ="error")
+        return
+    if writeSchTxt(s, path):
+        showMessage(typ="success")
     else:
-        tkMessageBox.showerror("Error", "Export Unsuccessful")
+        showMessage(typ="error")
 
 
 def writeSchTxt(text, p):
@@ -38,3 +44,10 @@ def writeSchTxt(text, p):
         csv1.write('-' * 100 + '\n\n\n')
         csv1.close()
         return True
+
+
+def showMessage(typ="error"):
+    if typ == "error":
+        tkMessageBox.showerror("Title", "Export Unsuccessful")
+    elif typ == "success":
+        tkMessageBox.showinfo("Success", "Export successful")
