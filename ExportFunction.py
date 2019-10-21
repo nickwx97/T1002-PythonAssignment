@@ -1,6 +1,6 @@
 import StringIO
 import tkMessageBox
-from Tkinter import *
+
 import myCSV
 
 

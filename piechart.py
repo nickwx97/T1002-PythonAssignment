@@ -57,7 +57,7 @@ def getPieChart():  # To remove at the end
 
 
 def get1BarChart(inp, rank, title):
-    # Rank top x schools and display as a bar and save the picture
+    # Rank top x1 schools and display as a bar and save the picture
     df = pd.read_csv(inp)
     df.sort_values(by='cutoff', ascending=False)[['cutoff', 'sec_sch_name']][:rank].plot(x='sec_sch_name', y='cutoff',
                                                                                          kind='barh', legend='',

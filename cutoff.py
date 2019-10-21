@@ -33,10 +33,3 @@ class Cutoff:
         self.__headers = None
         self.__dict = None
         self.getDict()
-
-# sec = Cutoff("Data/cutoff.csv")
-# print sec.search(lower=0, upper=300)
-# jc = Cutoff("Data/jc_cutoff.csv")
-# print jc.getDict()
-# print jc.search('arts', upper=12)
-# jc.sort(key=jc.getHeaders()[1.csv])

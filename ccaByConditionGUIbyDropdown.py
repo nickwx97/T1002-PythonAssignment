@@ -20,12 +20,12 @@ def appendArr(y, z):
 #
 #
 #
-# def schListBox(x,y,z):
-#     """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
+# def schListBox(x1,y,z):
+#     """schListBox populates the listbox based on the search substring. x1 is the search substring and y is the name of
 #     the array to be processed"""
 #     schlistarr = []
 #
-#     if x=="":
+#     if x1=="":
 #         del y[:]
 #         Lb1.delete(0, END)
 #     else:
@@ -35,7 +35,7 @@ def appendArr(y, z):
 #
 #         for schName in y:
 #             for ccaName in cca.listCcaFromSch(schName[0]):
-#                 if x.upper() in ccaName.upper():
+#                 if x1.upper() in ccaName.upper():
 #                     schlistarr.append(schName)
 #         del y[:]
 #         for names in schlistarr:

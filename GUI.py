@@ -17,7 +17,7 @@ class App(Tkinter.Tk):
 
         self.frames = {}
         for F in (
-        StartPage, OverallSearchPage, SearchPage, SubjectPage, CutOffPage, CCAPage, LocationPage, InsightsPage):
+                StartPage, OverallSearchPage, SearchPage, SubjectPage, CutOffPage, CCAPage, LocationPage, InsightsPage):
             pagename = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[pagename] = frame
@@ -56,7 +56,7 @@ class StartPage(Tkinter.Frame):
                                  command=lambda: controller.show_frame("CutOffPage"))
         button7 = Tkinter.Button(self, text="School Insights", width=20,
                                  command=lambda: controller.show_frame("InsightsPage"))
-        quit = Tkinter.Button(self, text="Quit", width=20, command=self.quit)
+        q = Tkinter.Button(self, text="Quit", width=20, command=quit)
         button1.grid(row=1, column=2)
         button2.grid(row=2, column=2)
         button3.grid(row=3, column=2)
@@ -64,7 +64,7 @@ class StartPage(Tkinter.Frame):
         button5.grid(row=5, column=2)
         button6.grid(row=6, column=2)
         button7.grid(row=7, column=2)
-        quit.grid(row=8, column=2)
+        q.grid(row=8, column=2)
 
 
 class OverallSearchPage(Tkinter.Frame):
@@ -74,75 +74,75 @@ class OverallSearchPage(Tkinter.Frame):
 
         overallList = schoolstuff("", "type_code")
 
-        def appendConditionArr(arr, type, level, gender, returnarr):
+        def appendConditionArr(arr, typ, level, gender, returnarr):
             if len(returnarr) != 0:
                 del returnarr[:]
 
             resultArr = []
 
-            if type:
-                for x in arr:
+            if typ:
+                for x1 in arr:
                     if level:
                         if gender:
-                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in \
-                                    x[1][0]["mainlevel_code"].lower():
-                                if gender.lower() in x[1][0]["nature_code"].lower():
-                                    resultArr.append(x)
+                            if typ.lower() in x1[1][0]["type_code"].lower() and level.lower() in \
+                                    x1[1][0]["mainlevel_code"].lower():
+                                if gender.lower() in x1[1][0]["nature_code"].lower():
+                                    resultArr.append(x1)
 
                         else:
-                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in \
-                                    x[1][0]["mainlevel_code"].lower():
-                                resultArr.append(x)
+                            if typ.lower() in x1[1][0]["type_code"].lower() and level.lower() in \
+                                    x1[1][0]["mainlevel_code"].lower():
+                                resultArr.append(x1)
 
                     else:
-                        if type in x[1][0]["type_code"]:
-                            resultArr.append(x)
+                        if typ in x1[1][0]["type_code"]:
+                            resultArr.append(x1)
 
             elif level:
-                for x in arr:
-                    if type:
+                for x1 in arr:
+                    if typ:
                         if gender:
-                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in \
-                                    x[1][0]["mainlevel_code"].lower() and gender.lower() in x[1][0][
-                                "nature_code"].lower():
-                                resultArr.append(x)
+                            if typ.lower() in x1[1][0]["type_code"].lower() and level.lower() in \
+                                    x1[1][0]["mainlevel_code"].lower() and gender.lower() in \
+                                    x1[1][0]["nature_code"].lower():
+                                resultArr.append(x1)
 
                         else:
-                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in \
-                                    x[1][0]["mainlevel_code"].lower():
-                                resultArr.append(x)
+                            if typ.lower() in x1[1][0]["type_code"].lower() and level.lower() in \
+                                    x1[1][0]["mainlevel_code"].lower():
+                                resultArr.append(x1)
 
                     else:
-                        if level in x[1][0]["mainlevel_code"]:
-                            resultArr.append(x)
+                        if level in x1[1][0]["mainlevel_code"]:
+                            resultArr.append(x1)
 
             elif gender:
-                for x in arr:
-                    if type:
+                for x1 in arr:
+                    if typ:
                         if level:
-                            if type.lower() in x[1][0]["type_code"].lower() and level.lower() in \
-                                    x[1][0]["mainlevel_code"].lower() and gender.lower() in x[1][0][
-                                "nature_code"].lower():
-                                resultArr.append(x)
+                            if typ.lower() in x1[1][0]["type_code"].lower() and level.lower() in \
+                                    x1[1][0]["mainlevel_code"].lower() and gender.lower() in \
+                                    x1[1][0]["nature_code"].lower():
+                                resultArr.append(x1)
 
                         else:
-                            if gender.lower() in x[1][0]["nature_code"].lower() and type.lower() in \
-                                    x[1][0]["type_code"].lower():
-                                resultArr.append(x)
+                            if gender.lower() in x1[1][0]["nature_code"].lower() and typ.lower() in \
+                                    x1[1][0]["type_code"].lower():
+                                resultArr.append(x1)
 
                     else:
-                        if gender in x[1][0]["nature_code"]:
-                            resultArr.append(x)
+                        if gender in x1[1][0]["nature_code"]:
+                            resultArr.append(x1)
 
             returnarr.extend(resultArr)
             return returnarr
 
-        def schListBox(arr, x, y, z, returnarr):
-            """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
-            the array to be processed"""
+        def schListBox(arr, x1, y1, z, returnarr):
+            """schListBox populates the listbox based on the search substring. x1 is the search substring and y1 is the
+            name of the array to be processed"""
 
-            funcArr = appendConditionArr(arr, x, y, z, returnarr)
-            if not x and not y and not z:
+            funcArr = appendConditionArr(arr, x1, y1, z, returnarr)
+            if not x1 and not y1 and not z:
                 Lb1.delete(0, END)
             else:
                 Lb1.delete(0, END)
@@ -225,7 +225,7 @@ class OverallSearchPage(Tkinter.Frame):
 
         B.grid(pady=50)
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
-        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.quit)
+        self.quit = Tkinter.Button(self, text="Quit", width=12, command=quit)
         self.back.grid()
         self.quit.grid()
 
@@ -236,10 +236,10 @@ class OverallSearchPage(Tkinter.Frame):
 
         Lb1 = Listbox(frame, height=30, width=200)
 
-        """Lb1.bind contains the onclick event of the listBox. Lb1.curselection() is just the position number of each member 
-        in the listbox i.e first member will be position number 0 and so on"""
+        """Lb1.bind contains the onclick event of the listBox. Lb1.curselection() is just the position number of
+        each member in the listbox i.e first member will be position number 0 and so on"""
         Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]][0],
-                                                              Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+                                                              Toplevel()))
 
         Lb1.pack(fill=X, expand=1)
 
@@ -262,9 +262,13 @@ class SearchPage(Tkinter.Frame):
 
             return y
 
+        def checkBeforePrintInfo(x, y):
+            if x.curselection():
+                printInfo(y[x.curselection()[0]][0], Toplevel())
+
         def schListBox(x, y, z):
-            """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
-            the array to be processed"""
+            """schListBox populates the listbox based on the search substring. x is the search substring and y is the
+            name of the array to be processed"""
 
             if x == "":
                 del y[:]
@@ -292,8 +296,7 @@ class SearchPage(Tkinter.Frame):
                                  command=lambda: schListBox(self.E1.get(), schArray, 'dgp_code'))
         self.B1.grid(row=3, column=1)
         Lb1 = Listbox(self, height=30, width=100)
-        Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(listBoxArray[Lb1.curselection()[0]][0],
-                                                              Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+        Lb1.bind('<<ListboxSelect>>', lambda event: checkBeforePrintInfo(Lb1, schArray))
         Lb1.grid(row=4, column=1)
 
         scrollbar = Scrollbar(self)
@@ -303,7 +306,7 @@ class SearchPage(Tkinter.Frame):
         # labeself.L1 = Tkinter.Frame(self, borderwidth=5, relief="sunken", width=300, height=200)
         # labeself.L1.grid(column=1.csv, row=4, columnspan=3, rowspan=2, sticky=(N, S, E, W))
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
-        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.quit)
+        self.quit = Tkinter.Button(self, text="Quit", width=12, command=quit)
         self.back.grid(row=5, column=1)
         self.quit.grid(row=6, column=1)
 
@@ -314,10 +317,9 @@ class SubjectPage(Tkinter.Frame):
         self.controller = controller
 
         def printInfoDropdown(x):
-            """printInfo generates the messageBox outside of the function. x is the search string and y is the tkinter
+            """printInfo generates the messageBox outside of the function. x1 is the search string and y is the tkinter
             widget location. It is usually Tk(). Use this function to call out the messagebox"""
             try:
-
                 so = SubjectsOffered()
                 so.createDict()
                 school_subjects = so.getSubjectsByLevel(x)
@@ -349,8 +351,8 @@ class SubjectPage(Tkinter.Frame):
                 subjectmenu = OptionMenu(self, subjectmenu4, *subjectlist)
                 subjectmenu4.set('Select a Subject')  # default value
                 subjectmenu.grid(row=6, column=2, sticky="ew")
-            except:  # DO NOT USE BARE EXCEPT
-                print "error"
+            except Exception as e:
+                print e
 
         tkvar = StringVar(self)
 
@@ -364,9 +366,20 @@ class SubjectPage(Tkinter.Frame):
 
             return y
 
+        def checkBeforePrintInfo(x, y):
+            if x.curselection():
+                printInfo(y[x.curselection()[0]], Toplevel())
+
+        def checkBeforeSchListBox():
+            try:
+                schListBox(subjectmenu1.get(), subjectmenu2.get(), subjectmenu3.get(),
+                           subjectmenu4.get(), schArray, 'dgp_code')
+            except NameError:
+                pass
+
         def schListBox(drop1, drop2, drop3, drop4, y, z):
-            """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
-            the array to be processed"""
+            """schListBox populates the listbox based on the search substring. x1 is the search substring and y is the
+            name of the array to be processed"""
             schArray1 = []
             schFinalArray = []
             cri = [drop1, drop2, drop3, drop4]
@@ -397,15 +410,13 @@ class SubjectPage(Tkinter.Frame):
         self.B1 = Tkinter.Button(self, text="Apply", command=lambda: printInfoDropdown(tkvar.get()))
         self.B1.grid(row=0, column=3)
         self.B2 = Tkinter.Button(self, text="Search",
-                                 command=lambda: schListBox(subjectmenu1.get(), subjectmenu2.get(), subjectmenu3.get(),
-                                                            subjectmenu4.get(), schArray, 'dgp_code'))
+                                 command=lambda: checkBeforeSchListBox())
         self.B2.grid(row=7, column=2)
         LB1 = Listbox(self, height=30, width=50)
-        LB1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[LB1.curselection()[0]],
-                                                              Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+        LB1.bind('<<ListboxSelect>>', lambda event: checkBeforePrintInfo(LB1, schArray))
         LB1.grid(row=8, column=2)
         self.back = Tkinter.Button(self, text="Back", width=20, command=lambda: controller.show_frame("StartPage"))
-        self.quit = Tkinter.Button(self, text="Quit", width=20, command=self.quit)
+        self.quit = Tkinter.Button(self, text="Quit", width=20, command=quit)
         self.back.grid(row=9, column=2)
         self.quit.grid(row=10, column=2)
 
@@ -429,8 +440,8 @@ class CCAPage(Tkinter.Frame):
             return y
 
         def schListBox(x, y, z):
-            """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
-            the array to be processed"""
+            """schListBox populates the listbox based on the search substring. x1 is the search substring and y is the
+            name of the array to be processed"""
             schlistarr = []
 
             if x == "":
@@ -468,8 +479,8 @@ class CCAPage(Tkinter.Frame):
         scrollbar.grid(row=2, column=1, sticky=N + S + W)
 
         Lb1 = Listbox(self, height=30, width=100)
-        """Lb1.bind contains the onclick event of the listBox. Lb1.curselection() is just the position number of each member 
-        in the listbox i.e first member will be position number 0 and so on"""
+        """Lb1.bind contains the onclick event of the listBox. Lb1.curselection() is just the position number of each
+        member in the listbox i.e first member will be position number 0 and so on"""
         Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]][0],
                                                               Toplevel()))
 
@@ -478,7 +489,7 @@ class CCAPage(Tkinter.Frame):
         Lb1.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=Lb1.yview)
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
-        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.quit)
+        self.quit = Tkinter.Button(self, text="Quit", width=12, command=quit)
         self.back.grid()
         self.quit.grid()
 
@@ -495,9 +506,9 @@ class LocationPage(Tkinter.Frame):
             if x[1][0]["dgp_code"] not in areaarray:
                 areaarray.append(x[1][0]["dgp_code"])
 
-        def appendArr(x, y, z):
+        def appendArr(x1, y, z):
             del y[:]
-            sch_name_arr = schoolstuff(x, z)
+            sch_name_arr = schoolstuff(x1, z)
 
             for name in sch_name_arr:
                 # print name
@@ -505,17 +516,17 @@ class LocationPage(Tkinter.Frame):
 
             return y
 
-        def schListBox(x, y, z):
-            """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
-            the array to be processed"""
+        def schListBox(x1, y, z):
+            """schListBox populates the listbox based on the search substring. x1 is the search substring and y is the
+            name of the array to be processed"""
 
-            if x == "":
+            if x1 == "":
                 del y[:]
                 LB1.delete(0, END)
             else:
                 del y[:]
                 LB1.delete(0, END)
-                appendArr(x, y, z)
+                appendArr(x1, y, z)
                 for schName in y:
                     LB1.insert(END, schName[0])
 
@@ -532,7 +543,7 @@ class LocationPage(Tkinter.Frame):
 
         LB1 = Listbox(self, height=30, width=50)
         LB1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[LB1.curselection()[0]][0],
-                                                              Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+                                                              Toplevel()))
         LB1.grid(row=2, column=2)
 
         scrollbar = Scrollbar(self)
@@ -541,7 +552,7 @@ class LocationPage(Tkinter.Frame):
         scrollbar.config(command=LB1.yview)
 
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
-        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.quit)
+        self.quit = Tkinter.Button(self, text="Quit", width=12, command=quit)
         self.back.grid(row=5, column=2)
         self.quit.grid(row=6, column=2)
 
@@ -590,7 +601,7 @@ class CutOffPage(Tkinter.Frame):
         self.B2.grid(row=4, column=5)
 
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
-        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.quit)
+        self.quit = Tkinter.Button(self, text="Quit", width=12, command=quit)
         self.back.grid(row=9, column=4)
         self.quit.grid(row=10, column=4)
 
@@ -695,7 +706,7 @@ class InsightsPage(Tkinter.Frame):
                                                               "Top School Rankings in Singapore"))
 
         self.back = Tkinter.Button(self, text="Back", width=12, command=lambda: controller.show_frame("StartPage"))
-        self.quit = Tkinter.Button(self, text="Quit", width=12, command=self.quit)
+        self.quit = Tkinter.Button(self, text="Quit", width=12, command=quit)
         lbl.place(x=80, y=50)
         button7.place(x=80, y=140)
         button1.place(x=80, y=180)

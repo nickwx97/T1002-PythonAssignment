@@ -17,7 +17,7 @@ def appendArr(x, y, z):
 
 
 def schListBox(x, y, z):
-    """schListBox populates the listbox based on the search substring. x is the search substring and y is the name of
+    """schListBox populates the listbox based on the search substring. x1 is the search substring and y is the name of
     the array to be processed"""
 
     if x == "":
@@ -53,7 +53,7 @@ Lb1 = Listbox(top, height=20, width=50)
 """Lb1.bind contains the onclick event of the listBox. Lb1.curselection() is just the position number of each member 
 in the listbox i.e first member will be position number 0 and so on"""
 Lb1.bind('<<ListboxSelect>>', lambda event: printInfo(schArray[Lb1.curselection()[0]][0],
-                                                      Toplevel()))  # Toplevel() just lets the function to be opened in a new window
+                                                      Toplevel()))
 Lb1.pack()
 
 """Creates an empty listbox when the program is opened"""

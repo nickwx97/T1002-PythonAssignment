@@ -40,7 +40,7 @@ class Application(Frame):
         self.path = self.__text.get()
         self.quit()
 
-    def createWidgets(self, command, defText, filetype):
+    def createWidgets(self, command, defText, filetype="csv"):
         # Create quit button
         self.__NEXT["text"] = "Next"
         self.__NEXT["fg"] = "#1d7a3f"
@@ -155,7 +155,6 @@ def writeCSV(headers, data, p):
     try:
         csv1 = open(p, 'w')
     except IOError:
-        print "Please enter valid file path!"
         return False
     else:
         csv1.writelines(result)
@@ -187,7 +186,7 @@ def csvPath(defText, command='select', filetype="csv"):
     h = 30  # height for the Tk root
     ws = root.winfo_screenwidth()
     hs = root.winfo_screenheight()
-    # calculate x and y coordinates
+    # calculate x1 and y coordinates
     x = (ws * 3 / 4) - (w / 2)
     y = (hs / 2) - (h / 2)
     root.geometry('%dx%d+%d+%d' % (w, h, x, y))

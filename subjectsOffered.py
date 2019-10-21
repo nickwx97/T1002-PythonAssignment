@@ -3,6 +3,16 @@ import csv
 from schoolByCondition import *
 
 
+def subjectDict():
+    from collections import defaultdict
+    data = defaultdict(list)
+    with open('Data/subjects-offered.csv', 'rb') as data_file:
+        reader = csv.DictReader(data_file)
+        for row in reader:
+            data[row['School_Name']].append(row['Subject_Desc'])
+    return data
+
+
 class SubjectsOffered:
     def getDict(self):
         return self.__dict
@@ -65,21 +75,6 @@ class SubjectsOffered:
                     subjects_arr.append(i)
         return subjects_arr
 
-    def getSubjectsByLevel(self, level):
-        # gets all schools under specified level
-        x = schoolstuff(level, 'mainlevel_code')
-        schools_arr = []
-        for y in range(len(x)):
-            schools_arr.append(x[y][0])
-        # stores all subjects (non-duplicated)
-        subjects_arr = []
-        for item in schools_arr:
-            subjects_temp = self.getSubjectsBySchoolName(item)
-            for i in subjects_temp:
-                if i not in subjects_arr:
-                    subjects_arr.append(i)
-        return subjects_arr
-
     # split into dict
     def createDict(self):
         x = genDict(self.__raw)
@@ -93,13 +88,3 @@ class SubjectsOffered:
         self.__dict = None
         self.__headers = None
         self.createDict()
-
-    def subjectDict(self):
-        from collections import defaultdict
-        data = defaultdict(list)
-        with open('Data/subjects-offered.csv', 'rb') as data_file:
-            reader = csv.DictReader(data_file)
-            for row in reader:
-                data[row['School_Name']].append(row['Subject_Desc'])
-        return data
-

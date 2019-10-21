@@ -13,7 +13,7 @@ def doExport(x, y):
 
 
 def messageBox(x, y):
-    """messageBox generates the box which contains a string. x is the string to be printed, y is the tkinter
+    """messageBox generates the box which contains a string. x1 is the string to be printed, y is the tkinter
     widget location. It is usually Tk(). DO NOT USE THIS FUNCTION TO CALL OUT THE BOX. FOR LOCAL USE ONLY"""
     frame = Frame(y)
     frame.place(y=230, height=500, relwidth=0.8, relx=0.5, anchor="center")
@@ -48,7 +48,7 @@ def messageBox(x, y):
 
 
 def printInfo(x, y):
-    """printInfo generates the messageBox outside of the function. x is the search string and y is the tkinter
+    """printInfo generates the messageBox outside of the function. x1 is the search string and y is the tkinter
     widget location. It is usually Tk(). Use this function to call out the messagebox"""
     try:
         if x == "":
@@ -65,5 +65,5 @@ def printInfo(x, y):
                 schstuff += item + '\n'
             messageBox(schstuff, y)
 
-    except:  # DO NOT USE BARE EXCEPT
+    except NoneType:
         messageBox("No such school found!", y)
