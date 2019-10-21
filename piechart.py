@@ -67,6 +67,8 @@ def get1BarChart(input, rank, title, picname):
     # print series1
 
     # # Below are for pie chart appearance
+    plt.gcf().subplots_adjust(left=0.25)
+    plt.ylabel('School Name')
     plt.legend(bbox_to_anchor=(1.0, 0.53), loc="lower right", fontsize=10, bbox_transform=plt.gcf().transFigure)
     plt.title(title)
     plt.savefig(picname)
