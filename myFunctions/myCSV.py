@@ -52,7 +52,7 @@ class Application(Frame):
         Assigns text in the text box to class path variable and destroys the Tkinter Frame.
         """
         self.path = self.__text.get()
-        self.destroy()
+        self.quit()
 
     def createWidgets(self, command, defText, filetype="csv"):
         """
