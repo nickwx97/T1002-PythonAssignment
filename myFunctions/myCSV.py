@@ -250,7 +250,7 @@ def openCSV(p):
                             temp += "," + line.pop(0)  # give value back it's , that we removed previously
                         if len(line) == 0:
                             break
-                        if line[0].count('"') == 1:
+                        if line[0].count('"') % 2 == 1:
                             temp += "," + line.pop(0)  # give value back it's , that we removed previously
                             break
                     temp = temp[1:-1].replace('""', '"')  # replace "" with " if exists, excel's way of delimiting "
