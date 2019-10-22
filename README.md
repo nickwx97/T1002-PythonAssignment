@@ -1,7 +1,9 @@
 # T1002-PythonAssignment
 Python Assignment - School Informations
 
-This project was created for our ICT1002 Python assignment
+This project was created for our ICT1002 Python assignment.
+
+
 
 Credits:
 
