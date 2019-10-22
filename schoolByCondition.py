@@ -13,7 +13,6 @@ def schoolstuff(x, y):
         by'] """
 
         if y == "school_name":
-            print "schEnquiry", sch_enquiry.upper()
             if sch_enquiry.upper() in sch[0].upper():
                 sch_by_condition_info.append(sch[0])
         else:
