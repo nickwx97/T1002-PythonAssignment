@@ -18,6 +18,12 @@ class SubjectsOffered:
         return self.__dict
 
     def filterMultiSubs(self, filtered, result=None):
+        """
+        Filter the dictionary recursively for multiple subjects
+        :param filtered: Subjects to filter by
+        :param result: The schools that matches the critrea of all the filters
+        :return: a dictionary of schools mapped to their subject
+        """
         if result is None:
             result = self.__dict
         if len(filtered) == 0:
@@ -31,12 +37,20 @@ class SubjectsOffered:
         return self.filterMultiSubs(filtered[1:], result2)
 
     def getUniqueSubjectList(self):
+        """
+        Returns a list of unique subjects, generates it the first time the function is called.
+        :return: A list of unique subjects
+        """
         if self.__subList is not []:
             return self.genUniqueSubjectList()
         else:
             return self.__subList
 
     def genUniqueSubjectList(self):
+        """
+        Generates a list of unique subjects
+        :return: a list of unique subjects
+        """
         for rows in self.__dict.values():
             for cols in rows:
                 if not cols.get(self.__headers[1]) in self.__subList:

@@ -1,10 +1,17 @@
-"""Reads in CSV file and performs list and dictionary manipulation for this program"""
+"""
+Performs CSV I/O, allows for user filepath via GUI using Tkinter.
+Also performs transformation of raw CSV data to Dictionary format with headers.
+"""
 import tkFileDialog as tkfd
 from Tkinter import *
 
 
 class Application(Frame):
     def __fileSelect(self, filetype):
+        """
+        Opens a window to allow users to select their CSV/TXT file and inserts the file path to the text box.
+        :type filetype: str
+        """
         temp = self.__text.get()
         self.__text.delete(0, END)
         if filetype == "csv":
@@ -19,6 +26,10 @@ class Application(Frame):
         return
 
     def __fileSave(self, filetype):
+        """
+        Opens a window to allow users to save their CSV/TXT file and inserts the file path to the text box.
+        :type filetype: str
+        """
         temp = self.__text.get()
         self.__text.delete(0, END)
         if filetype == "csv":
@@ -37,10 +48,19 @@ class Application(Frame):
         return
 
     def __getText(self):
+        """
+        Assigns text in the text box to class path variable and destroys the Tkinter Frame.
+        """
         self.path = self.__text.get()
-        self.quit()
+        self.destroy()
 
     def createWidgets(self, command, defText, filetype="csv"):
+        """
+        Configure the GUI for either saving and selecting, function allows for customization of string to show user.
+        :param command: Action to do (save/select)
+        :param defText: Text to aid the end user to understand the purpose of the GUI
+        :param filetype: File type to save as, defaults to "csv"
+        """
         # Create quit button
         self.__NEXT["text"] = "Next"
         self.__NEXT["fg"] = "#1d7a3f"
@@ -76,6 +96,9 @@ class Application(Frame):
 def writeListCSV(headers, data, p):
     """
     Reads in a list and writes to file
+    :type p: str
+    :type data: list
+    :type headers: list
     :param headers: a list containing headers for the csv
     :param data: a list containing data
     :param p: path of file to write to
@@ -165,7 +188,7 @@ def csvPath(defText, command='select', filetype="csv"):
     """
     Creates GUI to accept user input for CSV file or to save CSV file
     :param filetype: String containing filetype to select or save
-    :type defText: String
+    :type defText: str
     :param defText: default text to display in text field
     :param command: command accepts 'select' or 'save', default 'select'
     :return: file path to CSV file
@@ -202,8 +225,9 @@ def csvPath(defText, command='select', filetype="csv"):
 def openCSV(p):
     """
     Reads in CSV file from filepath and generate multi-dimensional list
+    Returned list format: [[headers],[[csv_data_line_1],[csv_data_line_2],...[csv_data_line_n]]]
     :param p: file path
-    :return: list of header and values from CSV
+    :return: list of header and values from CSV.
     """
     try:
         csv1 = open(p)
@@ -244,6 +268,8 @@ def openCSV(p):
 def genDict(li):
     """
     Generate Dictionary from multi-dimensional list
+    Return format: [[headers], {r_1_c_1: [{r_1_c_2: r_1_c_2_data}, {r_1_c_3: r_1_c_3_data}...],
+                                r_2_c_2: [{r_2_c_2: r_2_c_2_data}, {r_2_c_3: r_2_c_3_data}...]}]
     :param li: a multi-dimensional list of data retrieved from openCSV()
     :returns: a list with a list of headers and a dictionary of mapped values
     """

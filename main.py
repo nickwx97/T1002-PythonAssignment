@@ -1,12 +1,10 @@
 import tkMessageBox
 
-from schoolInfo import *
-
-"""Import for output display"""
-from cutoff import *
-from schInfoGUIFunction import *
-from subjectsOffered import *
-from piechart import *
+from myFunctions.cutoff import *
+from myFunctions.piechart import *
+from myFunctions.schInfoGUIFunction import *
+from myFunctions.schoolInfo import *
+from myFunctions.subjectsOffered import *
 
 
 class App(Tkinter.Tk):

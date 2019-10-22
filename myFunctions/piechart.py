@@ -15,7 +15,6 @@ def get1PieChart(inp, colname, title):
     # Count all the unique values in a column and display as a pie chart
     df = pd.read_csv(inp)
     series1 = df[colname].value_counts()  # Enter column name, using pandas to convert the csv into series
-    print series1
 
     # Below are for pie chart appearance
     series1.plot(kind="pie", autopct=make_autopct(series1), legend=series1.all(), figsize=[15, 9])
@@ -45,7 +44,6 @@ def get2PieCharts(inp, col1, col2, title):
     df = pd.read_csv(inp)
     series1 = df[col1].value_counts()  # Enter column name, using pandas to convert the csv into series
     series2 = df[col2].value_counts()  # Enter column name, using pandas to convert the csv into series
-    print series1, series2
 
     # Below are for pie chart appearance
     # For first pie chart
